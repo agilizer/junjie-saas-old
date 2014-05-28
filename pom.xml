@@ -189,11 +189,6 @@
 			<version>${org.hibernate.hibernate-validator.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.hibernate.javax.persistence</groupId>
-			<artifactId>hibernate-jpa-2.0-api</artifactId>
-			<version>${org.hibernate.javax.persistence.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.lazyluke</groupId>
 			<artifactId>log4jdbc-remix</artifactId>
 			<version>${org.lazyluke.version}</version>
@@ -339,7 +334,7 @@
 		<org.springframework.data.version>1.5.1.RELEASE</org.springframework.data.version>
 		<org.jsoup.version>1.7.2</org.jsoup.version>
 		<jetty.version>8.1.8.v20121106</jetty.version>
-
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> 
 	</properties>
 </project>
 

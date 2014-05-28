@@ -9,19 +9,39 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javax.annotation.PostConstruct;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 
 import com.agilemaster.cloud.util.DateUtil;
+import com.agilemaster.cloud.util.MD5Util;
 @Service
 public class SmsServiceImpl implements SmsService {
+	private Set<String> validateSet = new HashSet<String>();
+	
 	//sms企业id
 	private String cropId="TCLKJ00460";
 	//sms密码
-	private String passwd="85723845";
+	private String passwd="18190910296";
 	private Log log = LogFactory.getLog(SmsServiceImpl.class);
+	
+	@PostConstruct
+	public void init(){
+		Timer timer = new Timer();  
+	    /* void java.util.Timer.schedule(TimerTask task, long delay) */  
+	    timer.scheduleAtFixedRate(new TimerTask() {  
+	        public void run() {  
+	        	validateSet.clear();
+	        }  
+	    },60000,30*60*1000);// 
+	}
 	public int sendSMS(String phoneNumber, String content) {
 		 return doSendSMS(phoneNumber,content,"");
 	}
@@ -35,6 +55,12 @@ public class SmsServiceImpl implements SmsService {
 		
 	}
 	private int doSendSMS(String phoneNumber, String content, String sendTime){
+		String md5  = MD5Util.MD5(phoneNumber+content);
+		if(validateSet.contains(md5)){
+			log.warn("send sms fail ,can not send same message to same phoneNumber in half an hour");
+		}else{
+			validateSet.add(md5);
+		}
 		URL url = null;
 		int inputLine = 1;
 		try {
@@ -59,6 +85,9 @@ public class SmsServiceImpl implements SmsService {
 			e.printStackTrace();
 		}
 		log.info("结束发送短信返回值：  "+inputLine);
+		if(inputLine<0){
+			log.error("send message failed " + inputLine +" http://www.inolink.com/ConnHttp.html");
+		}
 		return inputLine;
 	}
 
