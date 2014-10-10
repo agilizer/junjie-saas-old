@@ -14,7 +14,8 @@ import org.springframework.util.Assert;
 public class DefaultJunjieRedisCache  implements JunjieRedisCache{
 	private static final int PAGE_SIZE = 128;
 	private final String name;
-	@SuppressWarnings("rawtypes") private final RedisTemplate template;
+	@SuppressWarnings("rawtypes") 
+	private final RedisTemplate template;
 	private final byte[] prefix;
 	private final byte[] setName;
 	private final byte[] cacheLockName;

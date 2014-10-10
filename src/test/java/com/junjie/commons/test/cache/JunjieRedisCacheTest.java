@@ -1,8 +1,7 @@
-package com.junjie.test.commons.cache;
+package com.junjie.commons.test.cache;
 
 import static org.junit.Assert.*;
 
-import org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
