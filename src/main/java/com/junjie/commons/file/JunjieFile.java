@@ -1,10 +1,9 @@
 package com.junjie.commons.file;
 
 import java.io.Serializable;
-import java.util.Map;
 
 /**
- * junjie file,support 分布式文件系统或者第三方存储 
+ * junjie file,support 分布式文件系统或者第三方存储。
  * @author abel.lee
  *
  */
@@ -14,14 +13,18 @@ public class JunjieFile implements Serializable{
 	 */
 	private static final long serialVersionUID = 3488696115674649784L;
 	private String name;
-	private long dateCreated;
-	private long lastAccessed;
+	private Long dateCreated;
+	private Long lastAccessed;
 	private JunjieFileType junjieFileType;
-	private long length;
+	private Long length;
+	/**
+	 * 文件序号key
+	 */
+	private String key;
 	/**
 	 * 存储获取第三方存储服务所需要的信息
 	 */
-	private Map<String,String> accessInfo;
+	private Serializable accessInfo;
 	
 	
 	
@@ -85,31 +88,44 @@ public class JunjieFile implements Serializable{
 
 
 
-	/**
-	 * 存储获取第三方存储服务所需要的信息
-	 * @return
-	 */
-	public Map<String, String> getAccessInfo() {
-		return accessInfo;
+	public String getKey() {
+		return key;
 	}
 
 
+	/**
+	 * 获取第三方存储服务所需要的信息
+	 * @return
+	 */
+	
+	public Serializable getAccessInfo() {
+		return accessInfo;
+	}
+
     /**
-     * 存储获取第三方存储服务所需要的信息
+     * 设置获取第三方存储服务所需要的信息
      * @param accessInfo
      */
-	public void setAccessInfo(Map<String, String> accessInfo) {
+	public void setAccessInfo(Serializable accessInfo) {
 		this.accessInfo = accessInfo;
 	}
 
 
 
-	public static enum  JunjieFileType{
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+
+
+	public static enum  JunjieFileType implements Serializable{
         EXCEL(""),
         WORD(""),
         GANTT(""),
         PHOTO(""),
         PDF(""),
+        VOICE(""),
+        MV(""),
         OTHERS("");
         String cssCode;
         JunjieFileType(String cssCode){

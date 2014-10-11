@@ -5,6 +5,7 @@ import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericToStringSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
@@ -18,14 +19,18 @@ public class RedisCounterImpl implements JunjieCounter {
 	private static final Logger log = LoggerFactory
 			.getLogger(JunjieRedisCacheTest.class);
 	@Autowired
+	private RedisConnectionFactory factory;
+	
 	private RedisTemplate<String, Long> redisTemplate;
 
 	@PostConstruct
 	public void init() {
+		redisTemplate = new RedisTemplate<String, Long>();
 		redisTemplate.setKeySerializer(new StringRedisSerializer());
 		redisTemplate.setValueSerializer(new GenericToStringSerializer<Long>(
 				Long.class));
 		redisTemplate.setExposeConnection(true);
+		redisTemplate.setConnectionFactory(factory);
 		redisTemplate.afterPropertiesSet();
 	}
 

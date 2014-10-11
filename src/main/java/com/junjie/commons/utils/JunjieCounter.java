@@ -1,8 +1,5 @@
 package com.junjie.commons.utils;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Service;
 
 /**
  * 分布式计数器，用于生成唯一key,
