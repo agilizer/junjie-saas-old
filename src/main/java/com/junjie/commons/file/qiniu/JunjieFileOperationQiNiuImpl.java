@@ -29,6 +29,8 @@ public class JunjieFileOperationQiNiuImpl implements JunjieFileOperation{
 	private String accessKey="e87kvjl4DW7ux7maTuV_vFwI6Nl_Eb4coSBLxaJo";
 	private String secretKey="gZokWEHzaSoRUOhcjSlMrYxNG6yluatBG0W3uRTn";
 	private String domain="junjie-file.qiniudn.com";
+	private String bucketName="junjie-file";
+	private int retryTimes;
 	private String uptoken ;
 	
 	@PostConstruct
@@ -39,7 +41,6 @@ public class JunjieFileOperationQiNiuImpl implements JunjieFileOperation{
 		Config.ACCESS_KEY = accessKey;
 		Config.SECRET_KEY = secretKey;
 		Mac mac = new Mac(Config.ACCESS_KEY, Config.SECRET_KEY);
-		String bucketName = "junjie-file";
 		PutPolicy putPolicy = new PutPolicy(bucketName);
 		putPolicy.expires = 3600*24*30;//一个月
 		return  putPolicy.token(mac);
@@ -50,7 +51,7 @@ public class JunjieFileOperationQiNiuImpl implements JunjieFileOperation{
 		Mac mac = new Mac(Config.ACCESS_KEY, Config.SECRET_KEY);
         String baseUrl = URLUtils.makeBaseUrl(domain, key);
         GetPolicy getPolicy = new GetPolicy();
-        getPolicy.expires = 3600*24*30;//一个月
+        getPolicy.expires = 3600;//一小时
         return getPolicy.makeRequest(baseUrl, mac);
 	}
 	@Override
