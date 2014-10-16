@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.junjie.commons.db.server.JunjieJdbcTemplateServer;
 import com.junjie.commons.test.rmi.HelloService;
 
 public class NettyTest {
@@ -24,13 +25,7 @@ public class NettyTest {
 		CamelContext context = new DefaultCamelContext();
 		RouteBuilder builder = new RouteBuilder() {
 			public void configure() {
-				from("netty4:tcp://localhost:5150").process(new Processor() {
-					public void process(Exchange exchange) throws Exception {
-						Object obj = exchange.getIn().getBody();
-						log.info("obj:-->" + obj+Thread.currentThread().getName());
-						exchange.getOut().setBody("AAAAAAAAAAAAAAAAAAAAA");
-					}
-				});
+				from("netty4:tcp://localhost:5150").bean(JunjieJdbcTemplateServer.class);
 			}
 		};
 		context.addRoutes(builder);
