@@ -1,53 +1,67 @@
 package com.junjie.commons.db.server;
 
-import java.util.List;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.sql.DataSource;
+
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCallback;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
-import com.junjie.commons.db.JunjieJdbcOptions;
+import com.junjie.commons.db.JdbcPage;
+import com.junjie.commons.db.PaginationHelper;
 
-public class JunjieJdbcTemplateServer  implements  JunjieJdbcOptions{
+public class JunjieJdbcTemplateServer  implements  JunjieJdbcOptionsServer{
 	
     private JunjieJdbcAccessor  junjieJdbcAccessor;
-	public Map<String,JdbcTemplate> jdbcTemplateMap = new ConcurrentHashMap<String,JdbcTemplate>();
+	public Map<String,NamedParameterJdbcTemplate> jdbcTemplateMap = new ConcurrentHashMap<String,NamedParameterJdbcTemplate>();
     
+	private NamedParameterJdbcTemplate genJdbcTemplateByKey(String dbInfokey){
+		NamedParameterJdbcTemplate jdbcTemplate = jdbcTemplateMap.get(dbInfokey);
+		if(jdbcTemplate==null){
+			DataSource dataSource = junjieJdbcAccessor.genDataSource(dbInfokey);
+			jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+			jdbcTemplateMap.put(dbInfokey, jdbcTemplate);
+		}
+		return jdbcTemplate;
+		
+	}
 	@Override
-	public Map<String, Object> queryForMap(String sql)
-			throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+	public Long queryForCount(String dbInfoKey, String sql,
+			Map<String, Object> queryMap) {
+		return genJdbcTemplateByKey(dbInfoKey).queryForObject(sql, queryMap,Long.class);
+	}
+	
+	@Override
+	public Map<String, Object> queryForMap(String dbInfoKey, String sql,
+			Map<String,Object> queryMap)  {
+		return genJdbcTemplateByKey(dbInfoKey).queryForMap(sql, queryMap);
 	}
 
 	@Override
-	public List<Map<String, Object>> queryForList(String sql,
-			Map<String, Integer> pageParams) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+	public JdbcPage queryForList(String dbInfoKey, String countSql,String sqlFetch,
+			Map<String,Object> queryMap, int max,int offset)
+			 {
+		return PaginationHelper.fetchPage(genJdbcTemplateByKey(dbInfoKey), countSql, sqlFetch, queryMap, max, offset);
 	}
 
 	@Override
-	public Map<String, Object> queryForMap(String sql, Object[] args,
-			int[] argTypes) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+	public int update(String dbInfoKey, String sql, Map<String,Object> updateParams)  {
+		return genJdbcTemplateByKey(dbInfoKey).update(sql, updateParams);
 	}
-
+	
 	@Override
-	public List<Map<String, Object>> queryForList(String sql, Object[] args,
-			int[] argTypes, Map<String, Integer> pageParams)
-			throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int update(String sql, Object[] args, int[] argTypes)
-			throws DataAccessException {
-		// TODO Auto-generated method stub
-		return 0;
+	public boolean execute(String dbInfoKey, final String  sql) {
+		return genJdbcTemplateByKey(dbInfoKey).execute(sql, new PreparedStatementCallback<Boolean>(){
+			@Override
+			public Boolean doInPreparedStatement(PreparedStatement ps)
+					throws SQLException, DataAccessException {
+				return ps.execute(sql);
+			}
+		});
 	}
 
 	public JunjieJdbcAccessor getJunjieJdbcAccessor() {
