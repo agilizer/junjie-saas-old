@@ -7,7 +7,7 @@ import com.junjie.commons.file.JunjieFile.JunjieFileType;
 
 public class JunjieFileUtil {
 	private static final Logger log = LoggerFactory
-			.getLogger(JunjieFile.class);
+			.getLogger(JunjieFileUtil.class);
 	public static JunjieFileType genFileType(String fileName ){
         int dotPos = fileName.lastIndexOf(".");
         JunjieFileType  result =JunjieFileType.OTHERS;;

@@ -6,7 +6,9 @@ import java.util.Map;
 import org.apache.camel.ProducerTemplate;
 import org.springframework.dao.DataAccessException;
 
+import com.junjie.commons.db.JdbcConstants;
 import com.junjie.commons.db.JdbcPage;
+import com.junjie.commons.db.JunjieDbOptionBean;
 
 /**
  * 客户端jdbc操作方法，客户端可以自己对这个类进行扩展和方法封装
@@ -20,17 +22,26 @@ public class JunjieJdbcTemplate implements JunjieJdbcOptions{
 	private DataSourceSelecter dataSourceSelecter;
 	
 	private void genDataSourceKey(Map<String, Object>  headers){
-		headers.put("dbInfoKey", dataSourceSelecter.getCurrentDataSourceKey());
+		headers.put(JdbcConstants.DB_INFO_KEY, dataSourceSelecter.getCurrentDataSourceKey());
+	}
+	private void genDataSourceKey(JunjieDbOptionBean  optionBean){
+		optionBean.setDbInfoKey(dataSourceSelecter.getCurrentDataSourceKey());
 	}
 	@Override
-	public JdbcPage queryForList(String sql, Map<String, Object> queryParams,
+	public JdbcPage queryForList(String sql, String countSql,Map<String, Object> queryParams,
 			int max, int offset) {
 		Map<String, Object> headers = new HashMap<String, Object>();
-		headers.put("queryParams",queryParams);
-		headers.put("max",max);
-		headers.put("offset",offset);
-		genDataSourceKey(headers);
-		return (JdbcPage) producerTemplate.requestBodyAndHeaders(endpointUri, sql,headers);
+		headers.put(JdbcConstants.KEY_COUNT_SQL,countSql);
+		headers.put(JdbcConstants.KEY_QUERY_PARAMS,queryParams);
+		headers.put(JdbcConstants.KEY_MAX,max);
+		headers.put(JdbcConstants.KEY_OFFSET,offset);
+		headers.put(JdbcConstants.KEY_QUERY_PARAMS,queryParams);
+		JunjieDbOptionBean optionBean = new JunjieDbOptionBean();
+		genDataSourceKey(optionBean);
+		optionBean.setOption( JdbcConstants.QUERY_FOR_LIST);
+		optionBean.setSql(sql);
+		optionBean.setParams(headers);
+		return (JdbcPage) producerTemplate.requestBody(endpointUri, optionBean);
 	}
 
 
@@ -38,24 +49,33 @@ public class JunjieJdbcTemplate implements JunjieJdbcOptions{
 	public Map<String, Object> queryForMap(String sql,
 			Map<String, Object> queryParams) throws DataAccessException {
 		Map<String, Object> headers = new HashMap<String, Object>();
-		headers.put("queryParams",queryParams);
-		genDataSourceKey(headers);
-		return (Map<String, Object>) producerTemplate.requestBodyAndHeaders(endpointUri, sql,headers);
+		headers.put(JdbcConstants.KEY_QUERY_PARAMS,queryParams);
+		JunjieDbOptionBean optionBean = new JunjieDbOptionBean();
+		genDataSourceKey(optionBean);
+		optionBean.setOption( JdbcConstants.QUERY_FOR_MAP);
+		optionBean.setSql(sql);
+		optionBean.setParams(headers);
+		return (Map<String, Object>) producerTemplate.requestBody(endpointUri, optionBean);
 	}
 
 	@Override
 	public int update(String sql, Map<String, Object> queryParams)
 			throws DataAccessException {
 		Map<String, Object> headers = new HashMap<String, Object>();
-		headers.put("queryParams",queryParams);
-		genDataSourceKey(headers);
-		return (int) producerTemplate.requestBodyAndHeaders(endpointUri, sql,headers);
+		headers.put(JdbcConstants.KEY_QUERY_PARAMS,queryParams);
+		JunjieDbOptionBean optionBean = new JunjieDbOptionBean();
+		genDataSourceKey(optionBean);
+		optionBean.setOption( JdbcConstants.UPDATE);
+		optionBean.setSql(sql);
+		optionBean.setParams(headers);
+		return (int) producerTemplate.requestBody(endpointUri, optionBean);
 	}
 	@Override
 	public boolean execute(String sql) {
-		Map<String, Object> headers = new HashMap<String, Object>();
-		genDataSourceKey(headers);
-		return (boolean) producerTemplate.requestBodyAndHeaders(endpointUri, sql,headers);
+		JunjieDbOptionBean optionBean = new JunjieDbOptionBean();
+		optionBean.setOption( JdbcConstants.EXECUTE);
+		genDataSourceKey(optionBean);
+		return (boolean) producerTemplate.requestBody(endpointUri, optionBean);
 	}
 
 	public String getEndpointUri() {

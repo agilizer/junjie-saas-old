@@ -268,8 +268,14 @@
 			<version>${camel-version}</version>
 			<!-- use the same version as your Camel core version -->
 		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>${h2.version}</version>
+		</dependency>
 	</dependencies>
 	<properties>
+		<h2.version>1.4.182</h2.version>
 		<druid-version>1.0.9</druid-version>
 		<jackson.version>2.4.3</jackson.version>
 		<activemq-version>5.10.0</activemq-version>

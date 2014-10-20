@@ -24,7 +24,7 @@ public interface JunjieJdbcOptions{
 	 * @return
 	 * @throws DataAccessException
 	 */
-	JdbcPage queryForList(String sql,Map<String,Object> queryParams,int max,int offset) ;
+	JdbcPage queryForList(String sql,String countSql ,Map<String,Object> queryParams,int max,int offset) ;
 	
 	/**
 	 * Query given SQL to create a prepared statement from SQL and a

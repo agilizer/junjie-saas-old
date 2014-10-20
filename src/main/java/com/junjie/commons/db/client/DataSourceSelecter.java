@@ -7,7 +7,7 @@ package com.junjie.commons.db.client;
  */
 public interface DataSourceSelecter {
 	/**
-	 * 获取当前dataSource标识
+	 * 获取当前dataSource标识key
 	 * @return
 	 */
 	 String getCurrentDataSourceKey();
