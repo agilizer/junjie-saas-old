@@ -51,7 +51,13 @@ public interface JunjieJdbcOptionsServer{
 	 */
 	int update(String dbInfoKey,String sql, Map<String,Object> updateParams) ;
 	
-	boolean execute(String dbInfoKey, String sql);
+	/**
+	 * 执行sql语句
+	 * @param dbInfoKey
+	 * @param sql
+	 * @return
+	 */
+	int  execute(String dbInfoKey, String sql);
 	
 	   
 }

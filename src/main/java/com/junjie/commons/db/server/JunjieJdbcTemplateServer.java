@@ -1,14 +1,10 @@
 package com.junjie.commons.db.server;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.sql.DataSource;
 
-import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import com.junjie.commons.db.JdbcPage;
@@ -54,14 +50,9 @@ public class JunjieJdbcTemplateServer  implements  JunjieJdbcOptionsServer{
 	}
 	
 	@Override
-	public boolean execute(String dbInfoKey, final String  sql) {
-		return genJdbcTemplateByKey(dbInfoKey).execute(sql, new PreparedStatementCallback<Boolean>(){
-			@Override
-			public Boolean doInPreparedStatement(PreparedStatement ps)
-					throws SQLException, DataAccessException {
-				return ps.execute(sql);
-			}
-		});
+	public int execute(String dbInfoKey, final String  sql) {
+		Map<String,Object> updateParams = null;
+		return  genJdbcTemplateByKey(dbInfoKey).update(sql, updateParams);
 	}
 
 	public JunjieJdbcAccessor getJunjieJdbcAccessor() {

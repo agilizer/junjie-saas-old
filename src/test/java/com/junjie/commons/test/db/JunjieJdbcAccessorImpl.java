@@ -16,9 +16,9 @@ public class JunjieJdbcAccessorImpl implements JunjieJdbcAccessor{
 	public DataSource genDataSource(String dbInfoKey) {
 		DruidDataSource druidDs = new DruidDataSource();
 		druidDs.setUrl("jdbc:h2:file:./" + DIR_NAME  + "/"+dbInfoKey+";INIT=runscript from './src/test/resources/sql/test.sql'");
-	    druidDs.setInitialSize(500);
-	    druidDs.setMaxActive(500);
-	    druidDs.setMinIdle(200);
+	    druidDs.setInitialSize(20);
+	    druidDs.setMaxActive(20);
+	    druidDs.setMinIdle(20);
 	    druidDs.setMaxWait(60000);
 	    druidDs.setTimeBetweenEvictionRunsMillis(60000);
 	    druidDs.setValidationQuery("SELECT 'x'");

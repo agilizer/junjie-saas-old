@@ -58,6 +58,6 @@ public interface JunjieJdbcOptions{
 	 */
 	int update(String sql, Map<String,Object> queryParams) throws DataAccessException;
 	
-    boolean execute(String sql);
+    int execute(String sql);
 	   
 }

@@ -14,7 +14,6 @@ import com.junjie.commons.db.JunjieDbOptionBean;
 public class NettyMethodListener implements Processor {
 	private static final Logger log = LoggerFactory
 			.getLogger(NettyMethodListener.class);
-	@Autowired
 	private JunjieJdbcTemplateServer junjieJdbcTemplateServer;
 
 	@SuppressWarnings("unchecked")
@@ -64,4 +63,14 @@ public class NettyMethodListener implements Processor {
 			exchange.getOut().setBody(result);
 		}
 	}
+
+	public JunjieJdbcTemplateServer getJunjieJdbcTemplateServer() {
+		return junjieJdbcTemplateServer;
+	}
+
+	public void setJunjieJdbcTemplateServer(
+			JunjieJdbcTemplateServer junjieJdbcTemplateServer) {
+		this.junjieJdbcTemplateServer = junjieJdbcTemplateServer;
+	}
+	
 }
