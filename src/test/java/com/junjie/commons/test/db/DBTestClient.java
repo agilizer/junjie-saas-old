@@ -22,9 +22,6 @@ public class DBTestClient {
 	private long mainThreadSleep = 100000;
 	public void doTest(){
 		Map<String,Object> insertMap = new HashMap<String,Object>();
-		for(int i=0;i<1000;i++){
-			junjieJdbcTemplate.update("insert into sys_organization(name,parent_id,parent_ids,available) values('总公司"+i+"', 0, '0/', true);",null);
-		}
 		final AtomicLong count = new AtomicLong();
 		final long startTime = System.currentTimeMillis();
 		log.info("before insert:"+junjieJdbcTemplate.queryForMap("select count(0) from sys_organization", null));

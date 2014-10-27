@@ -1,5 +1,6 @@
 package com.junjie.commons.db.server;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -34,7 +35,12 @@ public class JunjieJdbcTemplateServer  implements  JunjieJdbcOptionsServer{
 	@Override
 	public Map<String, Object> queryForMap(String dbInfoKey, String sql,
 			Map<String,Object> queryMap)  {
-		return genJdbcTemplateByKey(dbInfoKey).queryForMap(sql, queryMap);
+		List<Map<String,Object>> resultList = genJdbcTemplateByKey(dbInfoKey).queryForList(sql, queryMap);
+		Map<String, Object> result = null;
+		if(resultList.size()==1){
+			result = resultList.get(0);
+		}
+		return result;
 	}
 
 	@Override

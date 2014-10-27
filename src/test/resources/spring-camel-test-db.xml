@@ -8,8 +8,10 @@
          http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
          http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd">
 
-	<bean id="nettyMethodListener" class="com.junjie.commons.db.server.NettyMethodListener"
-		depends-on="camel" />
+	<bean id="nettyMethodListener" class="com.junjie.commons.db.server.JunjieJdbcRequestNettyListener"
+		depends-on="camel" >
+		<property name="junjieJdbcTemplateServer"  ref="junjieJdbcTemplateServer"/>
+		</bean>
 	<camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
 		<template id="camelTemplate" />
 		<!-- <routeBuilder ref="parallelRouteBuilder" /> -->
@@ -18,13 +20,21 @@
 			<process ref="nettyMethodListener" />
 		</route>
 	</camelContext>
-	<bean id="junjieJdbcTemplate" class="com.junjie.commons.db.client.JunjieJdbcTemplate"
+	
+	<bean id="junjieJdbcNettyRequest" class="com.junjie.commons.db.client.JunjieJdbcNettyRequest"
 		depends-on="camel">
 		<property name="producerTemplate"  ref="camelTemplate"></property>
 		<property name="endpointUri"  value="netty4:tcp://localhost:5150"></property>
 		<property name="dataSourceSelecter"  ref="dataSourceSelecter"></property>
 	</bean>
-	<bean id="dataSourceSelecter" class="com.junjie.commons.test.db.DataSourceSelecterImpl" />
+	
+	<bean id="junjieJdbcTemplate" class="com.junjie.commons.db.client.JunjieJdbcTemplate"
+		depends-on="camel">
+		<property name="junjieJdbcRequest"  ref="junjieJdbcNettyRequest"></property>
+	</bean>
+	<bean id="dataSourceSelecter" class="com.junjie.commons.test.db.DataSourceSelecterImpl" >
+	<property name="dbInstanceCount"  value="1"/>
+	</bean>
 
 	<bean id="junjieJdbcAccessor" class="com.junjie.commons.test.db.JunjieJdbcAccessorImpl" />
 	<bean id="junjieJdbcTemplateServer" class="com.junjie.commons.db.server.JunjieJdbcTemplateServer">

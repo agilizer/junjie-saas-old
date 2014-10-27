@@ -36,7 +36,8 @@ public interface JunjieJdbcOptions{
 	 * @param argTypes SQL types of the arguments
 	 * (constants from {@code java.sql.Types})
 	 * @return the result Map (one entry for each column, using the
-	 * column name as the key)
+	 * column name as the key) 注意 spring对map的做了自己的实现和扩展，这里的key由springJdbcTemplate实现查询后，不区别大小写。
+	 * 如果没有结果则返回null，注意空处理.
 	 * @throws IncorrectResultSizeDataAccessException if the query does not
 	 * return exactly one row
 	 * @throws DataAccessException if the query fails
@@ -44,7 +45,9 @@ public interface JunjieJdbcOptions{
 	 * @see ColumnMapRowMapper
 	 * @see java.sql.Types
 	 */
-	Map<String, Object> queryForMap(String sql, Map<String,Object> queryParams) throws DataAccessException;
+	Map<String, Object> queryForMap(String sql, Map<String,Object> queryParams) ;
+	
+	Long queryForLong(String sql, Map<String,Object> queryParams) ;
 	/**
 	 * Issue a single SQL update operation (such as an insert, update or delete statement)
 	 * via a prepared statement, binding the given arguments.
@@ -56,7 +59,7 @@ public interface JunjieJdbcOptions{
 	 * @throws DataAccessException if there is any problem issuing the update
 	 * @see java.sql.Types
 	 */
-	int update(String sql, Map<String,Object> queryParams) throws DataAccessException;
+	int update(String sql, Map<String,Object> queryParams) ;
 	
     int execute(String sql);
 	   

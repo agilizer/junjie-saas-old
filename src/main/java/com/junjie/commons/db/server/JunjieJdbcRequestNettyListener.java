@@ -6,16 +6,16 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.junjie.commons.db.JdbcConstants;
 import com.junjie.commons.db.JunjieDbOptionBean;
 
-public class NettyMethodListener implements Processor {
+public class JunjieJdbcRequestNettyListener implements Processor, JunjieJdbcRequestListener{
 	private static final Logger log = LoggerFactory
-			.getLogger(NettyMethodListener.class);
+			.getLogger(JunjieJdbcRequestNettyListener.class);
 	private JunjieJdbcTemplateServer junjieJdbcTemplateServer;
-
+	private Map<Integer, JunjieJdbcRequest> requestMap = null ;
+	
 	@SuppressWarnings("unchecked")
 	public void process(Exchange exchange) {
 		JunjieDbOptionBean optionBean = (JunjieDbOptionBean) exchange.getIn()
@@ -48,6 +48,13 @@ public class NettyMethodListener implements Processor {
 						queryParams);
 				break;
 			}
+			case (JdbcConstants.QUERY_FOR_LONG): {
+				Map<String, Object> queryParams = (Map<String, Object>) params
+						.get(JdbcConstants.KEY_QUERY_PARAMS);
+				result = junjieJdbcTemplateServer.queryForCount(dbInfoKey, sql,
+						queryParams);
+				break;
+			}
 			case (JdbcConstants.UPDATE): {
 				Map<String, Object> updateParams = (Map<String, Object>) params
 						.get(JdbcConstants.KEY_QUERY_PARAMS);
@@ -59,8 +66,34 @@ public class NettyMethodListener implements Processor {
 				result = junjieJdbcTemplateServer.execute(dbInfoKey, sql);
 				break;
 			}
+			default:
+				 JunjieJdbcRequest method = requestMap.get(option+"");
+				 if(method!=null){
+					 result = method.doWith(optionBean);
+				 }else{
+					 log.warn("no request method to doWith key:"+option+" found!!!!!");
+				 }
 			}
-			exchange.getOut().setBody(result);
+			if(result == null){
+				exchange.getOut().setBody(JdbcConstants.NULL);
+			}else{
+				exchange.getOut().setBody(result);
+			}
+			
+		}
+	}
+	
+	@Override
+	public Map<Integer, JunjieJdbcRequest> getMethodsMap() {
+		return requestMap;
+	}
+
+	@Override
+	public synchronized void addMethod(Integer key, JunjieJdbcRequest method) {
+		if(requestMap.get(key)!=null){
+			log.error("junjieJdbcRequest key:"+key+" is already exist!!!!");
+		}else{
+			requestMap.put(key, method);
 		}
 	}
 
@@ -72,5 +105,15 @@ public class NettyMethodListener implements Processor {
 			JunjieJdbcTemplateServer junjieJdbcTemplateServer) {
 		this.junjieJdbcTemplateServer = junjieJdbcTemplateServer;
 	}
+
+	public Map<Integer, JunjieJdbcRequest> getRequestMap() {
+		return requestMap;
+	}
+
+	public void setRequestMap(Map<Integer, JunjieJdbcRequest> requestMap) {
+		this.requestMap = requestMap;
+	}
+
 	
+
 }

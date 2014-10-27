@@ -4,6 +4,7 @@ public interface JdbcConstants {
 	String OPTION_KEY="option";
 	int QUERY_FOR_LIST = 1;
 	int QUERY_FOR_MAP = 2;
+	int QUERY_FOR_LONG = 6;
 	int UPDATE = 3;
 	int EXECUTE = 4;
 	String KEY_QUERY_PARAMS= "queryParams";
@@ -11,4 +12,6 @@ public interface JdbcConstants {
 	String KEY_OFFSET="offset";
 	String KEY_COUNT_SQL="countSql";
 	String DB_INFO_KEY="dbInfoKey";
+	// use to fix netty send null result bug
+	String NULL = "##null##";
 }

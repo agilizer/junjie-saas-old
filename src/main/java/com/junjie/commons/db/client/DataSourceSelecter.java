@@ -11,5 +11,10 @@ public interface DataSourceSelecter {
 	 * @return
 	 */
 	 String getCurrentDataSourceKey();
-
+	 
+	 /**
+	  * 获取实现类描述
+	  * @return
+	  */
+	 String getDescription();
 }
