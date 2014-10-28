@@ -65,6 +65,12 @@ public class DBTest {
 		queryMap.put("name",newName);
 		resultMap = junjieJdbcTemplate.queryForMap("select * from sys_organization where name=:name", queryMap);
 		assertEquals(newName,resultMap.get("name"));
+		assertEquals(2, junjieJdbcTemplate.update("delete from sys_organization;",null));
+		assertEquals(0,junjieJdbcTemplate.queryForLong("select count(*) from sys_organization", null).intValue());
+		log.info("drop table-->"+junjieJdbcTemplate.execute("drop table sys_organization"));
+		log.info("create table-->"+junjieJdbcTemplate.execute("create table sys_organization (id bigint auto_increment,name varchar(100),parent_id bigint, parent_ids varchar(100),available bool default false,constraint pk_sys_organization primary key(id)) ;"));
+		assertEquals(0,junjieJdbcTemplate.queryForLong("select count(*) from sys_organization", null).intValue());
+		
 		try {
 			Thread.sleep(1500);
 		} catch (InterruptedException e) {

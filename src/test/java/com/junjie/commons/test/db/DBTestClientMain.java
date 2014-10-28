@@ -13,12 +13,11 @@ import org.springframework.test.context.ContextConfiguration;
 
 import com.junjie.commons.db.client.JunjieJdbcTemplate;
 
-@ContextConfiguration(locations = "classpath:spring-camel-test-db-client.xml")
 public class DBTestClientMain{
 	public static void main(String args[]){
 		final Logger log = LoggerFactory.getLogger(DBTestClient.class);
 		ApplicationContext contex=new ClassPathXmlApplicationContext("classpath:spring-camel-test-db-client.xml"); 
-		final JunjieJdbcTemplate junjieJdbcTemplate = contex.getBean(JunjieJdbcTemplate.class);
-		
+		DBTestClient dbTestClient = contex.getBean(DBTestClient.class);
+		dbTestClient.doTest();
 	}
 }

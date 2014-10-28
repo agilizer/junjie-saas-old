@@ -1,9 +1,9 @@
 package com.junjie.commons.db.client;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import org.apache.camel.ProducerTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
@@ -87,6 +87,17 @@ public class JunjieJdbcTemplate implements JunjieJdbcOptions{
 	}
 	public void setJunjieJdbcRequest(JunjieJdbcRequest junjieJdbcRequest) {
 		this.junjieJdbcRequest = junjieJdbcRequest;
+	}
+	@Override
+	public List<Integer> updateByDbInfoKeys(String sql, List<String> dbInfoKeys) {
+		JunjieDbOptionBean optionBean = new JunjieDbOptionBean();
+		Map<String, Object> headers = new HashMap<String, Object>();
+		headers.put(JdbcConstants.KEY_EXECUTE_KEYS,dbInfoKeys);
+		optionBean.setOption( JdbcConstants.EXECUTE_KEYS);
+		optionBean.setSql(sql);
+		optionBean.setParams(headers);
+		Object result = junjieJdbcRequest.sendJdbcMessageSync(optionBean);
+		return (List<Integer>) result;
 	}
 	
 	

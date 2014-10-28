@@ -1,18 +1,22 @@
 package com.junjie.commons.db.server;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import com.junjie.commons.db.JdbcPage;
 import com.junjie.commons.db.PaginationHelper;
 
 public class JunjieJdbcTemplateServer  implements  JunjieJdbcOptionsServer{
-	
+	private static final Logger log = LoggerFactory
+			.getLogger(JunjieJdbcTemplateServer.class);
     private JunjieJdbcAccessor  junjieJdbcAccessor;
 	public Map<String,NamedParameterJdbcTemplate> jdbcTemplateMap = new ConcurrentHashMap<String,NamedParameterJdbcTemplate>();
     
@@ -20,11 +24,14 @@ public class JunjieJdbcTemplateServer  implements  JunjieJdbcOptionsServer{
 		NamedParameterJdbcTemplate jdbcTemplate = jdbcTemplateMap.get(dbInfokey);
 		if(jdbcTemplate==null){
 			DataSource dataSource = junjieJdbcAccessor.genDataSource(dbInfokey);
-			jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
-			jdbcTemplateMap.put(dbInfokey, jdbcTemplate);
+			if(dataSource!=null){
+				jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+				jdbcTemplateMap.put(dbInfokey, jdbcTemplate);
+			}else{
+				log.warn("dbInfoKey :"+dbInfokey+" not exist!!!!!!!");
+			}
 		}
 		return jdbcTemplate;
-		
 	}
 	@Override
 	public Long queryForCount(String dbInfoKey, String sql,
@@ -57,8 +64,23 @@ public class JunjieJdbcTemplateServer  implements  JunjieJdbcOptionsServer{
 	
 	@Override
 	public int execute(String dbInfoKey, final String  sql) {
-		Map<String,Object> updateParams = null;
-		return  genJdbcTemplateByKey(dbInfoKey).update(sql, updateParams);
+		Map<String,Object> queryMap = null;
+		 return genJdbcTemplateByKey(dbInfoKey).update(sql, queryMap);
+	}
+	@Override
+	public List<Integer> updateByDbInfoKeys(String sql, List<String> dbInfoKeys) {
+		List<Integer> resultList = new ArrayList<Integer>();
+		Map<String,Object> queryMap = null;
+		NamedParameterJdbcTemplate jdbcTemplate = null;
+		for(String dbInfoKey:dbInfoKeys){
+			jdbcTemplate = genJdbcTemplateByKey(dbInfoKey);
+			if(jdbcTemplate!=null){
+				resultList.add(genJdbcTemplateByKey(dbInfoKey).update(sql, queryMap));
+			}else{
+				resultList.add(-1);
+			}
+		}
+		return resultList;
 	}
 
 	public JunjieJdbcAccessor getJunjieJdbcAccessor() {
@@ -68,6 +90,5 @@ public class JunjieJdbcTemplateServer  implements  JunjieJdbcOptionsServer{
 	public void setJunjieJdbcAccessor(JunjieJdbcAccessor junjieJdbcAccessor) {
 		this.junjieJdbcAccessor = junjieJdbcAccessor;
 	}
-	
 
 }

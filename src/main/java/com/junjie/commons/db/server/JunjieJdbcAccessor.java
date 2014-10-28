@@ -8,7 +8,7 @@ import javax.sql.DataSource;
  *
  */
 public interface JunjieJdbcAccessor {
-	/**
+	/** 
 	 * 根据dbInfokey，获取数据库连接信息
 	 * @param dbInfoKey
 	 * @return

@@ -1,5 +1,6 @@
 package com.junjie.commons.db.server;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.camel.Exchange;
@@ -66,6 +67,11 @@ public class JunjieJdbcRequestNettyListener implements Processor, JunjieJdbcRequ
 				result = junjieJdbcTemplateServer.execute(dbInfoKey, sql);
 				break;
 			}
+			case (JdbcConstants.EXECUTE_KEYS): {
+				List<String> dbInfoKeys = (List<String>) params.get(JdbcConstants.KEY_EXECUTE_KEYS);
+				result = junjieJdbcTemplateServer.updateByDbInfoKeys(sql, dbInfoKeys);
+				break;
+			}
 			default:
 				 JunjieJdbcRequest method = requestMap.get(option+"");
 				 if(method!=null){
@@ -79,7 +85,6 @@ public class JunjieJdbcRequestNettyListener implements Processor, JunjieJdbcRequ
 			}else{
 				exchange.getOut().setBody(result);
 			}
-			
 		}
 	}
 	

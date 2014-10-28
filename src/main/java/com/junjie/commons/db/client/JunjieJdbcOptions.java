@@ -1,5 +1,6 @@
 package com.junjie.commons.db.client;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
@@ -60,7 +61,18 @@ public interface JunjieJdbcOptions{
 	 * @see java.sql.Types
 	 */
 	int update(String sql, Map<String,Object> queryParams) ;
-	
+	/**
+	 * 执行ddl
+	 * @param sql
+	 * @return
+	 */
     int execute(String sql);
+    /**
+	 * 根据数据库信息key，更新schema
+	 * @param sql
+	 * @param dbInfoKeys
+	 * @return
+	 */
+    List<Integer> updateByDbInfoKeys(String sql,List<String> dbInfoKeys);
 	   
 }

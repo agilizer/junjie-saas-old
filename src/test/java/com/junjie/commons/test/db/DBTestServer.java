@@ -1,19 +1,18 @@
 package com.junjie.commons.test.db;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-@ContextConfiguration(locations = "classpath:spring-camel-test-db-server.xml")
-@RunWith(SpringJUnit4ClassRunner.class)
+import com.junjie.commons.db.client.JunjieJdbcTemplate;
+
 public class DBTestServer {
 	public  final Logger log = LoggerFactory
 			.getLogger(this.getClass());
-	@Test
-	public void test(){
+	public static void main(String args[]){
+		final Logger log = LoggerFactory.getLogger(DBTestClient.class);
+		ApplicationContext contex=new ClassPathXmlApplicationContext("classpath:spring-camel-test-db-server.xml"); 
 		try {
 			Thread.sleep(Long.MAX_VALUE);
 		} catch (InterruptedException e) {

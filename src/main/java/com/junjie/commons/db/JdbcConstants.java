@@ -7,6 +7,8 @@ public interface JdbcConstants {
 	int QUERY_FOR_LONG = 6;
 	int UPDATE = 3;
 	int EXECUTE = 4;
+	int EXECUTE_KEYS =  5;
+	String KEY_EXECUTE_KEYS ="keys";
 	String KEY_QUERY_PARAMS= "queryParams";
 	String KEY_MAX="max";
 	String KEY_OFFSET="offset";
