@@ -44,7 +44,7 @@ public class JunjieRedisCacheManager extends AbstractTransactionSupportingCacheM
 	@SuppressWarnings("rawtypes")//
 	private final RedisTemplate template;
 
-	private boolean usePrefix = false;
+	private boolean usePrefix = true;
 	private RedisCachePrefix cachePrefix = new DefaultRedisCachePrefix();
 	private boolean loadRemoteCachesOnStartup = false;
 	private boolean dynamic = true;

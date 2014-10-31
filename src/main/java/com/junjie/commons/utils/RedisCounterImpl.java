@@ -11,13 +11,12 @@ import org.springframework.data.redis.serializer.GenericToStringSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Service;
 
-import com.junjie.commons.test.cache.JunjieRedisCacheTest;
 
 @Service
 public class RedisCounterImpl implements JunjieCounter {
 
 	private static final Logger log = LoggerFactory
-			.getLogger(JunjieRedisCacheTest.class);
+			.getLogger(RedisCounterImpl.class);
 	@Autowired
 	private RedisConnectionFactory factory;
 	
