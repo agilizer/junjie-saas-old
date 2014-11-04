@@ -19,7 +19,7 @@
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>
 	<listener>
-		<listener-class>com.agilemaster.cloud.listener.ApplicationInitilizeListener</listener-class>
+		<listener-class>com.agilemaster.parta.listener.ApplicationInitilizeListener</listener-class>
 	</listener>
 	<!-- 设置servlet编码开始 -->
 	<filter>

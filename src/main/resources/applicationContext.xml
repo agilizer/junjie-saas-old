@@ -9,7 +9,7 @@
         http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.0.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
-	<context:component-scan base-package="com.agilemaster.cloud">
+	<context:component-scan base-package="com.agilemaster.parta">
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
@@ -17,7 +17,7 @@
 	<import resource="database.xml" />
 	<import resource="classpath:spring-config-cache.xml" />
 	<import resource="classpath:spring-config-shiro.xml" />
-	<import resource="classpath:spring-db-server.xml" />
+	<import resource="classpath:spring-db-client.xml" />
 	<bean class="org.springframework.orm.jpa.JpaTransactionManager"
 		id="transactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
@@ -42,7 +42,7 @@
 		<constructor-arg value="20">
 		</constructor-arg>
 	</bean>
-	<bean class="com.agilemaster.cloud.spring.SpringUtils" />
+	<bean class="com.agilemaster.parta.spring.SpringUtils" />
 	
-	<jpa:repositories base-package="com.agilemaster.cloud.repository" />
+	<jpa:repositories base-package="com.agilemaster.parta.repository" />
 </beans>

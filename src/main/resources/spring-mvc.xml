@@ -16,7 +16,7 @@
 
 	<!-- 通过web.xml中的 org.springframework.web.servlet.DispatcherServlet 加载的 -->
 	<!-- 请参考 http://jinnianshilongnian.iteye.com/blog/1602617 -->
-	<context:component-scan base-package="com.agilemaster.cloud.controller">
+	<context:component-scan base-package="com.agilemaster.parta.controller">
 
 	</context:component-scan>
 
@@ -24,7 +24,7 @@
 	<mvc:annotation-driven>
 		<mvc:argument-resolvers>
 			<bean
-				class="com.agilemaster.cloud.web.bind.method.CurrentUserMethodArgumentResolver" />
+				class="com.agilemaster.parta.web.bind.method.CurrentUserMethodArgumentResolver" />
 		</mvc:argument-resolvers>
 	</mvc:annotation-driven>
 
@@ -49,7 +49,7 @@
 		class="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver">
 	</bean>
 
-	<bean class="com.agilemaster.cloud.web.exception.DefaultExceptionHandler" />
+	<bean class="com.agilemaster.parta.web.exception.DefaultExceptionHandler" />
 
 	<import resource="spring-mvc-shiro.xml" />
 </beans>
