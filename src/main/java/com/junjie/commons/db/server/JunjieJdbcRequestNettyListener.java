@@ -72,6 +72,11 @@ public class JunjieJdbcRequestNettyListener implements Processor, JunjieJdbcRequ
 				result = junjieJdbcTemplateServer.updateByDbInfoKeys(sql, dbInfoKeys);
 				break;
 			}
+			case (JdbcConstants.RUN_SCRIPT): {
+				List<String> dbInfoKeys = (List<String>) params.get(JdbcConstants.KEY_EXECUTE_KEYS);
+				result = junjieJdbcTemplateServer.runScriptByDbInfoKeys(sql, dbInfoKeys);
+				break;
+			}
 			default:
 				 JunjieJdbcRequest method = requestMap.get(option+"");
 				 if(method!=null){

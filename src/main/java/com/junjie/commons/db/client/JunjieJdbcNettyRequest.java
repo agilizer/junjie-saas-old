@@ -24,7 +24,9 @@ public class JunjieJdbcNettyRequest implements JunjieJdbcRequest {
 	private long retryInterval = 100;
 
 	private void genDataSourceKey(JunjieDbOptionBean optionBean) {
-		optionBean.setDbInfoKey(dataSourceSelecter.getCurrentDataSourceKey());
+		if(optionBean.getDbInfoKey()==null){
+			optionBean.setDbInfoKey(dataSourceSelecter.getCurrentDataSourceKey());
+		}
 	}
 
 	private void checkException(Object object) {

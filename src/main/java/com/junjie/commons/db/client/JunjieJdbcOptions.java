@@ -8,6 +8,7 @@ import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.ColumnMapRowMapper;
 
 import com.junjie.commons.db.JdbcPage;
+import com.junjie.commons.db.JunjieDbOptionBean;
 
 /**
  * 数据库操作接口，client使用,主要用对和服务器交互数据时使用
@@ -74,5 +75,9 @@ public interface JunjieJdbcOptions{
 	 * @return
 	 */
     List<Integer> updateByDbInfoKeys(String sql,List<String> dbInfoKeys);
+    
+    List<Integer> runScriptByDbInfoKeys(String sql,List<String> dbInfoKeys);
+    
+    Object execute(JunjieDbOptionBean optionBean);
 	   
 }

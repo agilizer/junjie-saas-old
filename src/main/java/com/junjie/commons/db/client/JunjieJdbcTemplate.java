@@ -99,6 +99,22 @@ public class JunjieJdbcTemplate implements JunjieJdbcOptions{
 		Object result = junjieJdbcRequest.sendJdbcMessageSync(optionBean);
 		return (List<Integer>) result;
 	}
+	@Override
+	public List<Integer> runScriptByDbInfoKeys(String sql,
+			List<String> dbInfoKeys) {
+		JunjieDbOptionBean optionBean = new JunjieDbOptionBean();
+		Map<String, Object> headers = new HashMap<String, Object>();
+		headers.put(JdbcConstants.KEY_EXECUTE_KEYS,dbInfoKeys);
+		optionBean.setOption( JdbcConstants.RUN_SCRIPT);
+		optionBean.setSql(sql);
+		optionBean.setParams(headers);
+		Object result = junjieJdbcRequest.sendJdbcMessageSync(optionBean);
+		return (List<Integer>) result;
+	}
+	@Override
+	public Object execute(JunjieDbOptionBean optionBean) {
+		return junjieJdbcRequest.sendJdbcMessageSync(optionBean);
+	}
 	
 	
 }

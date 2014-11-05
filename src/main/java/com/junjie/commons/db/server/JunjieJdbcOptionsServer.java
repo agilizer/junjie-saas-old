@@ -68,5 +68,5 @@ public interface JunjieJdbcOptionsServer{
 	 */
 	public List<Integer> updateByDbInfoKeys(String sql, List<String> dbInfoKeys);
 	
-	   
+	public List<Integer> runScriptByDbInfoKeys(String sql, List<String> dbInfoKeys);
 }
