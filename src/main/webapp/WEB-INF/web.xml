@@ -37,7 +37,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>Set Character Encoding</filter-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>*.do</url-pattern>
 	</filter-mapping>
 	<!-- 设置servlet编码结束 -->
 	<!-- shiro 安全过滤器 -->
@@ -53,7 +53,7 @@
 
 	<filter-mapping>
 		<filter-name>shiroFilter</filter-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>*.do</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
 	<servlet>
@@ -68,7 +68,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
-		<url-pattern>/</url-pattern>
+		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>H2Console</servlet-name>

@@ -6,6 +6,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -20,7 +21,7 @@ public class BuildProject   implements Serializable{
 	private static final long serialVersionUID = -5492391385688697311L;
 	@Id
 	@Column
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id; //编号
 	@Column
     private User author;

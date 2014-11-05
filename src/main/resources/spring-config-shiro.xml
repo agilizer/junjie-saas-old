@@ -153,8 +153,8 @@
 			<value>
 			    /api/** =anon
 			    /console/**=anon
-				/login = authc
-				/logout = logout
+				/login.do = authc
+				/logout.do = logout
 				/authorize=anon
                 /accessToken=anon
                 /userInfo=anon
