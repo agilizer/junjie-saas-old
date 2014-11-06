@@ -1,6 +1,8 @@
 package com.agilemaster.parta.service;
 
-public class CompanyService {
-	
+import java.util.Map;
 
+public interface CompanyService {
+	
+    Map<String,Object> initCompany(String authKey,String userId,String username,String dataSourceKey);
 }

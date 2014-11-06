@@ -17,7 +17,6 @@
 	<!-- 通过web.xml中的 org.springframework.web.servlet.DispatcherServlet 加载的 -->
 	<!-- 请参考 http://jinnianshilongnian.iteye.com/blog/1602617 -->
 	<context:component-scan base-package="com.agilemaster.parta.controller">
-
 	</context:component-scan>
 
 
@@ -38,10 +37,8 @@
 	<!-- 默认的视图解析器 在上边的解析错误时使用 (默认使用html)- -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		
-		
 		<property name="prefix" value="/WEB-INF/jsp/" />
-		<property name="suffix" value=".jsp"/>
+		<property name="suffix" value=".jsp" />
 	</bean>
 
 	<!-- 控制器异常处理 -->
