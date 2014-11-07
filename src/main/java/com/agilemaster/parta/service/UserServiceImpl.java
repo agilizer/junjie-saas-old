@@ -7,12 +7,11 @@ import com.agilemaster.parta.dao.UserDao;
 import com.agilemaster.parta.entity.User;
 
 /**
- * <p>User: Zhang Kaitao
- * <p>Date: 14-1-28
- * <p>Version: 1.0
+ * 
+ * @author asdtiang
+ *
  */
 @Service
-
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -21,6 +20,7 @@ public class UserServiceImpl implements UserService {
     private PasswordHelper passwordHelper;
     @Autowired
     private RoleService roleService;
+    
 
     /**
      * 创建用户
