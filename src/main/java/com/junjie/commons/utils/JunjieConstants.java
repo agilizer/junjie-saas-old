@@ -33,5 +33,11 @@ public interface JunjieConstants {
      */
     int LOGIN_OTHERS_ERROR=4;
     
+    int REGISTER_EXIST = 5;
+    
+    int REG_PWD_WRONG = 6;
+    
+    int REG_PWD_NOT_EQUALS = 7;
+    
     //error code end
 }
