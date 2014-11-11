@@ -58,7 +58,7 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
-					<warName>junjie-cloud</warName>
+					<warName>part-a</warName>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -83,7 +83,6 @@
 				<configuration>
 					<path>/${project.build.finalName}</path>
 				</configuration>
-
 			</plugin>
 		</plugins>
 	</build>

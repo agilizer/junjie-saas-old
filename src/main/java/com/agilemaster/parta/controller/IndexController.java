@@ -19,8 +19,7 @@ import com.agilemaster.parta.service.UserService;
  */
 @RestController("/api/v1/index")
 public class IndexController {
-	private static final Logger log = LoggerFactory
-			.getLogger(IndexController.class);
+	private static final Logger log = LoggerFactory.getLogger(IndexController.class);
 	@Autowired
 	private HomeService homeService;
 	@Autowired
@@ -36,13 +35,11 @@ public class IndexController {
 		Subject subject = SecurityUtils.getSubject();
 		Session session = subject.getSession();
 		if (session.getAttribute("haha") != null) {
-			System.out.println("get from session haha:"
-					+ session.getAttribute("haha"));
+			System.out.println("get from session haha:"+ session.getAttribute("haha"));
 		} else {
 			session.setAttribute("haha", "wowowo---->");
 			System.out.println("put haha--------------->");
 		}
-
 		return "welcome";
 	}
 

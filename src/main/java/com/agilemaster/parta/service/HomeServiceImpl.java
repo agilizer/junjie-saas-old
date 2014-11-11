@@ -30,7 +30,8 @@ public class HomeServiceImpl implements HomeService{
 		}else{
 			String username = (String) principal;
 			Session session  = subject.getSession();
-	    	log.info("dataSourceKey-->",session.getAttribute(JunjieConstants.DATA_SOURCE_KEY));
+			log.info("--->principal   is not null  session.id:"+subject.getSession().getId() );
+	    	log.info("dataSourceKey-->{}",session.getAttribute(JunjieConstants.DATA_SOURCE_KEY));
 	    	result.put(JunjieConstants.SUCCESS, true);
 	    	result.put(JunjieConstants.DATA, username);
 		}
