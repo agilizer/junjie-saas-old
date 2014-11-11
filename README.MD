@@ -1,6 +1,5 @@
 # AgileMaster  Project Management Platform
 
-
-junjie plugin 甲方
+共享组件。 提供任务，消息，文档，权限管理
 
 
