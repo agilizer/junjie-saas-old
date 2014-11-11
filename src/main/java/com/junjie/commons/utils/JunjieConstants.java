@@ -35,6 +35,8 @@ public interface JunjieConstants {
     
     int REGISTER_EXIST = 5;
     
+    int REGISTER_COPMANY_EXIST = 8;
+    
     int REG_PWD_WRONG = 6;
     
     int REG_PWD_NOT_EQUALS = 7;
