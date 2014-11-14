@@ -6,6 +6,7 @@ public interface JunjieConstants {
     String MSG = "msg";
     String ERROR_CODE = "errorCode";
     String DATA_SOURCE_KEY = "dataSourceKey";
+    String USSER_ID = "userId";
     
     // error code start
     /**
@@ -35,11 +36,19 @@ public interface JunjieConstants {
     
     int REGISTER_EXIST = 5;
     
+    int REGISTER_NULL_USERNAME =15;
+    
     int REGISTER_COPMANY_EXIST = 8;
     
     int REG_PWD_WRONG = 6;
     
     int REG_PWD_NOT_EQUALS = 7;
+    
+    int ERROR_SERVER = 10;
+    
+    int COMPANY_ADD_CLOUD_ERROR = 11;
+    
+    int NOT_LOGIN = 12;
     
     //error code end
 }

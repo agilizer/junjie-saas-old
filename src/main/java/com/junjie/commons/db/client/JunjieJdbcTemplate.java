@@ -41,13 +41,24 @@ public class JunjieJdbcTemplate implements JunjieJdbcOptions{
 		headers.put(JdbcConstants.KEY_QUERY_PARAMS,queryParams);
 		headers.put(JdbcConstants.KEY_MAX,max);
 		headers.put(JdbcConstants.KEY_OFFSET,offset);
-		headers.put(JdbcConstants.KEY_QUERY_PARAMS,queryParams);
 		JunjieDbOptionBean optionBean = new JunjieDbOptionBean();
 		optionBean.setOption( JdbcConstants.QUERY_FOR_LIST);
 		optionBean.setSql(sql);
 		optionBean.setParams(headers);
 		Object result = junjieJdbcRequest.sendJdbcMessageSync( optionBean);
 		return (JdbcPage) result;
+	}
+	
+	@Override
+	public List queryForList(String sql, Map<String, Object> queryParams) {
+		Map<String, Object> headers = new HashMap<String, Object>();
+		headers.put(JdbcConstants.KEY_QUERY_PARAMS,queryParams);
+		JunjieDbOptionBean optionBean = new JunjieDbOptionBean();
+		optionBean.setOption( JdbcConstants.QUERY_FOR_LIST_ALL);
+		optionBean.setSql(sql);
+		optionBean.setParams(headers);
+		Object result = junjieJdbcRequest.sendJdbcMessageSync( optionBean);
+		return (List) result;
 	}
 
 
@@ -115,6 +126,5 @@ public class JunjieJdbcTemplate implements JunjieJdbcOptions{
 	public Object execute(JunjieDbOptionBean optionBean) {
 		return junjieJdbcRequest.sendJdbcMessageSync(optionBean);
 	}
-	
 	
 }

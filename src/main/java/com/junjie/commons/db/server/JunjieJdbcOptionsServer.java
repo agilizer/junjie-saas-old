@@ -42,6 +42,10 @@ public interface JunjieJdbcOptionsServer{
 	 */
 	JdbcPage queryForList(String dbInfoKey,String countSql,String sqlFetch, Map<String,Object> queryMap,int max,int offset) ;
 	
+	
+	
+	List queryForList(String dbInfoKey,String sql, Map<String,Object> queryMap) ;
+	
 	/**
 	 * 
 	 * @param dbInfoKey

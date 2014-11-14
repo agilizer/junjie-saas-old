@@ -28,6 +28,8 @@ public interface JunjieJdbcOptions{
 	 */
 	JdbcPage queryForList(String sql,String countSql ,Map<String,Object> queryParams,int max,int offset) ;
 	
+	List queryForList(String sql,Map<String,Object> queryParams) ;
+	
 	/**
 	 * Query given SQL to create a prepared statement from SQL and a
 	 * list of arguments to bind to the query, expecting a result Map.

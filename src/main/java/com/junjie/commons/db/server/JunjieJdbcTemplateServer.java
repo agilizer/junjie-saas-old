@@ -59,6 +59,11 @@ public class JunjieJdbcTemplateServer  implements  JunjieJdbcOptionsServer{
 			 {
 		return PaginationHelper.fetchPage(genJdbcTemplateByKey(dbInfoKey), countSql, sqlFetch, queryMap, max, offset);
 	}
+	@Override
+	public List queryForList(String dbInfoKey, String sql,
+			Map<String, Object> queryMap) {
+		return genJdbcTemplateByKey(dbInfoKey).queryForList(sql, queryMap);
+	}
 
 	@Override
 	public int update(String dbInfoKey, String sql, Map<String,Object> updateParams)  {
@@ -116,5 +121,6 @@ public class JunjieJdbcTemplateServer  implements  JunjieJdbcOptionsServer{
 	public void setJunjieJdbcAccessor(JunjieJdbcAccessor junjieJdbcAccessor) {
 		this.junjieJdbcAccessor = junjieJdbcAccessor;
 	}
+	
 	
 }

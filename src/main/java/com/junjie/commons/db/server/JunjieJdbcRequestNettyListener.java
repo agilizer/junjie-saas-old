@@ -42,6 +42,12 @@ public class JunjieJdbcRequestNettyListener implements Processor, JunjieJdbcRequ
 						countSql, sql, queryParams, max, offset);
 				break;
 			}
+			case (JdbcConstants.QUERY_FOR_LIST_ALL): {
+				Map<String, Object> queryParams = (Map<String, Object>) params
+						.get(JdbcConstants.KEY_QUERY_PARAMS);
+				result = junjieJdbcTemplateServer.queryForList(dbInfoKey,sql, queryParams);
+				break;
+			}
 			case (JdbcConstants.QUERY_FOR_MAP): {
 				Map<String, Object> queryParams = (Map<String, Object>) params
 						.get(JdbcConstants.KEY_QUERY_PARAMS);
