@@ -88,6 +88,9 @@ public class Payment  implements Serializable {
 	public void setReason(String reason) {
 		this.reason = reason;
 	}
+	public boolean getHasContract() {
+		return hasContract;
+	}
 	public boolean isHasContract() {
 		return hasContract;
 	}

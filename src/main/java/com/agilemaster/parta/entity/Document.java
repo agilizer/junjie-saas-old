@@ -45,7 +45,7 @@ public class Document implements Serializable {
 	@OneToOne()
 	private FileInfo fileInfo;
 	@Column
-	private boolean excelEdit;
+	private Boolean excelEdit;
 	@ManyToOne()
 	private DocumentDir documentDir;
 	@Column
@@ -96,10 +96,11 @@ public class Document implements Serializable {
 	public void setFileInfo(FileInfo fileInfo) {
 		this.fileInfo = fileInfo;
 	}
-	public boolean isExcelEdit() {
+	
+	public Boolean getExcelEdit() {
 		return excelEdit;
 	}
-	public void setExcelEdit(boolean excelEdit) {
+	public void setExcelEdit(Boolean excelEdit) {
 		this.excelEdit = excelEdit;
 	}
 	public DocumentDir getDocumentDir() {

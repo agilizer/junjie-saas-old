@@ -36,12 +36,10 @@ public class Resource implements Serializable {
 	@Column()
     private Long parentId; //父编号
 	@Column()
-    private String parentIds; //父编号列表
-	@Column()
     private Boolean available = Boolean.FALSE;
      
     public static enum ResourceType {
-        menu("菜单"), button("按钮");
+        menu("菜单"), button("按钮"),others("其它");
 
         private final String info;
         private ResourceType(String info) {
@@ -103,14 +101,6 @@ public class Resource implements Serializable {
         this.parentId = parentId;
     }
 
-    public String getParentIds() {
-        return parentIds;
-    }
-
-    public void setParentIds(String parentIds) {
-        this.parentIds = parentIds;
-    }
-
     public Boolean getAvailable() {
         return available;
     }
@@ -123,9 +113,6 @@ public class Resource implements Serializable {
         return parentId == 0;
     }
 
-    public String makeSelfAsParentIds() {
-        return getParentIds() + getId() + "/";
-    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -151,7 +138,6 @@ public class Resource implements Serializable {
                 ", type=" + type +
                 ", permission='" + permission + '\'' +
                 ", parentId=" + parentId +
-                ", parentIds='" + parentIds + '\'' +
                 ", available=" + available +
                 '}';
     }

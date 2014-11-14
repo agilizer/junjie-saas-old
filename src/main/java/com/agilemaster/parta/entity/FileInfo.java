@@ -31,15 +31,15 @@ public class FileInfo  implements Serializable {
 	@Column
 	private String description;
 	@Column
-	private boolean isDel = false;
+	private Boolean isDel = false;
 	@Column
-	private boolean isOutSide = false;
+	private Boolean isOutSide = false;
 	/**
 	 * doc,docx,ppt,zip etc... xls,xlsx-->excel
 	 */
-	@Temporal(TemporalType.DATE)
+	 @Temporal((TemporalType.TIMESTAMP))
 	private java.util.Calendar dateCreated;
-	@Temporal(TemporalType.DATE)
+	 @Temporal((TemporalType.TIMESTAMP))
 	private java.util.Calendar lastUpdated;
 	public Long getId() {
 		return id;
@@ -71,18 +71,7 @@ public class FileInfo  implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public boolean isDel() {
-		return isDel;
-	}
-	public void setDel(boolean isDel) {
-		this.isDel = isDel;
-	}
-	public boolean isOutSide() {
-		return isOutSide;
-	}
-	public void setOutSide(boolean isOutSide) {
-		this.isOutSide = isOutSide;
-	}
+	
 	public java.util.Calendar getDateCreated() {
 		return dateCreated;
 	}
@@ -95,4 +84,17 @@ public class FileInfo  implements Serializable {
 	public void setLastUpdated(java.util.Calendar lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
+	public Boolean getIsDel() {
+		return isDel;
+	}
+	public void setIsDel(Boolean isDel) {
+		this.isDel = isDel;
+	}
+	public Boolean getIsOutSide() {
+		return isOutSide;
+	}
+	public void setIsOutSide(Boolean isOutSide) {
+		this.isOutSide = isOutSide;
+	}
+	
 }

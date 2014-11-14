@@ -54,12 +54,12 @@ public class Group  implements Serializable{
 	@Column
 	private String realm;
 	@Column
-	private boolean external = false;
+	private Boolean external = false;
 	@Column
-	private boolean protect = false;
-	@Temporal(TemporalType.DATE)
+	private Boolean protect = false;
+	 @Temporal((TemporalType.TIMESTAMP))
 	private java.util.Calendar dateCreated;
-	@Temporal(TemporalType.DATE)
+	 @Temporal((TemporalType.TIMESTAMP))
 	private java.util.Calendar lastUpdated;
 	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private List<Role> roles;
@@ -85,19 +85,19 @@ public class Group  implements Serializable{
 	public void setRealm(String realm) {
 		this.realm = realm;
 	}
-	public boolean isExternal() {
+	
+	public Boolean getExternal() {
 		return external;
 	}
-	public void setExternal(boolean external) {
+	public void setExternal(Boolean external) {
 		this.external = external;
 	}
-	public boolean isProtect() {
+	public Boolean getProtect() {
 		return protect;
 	}
-	public void setProtect(boolean protect) {
+	public void setProtect(Boolean protect) {
 		this.protect = protect;
 	}
-	
 	public List<Role> getRoles() {
 		return roles;
 	}

@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.agilemaster.parta.service.CompanyService;
 import com.junjie.commons.utils.JunjieStaticMethod;
 
-@RestController("/api/v1")
+@RestController("")
 public class CompanyApiController {
 	@Autowired
 	private CompanyService companyService;
-	@RequestMapping("/api/v1/private/initDb")
+	@RequestMapping("/api/private/v1/initDb")
 	public Map<String,Object> initPlugin(@RequestParam(required = true) String key,
     		@RequestParam(required = true)String userId,
     		@RequestParam(required = true)String username,@RequestParam(required = true) String dataSourceKey){

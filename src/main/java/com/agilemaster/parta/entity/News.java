@@ -42,9 +42,9 @@ public class News implements Serializable  {
 	@Column(length = 1000)
 	private String description;
 	@Column
-	private boolean isHead = false;
+	private Boolean head = false;
 	@Column
-	private boolean isOutside = false;
+	private Boolean outSide = false;
 	@ManyToOne()
 	private NewsType newsType;
 	@ManyToOne()
@@ -89,17 +89,17 @@ public class News implements Serializable  {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public boolean isHead() {
-		return isHead;
+	public Boolean getHead() {
+		return head;
 	}
-	public void setHead(boolean isHead) {
-		this.isHead = isHead;
+	public void setHead(Boolean head) {
+		this.head = head;
 	}
-	public boolean isOutside() {
-		return isOutside;
+	public Boolean getOutSide() {
+		return outSide;
 	}
-	public void setOutside(boolean isOutside) {
-		this.isOutside = isOutside;
+	public void setOutSide(Boolean outSide) {
+		this.outSide = outSide;
 	}
 	public NewsType getNewsType() {
 		return newsType;

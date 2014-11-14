@@ -41,13 +41,20 @@ public class CompanyServiceImpl implements CompanyService{
 			dbInfokeys.add(dataSourceKey);
  			junjieJdbcTemplate.runScriptByDbInfoKeys(sql, dbInfokeys);
  			// insert into user(user_id,username)values('aaa','bbbb')
- 			String  initSql = "insert into user(user_id,username)values(:userId,:username)";
+ 			String  initSql = "insert into user(user_id,username)values(:userId,:username);";
+ 		    initSql = initSql +"insert into sys_resource(id,name,permission,available,type)values(1,'超级管理员','*:*',true,3);";
+ 		    initSql = initSql +"insert into sys_resource(name,permission,available,type)values('用户管理','userAdmin:*',true,3);";
+ 		    initSql = initSql +"insert into SYS_ROLE (id,role,description)values(1,'ROLE_ADMIN','超级管理员');";
+ 		    initSql = initSql +"insert into SYS_ROLE_RESOURCES  (sys_role,RESOURCES)values(1,1);";
+ 		    initSql = initSql +"insert into USER_ROLES(user,roles)values('"+userId+"',1);";
+ 		    initSql = initSql +"insert into BUILD_PROJECT(author,name,code)values('"+userId+"','默认项目','default');";
  			JunjieDbOptionBean optionBean = new JunjieDbOptionBean();
  			optionBean.setDbInfoKey(dataSourceKey);
  			Map<String, Object> headers = new HashMap<String, Object>();
  			Map<String, Object> queryParams = new HashMap<String, Object>();
  			queryParams.put("userId", userId);
  			queryParams.put("username", username);
+ 			queryParams.put("buildAuthor", userId);
  			headers.put(JdbcConstants.KEY_QUERY_PARAMS,queryParams);
  			optionBean.setOption( JdbcConstants.UPDATE);
  			optionBean.setSql(initSql);

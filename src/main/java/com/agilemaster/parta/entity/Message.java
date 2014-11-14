@@ -42,9 +42,9 @@ public class Message implements Serializable {
 	@ManyToOne()
     private    Message mainMessage;   /*designed for replied messages and forward messages, nullable true*/
 	@Column
-    private boolean isSend = true ;   /*if false-->draftBox*/
+    private Boolean send = true ;   /*if false-->draftBox*/
 	@Column
-    private boolean isDel=false;
+    private Boolean del=false;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar	dateCreated;
     /**
@@ -88,18 +88,6 @@ public class Message implements Serializable {
 	public void setMainMessage(Message mainMessage) {
 		this.mainMessage = mainMessage;
 	}
-	public boolean isSend() {
-		return isSend;
-	}
-	public void setSend(boolean isSend) {
-		this.isSend = isSend;
-	}
-	public boolean isDel() {
-		return isDel;
-	}
-	public void setDel(boolean isDel) {
-		this.isDel = isDel;
-	}
 	public Calendar getDateCreated() {
 		return dateCreated;
 	}
@@ -130,4 +118,18 @@ public class Message implements Serializable {
 	public void setFileInfos(List<FileInfo> fileInfos) {
 		this.fileInfos = fileInfos;
 	}
+	public Boolean getSend() {
+		return send;
+	}
+	public void setSend(Boolean send) {
+		this.send = send;
+	}
+	public Boolean getDel() {
+		return del;
+	}
+	public void setDel(Boolean del) {
+		this.del = del;
+	}
+	
+	
 }

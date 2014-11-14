@@ -33,7 +33,7 @@ public class DocumentDir  implements Serializable {
 	@ManyToOne()
 	private DocumentDir parentDir;
 	@Column
-	private boolean mainShow = false;
+	private Boolean mainShow = false;
 	@Column
 	private int sequence;
 	@Temporal(TemporalType.TIMESTAMP)
@@ -76,10 +76,11 @@ public class DocumentDir  implements Serializable {
 	public void setParentDir(DocumentDir parentDir) {
 		this.parentDir = parentDir;
 	}
-	public boolean isMainShow() {
+	
+	public Boolean getMainShow() {
 		return mainShow;
 	}
-	public void setMainShow(boolean mainShow) {
+	public void setMainShow(Boolean mainShow) {
 		this.mainShow = mainShow;
 	}
 	public int getSequence() {

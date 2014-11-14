@@ -16,9 +16,8 @@ import com.agilemaster.parta.entity.User;
 import com.agilemaster.parta.service.UserService;
 
 /**
- * <p>User: Zhang Kaitao
- * <p>Date: 14-1-28
- * <p>Version: 1.0
+ * @author abel.lee
+ *2014年11月14日 上午11:23:19
  */
 public class UserRealm extends AuthorizingRealm {
 
@@ -29,8 +28,7 @@ public class UserRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         String username = (String)principals.getPrimaryPrincipal();
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        authorizationInfo.setRoles(null);
-        authorizationInfo.setStringPermissions(null);
+        userService.genRolesAndPermissions(username, authorizationInfo);
         return authorizationInfo;
     }
 

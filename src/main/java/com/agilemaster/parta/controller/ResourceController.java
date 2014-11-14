@@ -44,7 +44,6 @@ public class ResourceController {
         model.addAttribute("parent", parent);
         Resource child = new Resource();
         child.setParentId(parentId);
-        child.setParentIds(parent.makeSelfAsParentIds());
         model.addAttribute("resource", child);
         model.addAttribute("op", "新增子节点");
         return "resource/edit";

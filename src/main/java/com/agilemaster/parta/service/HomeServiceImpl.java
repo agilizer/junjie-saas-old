@@ -19,6 +19,7 @@ public class HomeServiceImpl implements HomeService{
 			.getLogger(HomeServiceImpl.class);
 	@Value(value = "${junjie.cloud.url}")
 	private String cloudUrl;
+	private UserService userService;
 	@Override
 	public Map<String, Object> index() {
 		log.info("-------------------------->@Vaule test cloudUrl {}",cloudUrl);
@@ -33,7 +34,7 @@ public class HomeServiceImpl implements HomeService{
 			log.info("--->principal   is not null  session.id:"+subject.getSession().getId() );
 	    	log.info("dataSourceKey-->{}",session.getAttribute(JunjieConstants.DATA_SOURCE_KEY));
 	    	result.put(JunjieConstants.SUCCESS, true);
-	    	result.put(JunjieConstants.DATA, username);
+	    	result.put(JunjieConstants.DATA, userService.findByUsernameMap(username));
 		}
 		return result;
 	}

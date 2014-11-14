@@ -43,7 +43,7 @@ public class Notification  implements Serializable {
 	@Column
 	private NotifyType notifyType;
 	@Column
-	private boolean isRead = false;
+	private Boolean read = false;
 
 	public static enum NotifyType {
 		MESSAGE, MESSAGE_READ, MESSAGE_RECEIVE, MESSAGE_REPLY, EVENT_CHANGE, DOCUMENT
@@ -98,11 +98,15 @@ public class Notification  implements Serializable {
 	}
 
 	public boolean isRead() {
-		return isRead;
+		return read;
+	}
+	public boolean getRead() {
+		return read;
 	}
 
-	public void setRead(boolean isRead) {
-		this.isRead = isRead;
+	public void setRead(boolean read) {
+		this.read = read;
 	}
+
 	
 }

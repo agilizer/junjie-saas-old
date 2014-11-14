@@ -32,7 +32,7 @@ public class ConfigDomain  implements Serializable{
 	@Column
     private  ValueType valueType;
 	@Column
-    boolean editable=false;
+    Boolean editable=false;
 
  
    public static enum ValueType {
@@ -92,14 +92,15 @@ public void setValueType(ValueType valueType) {
 }
 
 
-public boolean isEditable() {
+public Boolean getEditable() {
 	return editable;
 }
 
 
-public void setEditable(boolean editable) {
+public void setEditable(Boolean editable) {
 	this.editable = editable;
 }
+
    
    
 }

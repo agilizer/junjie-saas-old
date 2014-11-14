@@ -52,21 +52,21 @@ public class ContractDocument  implements Serializable{
 //    float paymentRatio
     @Column
 	private  double paymentSum;
-    @Temporal(TemporalType.DATE)
+    @Temporal((TemporalType.TIMESTAMP))
 	private java.util.Calendar signDate;
     @OneToOne
 	private FileInfo fileInfo;
 	@Column(length=5000)
 	private String signProblem;
     /* Automatic timestamping of GORM */
-	@Temporal(TemporalType.DATE)
+	 @Temporal((TemporalType.TIMESTAMP))
 	private java.util.Calendar dateCreated;
-	@Temporal(TemporalType.DATE)
+	 @Temporal((TemporalType.TIMESTAMP))
 	private java.util.Calendar lastUpdated;
 	@ManyToOne
 	private Organization partyB;
 	@Column
-	private String partyBName;/*just record partyB name ,not save partyB*/
+	private String partybName;/*just record partyB name ,not save partyB*/
 	@OneToMany()
     private List<Payment> payments;
 	public Long getId() {
@@ -147,11 +147,12 @@ public class ContractDocument  implements Serializable{
 	public void setPartyB(Organization partyB) {
 		this.partyB = partyB;
 	}
-	public String getPartyBName() {
-		return partyBName;
+	
+	public String getPartybName() {
+		return partybName;
 	}
-	public void setPartyBName(String partyBName) {
-		this.partyBName = partyBName;
+	public void setPartybName(String partybName) {
+		this.partybName = partybName;
 	}
 	public List<Payment> getPayments() {
 		return payments;

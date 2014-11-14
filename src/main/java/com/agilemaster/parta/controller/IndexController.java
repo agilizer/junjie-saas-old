@@ -17,7 +17,7 @@ import com.agilemaster.parta.service.UserService;
 /**
  * @author asdtiang
  */
-@RestController("/api/v1/index")
+@RestController("")
 public class IndexController {
 	private static final Logger log = LoggerFactory.getLogger(IndexController.class);
 	@Autowired

@@ -41,11 +41,11 @@ public class User implements Serializable {
 	private   String email;
 	@Column
 	private    boolean enabled;
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private    Calendar dateCreated;
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private    Calendar lastUpdated;
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private    Calendar expiration;
 	@Column
 	private    String  position;
@@ -56,14 +56,14 @@ public class User implements Serializable {
 	@OneToOne()
 	private   Organization org;
 	@Column
-	private  boolean isAParty = true;
+	private  boolean apart = true;
 	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private List<Resource> resources;
 	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private List<Role> roles;
 	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private List<Group> groups;
-
+   
     public User() {
     }
 
@@ -195,13 +195,16 @@ public class User implements Serializable {
 		this.org = org;
 	}
 
-	public boolean isAParty() {
-		return isAParty;
+	public boolean isApart() {
+		return apart;
+	}
+	public boolean getApart() {
+		return apart;
 	}
 
-	public void setAParty(boolean isAParty) {
-		this.isAParty = isAParty;
+	public void setApart(boolean apart) {
+		this.apart = apart;
 	}
-    
+   
 
 }

@@ -1,6 +1,11 @@
 package com.agilemaster.parta.db;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
+
 import com.junjie.commons.db.client.DataSourceSelecter;
+import com.junjie.commons.utils.JunjieConstants;
 
 public class DataSourceSelecterImpl implements DataSourceSelecter{
 
@@ -8,7 +13,9 @@ public class DataSourceSelecterImpl implements DataSourceSelecter{
 	 private  int dbInstanceCount = 500;
 	@Override
 	public String getCurrentDataSourceKey() {
-       return "key"+r.nextInt(dbInstanceCount);
+		Subject subject = SecurityUtils.getSubject();
+		Session session  = subject.getSession();
+       return (String) session.getAttribute(JunjieConstants.DATA_SOURCE_KEY);
 	}
 	public  static void main(String args[]){
 		  java.util.Random r=new java.util.Random(1);

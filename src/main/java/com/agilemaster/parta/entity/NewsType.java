@@ -38,7 +38,7 @@ public class NewsType  implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
     private  Calendar	dateCreated;
 	@Column
-    private boolean isOutside=false;
+    private Boolean isOutside=false;
 	public Long getId() {
 		return id;
 	}
@@ -83,6 +83,12 @@ public class NewsType  implements Serializable {
 	}
 	public boolean isOutside() {
 		return isOutside;
+	}
+	public Boolean getIsOutside() {
+		return isOutside;
+	}
+	public void setIsOutside(Boolean isOutside) {
+		this.isOutside = isOutside;
 	}
 	public void setOutside(boolean isOutside) {
 		this.isOutside = isOutside;

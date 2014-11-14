@@ -1,5 +1,10 @@
 package com.agilemaster.parta.service;
 
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
+
 import com.agilemaster.parta.entity.User;
 
 /**
@@ -13,11 +18,14 @@ public interface UserService {
      * 创建用户
      * @param user
      */
-    public User createUser(User user);
+    public Map<String,Object >  createUser(String username,String password);
+    
+    User currentUser();
 
     public User updateUser(User user);
 
     public void deleteUser(User user);
+    public void genRolesAndPermissions(String username,SimpleAuthorizationInfo authorizationInfo);
 
     /**
      * 修改密码
@@ -31,4 +39,8 @@ public interface UserService {
      * @return
      */
     public User findByUsername(String username);
+
+	Map<String, Object> findByUsernameMap(String username);
+
+	Map<String, Object> currentUserMap();
 }
