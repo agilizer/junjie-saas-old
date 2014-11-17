@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class EventController {
 	
-	  @RequestMapping("/userInfo")
-	    public Map<String,Object> userInfo(HttpServletRequest request)  {
+	  @RequestMapping("/api/v1/event/create")
+	    public Map<String,Object> create(HttpServletRequest request)  {
 		  	
 			return null;
 	  }
