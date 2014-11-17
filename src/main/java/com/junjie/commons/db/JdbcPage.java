@@ -18,6 +18,7 @@ public class JdbcPage  implements Serializable {
 	private static final long serialVersionUID = -7882299080501080103L;
 	private long pageNumber;
     private long pagesAvailable;
+    private long sumItem;
     
 	private List<Map<String, Object>> pageItems = new ArrayList<Map<String, Object>>();
 
@@ -44,4 +45,13 @@ public class JdbcPage  implements Serializable {
     public List getPageItems() {
         return pageItems;
     }
+
+	public long getSumItem() {
+		return sumItem;
+	}
+
+	public void setSumItem(long sumItem) {
+		this.sumItem = sumItem;
+	}
+    
 }

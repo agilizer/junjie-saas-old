@@ -30,6 +30,7 @@ public class PaginationHelper {
         	searchMax = rowCount;
         	searchOffset = 0;
         	  page.setPageNumber(0);
+        	  
               page.setPagesAvailable(1);
         }else{
         	searchMax = max;
@@ -42,7 +43,7 @@ public class PaginationHelper {
             page.setPageNumber(offset/max);
             page.setPagesAvailable(pageCount);
         }
-       
+        page.setSumItem(searchMax);
         jt.query(
                 sqlFetchRows,
                 paramMap,
