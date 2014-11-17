@@ -1,11 +1,11 @@
 package com.agilemaster.parta.service;
 
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 
 import com.agilemaster.parta.entity.User;
+import com.junjie.commons.db.JdbcPage;
 
 /**
  * <p>User: Zhang Kaitao
@@ -43,4 +43,13 @@ public interface UserService {
 	Map<String, Object> findByUsernameMap(String username);
 
 	Map<String, Object> currentUserMap();
+	/**
+	 * 
+	 * @param permissionIds   1,2,3    
+	 * @param userId 
+	 * @return
+	 */
+	Map<String, Object> updateResource(String resourcesId,String username);
+	JdbcPage listUser(int max,int offset);
+	Map<String, Object> genResource(String username);
 }

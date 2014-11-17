@@ -1,5 +1,6 @@
 package com.agilemaster.parta.service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -25,12 +26,15 @@ public class ShareServiceImpl implements ShareService{
 	public void init(){
 		log.info("------------------------->cloudUrl {}",cloudUrl);
 	}
+	private String genTableName(Class<?> clazz){
+		String className = clazz.getSimpleName();
+		className = Character.toLowerCase(className.charAt(0))+className.substring(1);
+		return BeanToMapUtil.propertyToField(className);
+	}
 	@Override
 	public void save(Object domain) {
 		StringBuffer  sql = new StringBuffer("insert into ");
-		String className = domain.getClass().getSimpleName();
-		className = Character.toLowerCase(className.charAt(0))+className.substring(1);
-		String tableName = BeanToMapUtil.propertyToField(className);
+		String tableName = genTableName(domain.getClass());
 		sql.append(tableName);
 		Map<String,Object> insertMap =  BeanToMapUtil.convertBean(domain);
 		StringBuffer fileSql = new StringBuffer("(");
@@ -51,6 +55,15 @@ public class ShareServiceImpl implements ShareService{
 	@Override
 	public String cloudUrl() {
 		return cloudUrl;
+	}
+	@Override
+	public Map<String, Object> findById(Class<?> clazz, int id) {
+		StringBuffer  sql = new StringBuffer("select * from   ");
+		String tableName = genTableName(clazz);
+		sql.append(tableName).append(" where id=:objId ");
+		Map<String,Object> queryParams =  new HashMap<String,Object>();
+		queryParams.put("objId", id);
+		return junjieJdbcTemplate.queryForMap(sql.toString(), queryParams);
 	}
 
 }

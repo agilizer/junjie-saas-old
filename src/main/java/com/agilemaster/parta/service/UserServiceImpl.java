@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.agilemaster.parta.dao.UserDao;
 import com.agilemaster.parta.entity.User;
 import com.alibaba.fastjson.JSONObject;
+import com.junjie.commons.db.JdbcPage;
 import com.junjie.commons.utils.JunjieConstants;
 import com.junjie.commons.utils.JunjieHttpService;
 import com.junjie.commons.utils.JunjieStaticMethod;
@@ -115,5 +116,38 @@ public class UserServiceImpl implements UserService {
 			SimpleAuthorizationInfo authorizationInfo) {
 		authorizationInfo.addRoles(userDao.genRole(username));
 		authorizationInfo.addStringPermissions(userDao.genPermissions(username));
+	}
+
+	@Override
+	public Map<String, Object> updateResource(String resourcesId, String username ) {
+		Map<String,Object> userMap = findByUsernameMap(username);
+		Map<String,Object> resultMap = JunjieStaticMethod.genResult();
+		if(userMap!=null){
+			userDao.updateResource(resourcesId, userMap.get("user_id").toString());
+			resultMap.put(JunjieConstants.SUCCESS, true);
+		}else{
+			resultMap.put(JunjieConstants.ERROR_CODE, JunjieConstants.NOT_FOUND);
+			resultMap.put(JunjieConstants.MSG, "user not found");
+		}
+ 		return resultMap;
+	}
+
+	@Override
+	public JdbcPage listUser(int max, int offset) {
+		return userDao.listUser(max, offset);
+	}
+
+	@Override
+	public Map<String, Object> genResource(String username) {
+		Map<String,Object> userMap = findByUsernameMap(username);
+		Map<String,Object> resultMap = JunjieStaticMethod.genResult();
+		if(userMap!=null){
+			resultMap.put(JunjieConstants.SUCCESS, true);
+			resultMap.put(JunjieConstants.DATA, userDao.genResource(userMap.get("USER_ID").toString()));
+		}else{
+			resultMap.put(JunjieConstants.ERROR_CODE, JunjieConstants.NOT_FOUND);
+			resultMap.put(JunjieConstants.MSG, "user not found");
+		}
+ 		return resultMap;
 	}
 }

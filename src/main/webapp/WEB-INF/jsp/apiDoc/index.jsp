@@ -33,6 +33,14 @@
 					<h1 class="page-header" id="user">用户</h1>
 					<h2 id="user-create">添加用户</h2>
 					<jsp:include page="./user-create.jsp"  ></jsp:include>
+					<h2 id="user-list">用户列表</h2>
+					<jsp:include page="./user-list.jsp"  ></jsp:include>
+					<h2 id="user-resources-get">权限获取</h2>
+					<jsp:include page="./user-resources-get.jsp"  ></jsp:include>
+					<h2 id="user-resources-change">权限更改</h2>
+					<jsp:include page="./user-resources-change.jsp"  ></jsp:include>
+					<h2 id="user-current">当前用户</h2>
+					<jsp:include page="./user-current.jsp"  ></jsp:include>
 				</div>
 			</div>
 			<div class="col-md-3">
@@ -42,6 +50,10 @@
 						<li class="active"><a href="#user">用户</a>
 							<ul class="nav">
 								<li><a href="#user-create">创建用户</a></li>
+								<li><a href="#user-list">用户列表</a></li>
+								<li><a href="#user-resources-get">权限获取</a></li>
+								<li><a href="#user-resources-change">权限更改</a></li>
+								<li><a href="#user-current">当前用户</a></li>
 							</ul></li>
 					</ul>
 				</div>

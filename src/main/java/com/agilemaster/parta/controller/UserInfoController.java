@@ -24,9 +24,9 @@ import com.agilemaster.parta.Constants;
 import com.agilemaster.parta.service.oauth2.OAuthService;
 
 /**
- * <p>User: Zhang Kaitao
- * <p>Date: 14-2-16
- * <p>Version: 1.0
+ * 
+ * @author abel.lee
+ *2014年11月17日 下午4:48:28
  */
 @RestController
 public class UserInfoController {

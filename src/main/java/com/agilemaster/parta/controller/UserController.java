@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.agilemaster.parta.service.HomeService;
 import com.agilemaster.parta.service.RoleService;
 import com.agilemaster.parta.service.UserService;
+import com.junjie.commons.db.JdbcPage;
 import com.junjie.commons.utils.JunjieConstants;
 import com.junjie.commons.utils.JunjieStaticMethod;
 
@@ -31,11 +32,6 @@ public class UserController {
 	private static final Logger log = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private RoleService roleService;
-    @Autowired
-	private HomeService  homeService;
     
     @RequestMapping("/api/v1/currentUser")
 	public Map<String,Object> currentUser() {
@@ -56,7 +52,7 @@ public class UserController {
 		}
 		return result;
 	}
-    @RequiresPermissions("user:create")
+    @RequiresPermissions("userAdmin:create")
     @RequestMapping(value = "/api/v1/companyAddUser", method = RequestMethod.GET)
     public Map<String, Object> companyAddUser(String username,String password) {
     	Map<String,Object> result = JunjieStaticMethod.genResult();
@@ -73,67 +69,24 @@ public class UserController {
     	result =  userService.createUser(username, password);
         return result;
     }
-//
-//    @RequiresPermissions("user:create")
-//    @RequestMapping(value = "/create", method = RequestMethod.POST)
-//    public String create(User user, RedirectAttributes redirectAttributes) {
-//        userService.createUser(user);
-//        redirectAttributes.addFlashAttribute("msg", "新增成功");
-//        return "redirect:/user";
-//    }
-//
-//    @RequiresPermissions("user:update")
-//    @RequestMapping(value = "/{id}/update", method = RequestMethod.GET)
-//    public String showUpdateForm(@PathVariable("id") Long id, Model model) {
-//        setCommonData(model);
-//        model.addAttribute("user", userService.findOne(id));
-//        model.addAttribute("op", "修改");
-//        return "user/edit";
-//    }
-//
-//    @RequiresPermissions("user:update")
-//    @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
-//    public String update(User user, RedirectAttributes redirectAttributes) {
-//        userService.updateUser(user);
-//        redirectAttributes.addFlashAttribute("msg", "修改成功");
-//        return "redirect:/user";
-//    }
-//
-//    @RequiresPermissions("user:delete")
-//    @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
-//    public String showDeleteForm(@PathVariable("id") Long id, Model model) {
-//        setCommonData(model);
-//        model.addAttribute("user", userService.findOne(id));
-//        model.addAttribute("op", "删除");
-//        return "user/edit";
-//    }
-//
-//    @RequiresPermissions("user:delete")
-//    @RequestMapping(value = "/{id}/delete", method = RequestMethod.POST)
-//    public String delete(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
-//        userService.deleteUser(id);
-//        redirectAttributes.addFlashAttribute("msg", "删除成功");
-//        return "redirect:/user";
-//    }
-//
-//
-//    @RequiresPermissions("user:update")
-//    @RequestMapping(value = "/{id}/changePassword", method = RequestMethod.GET)
-//    public String showChangePasswordForm(@PathVariable("id") Long id, Model model) {
-//        model.addAttribute("user", userService.findOne(id));
-//        model.addAttribute("op", "修改密码");
-//        return "user/changePassword";
-//    }
-//
-//    @RequiresPermissions("user:update")
-//    @RequestMapping(value = "/{id}/changePassword", method = RequestMethod.POST)
-//    public String changePassword(@PathVariable("id") Long id, String newPassword, RedirectAttributes redirectAttributes) {
-//        userService.changePassword(id, newPassword);
-//        redirectAttributes.addFlashAttribute("msg", "修改密码成功");
-//        return "redirect:/user";
-//    }
-//
-//    private void setCommonData(Model model) {
-//        model.addAttribute("roleList", roleService.findAll());
-//    }
+    @RequiresPermissions("userAdmin:create")
+    @RequestMapping(value = "/api/v1/changeResources")
+    public Map<String, Object> changeResources(String resourcesId,String username) {
+    	Map<String,Object> result = JunjieStaticMethod.genResult();
+    	result =  userService.updateResource(resourcesId, username);
+        return result;
+    }
+    @RequiresPermissions("userAdmin:create")
+    @RequestMapping(value = "/api/v1/getResources")
+    public Map<String, Object> genResources(String username) {
+    	Map<String,Object> result = JunjieStaticMethod.genResult();
+    	result = userService.genResource(username);
+        return result;
+    }
+    
+    @RequiresPermissions("*:*")
+    @RequestMapping(value = "/api/v1/userList")
+    public JdbcPage userList(int max,int offset) {
+        return userService.listUser(max, offset);
+    }
 }
