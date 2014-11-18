@@ -59,4 +59,24 @@ public class RedisCounterImpl implements JunjieCounter {
 		
 	}
 
+	@Override
+	public Long genUniqueLong(String counterName) {
+		if(null==counterName||counterName.equals("")){
+			log.error("counterName is vaild:"+counterName);
+			return null;
+		}
+		long counter = redisTemplate.boundValueOps(counterName).increment(1l);
+		return  counter;
+	}
+
+	@Override
+	public Long genUniqueLong(String counterName, long incrementValue) {
+		if(null==counterName||counterName.equals("")){
+			log.error("counterName is vaild:"+counterName);
+			return null;
+		}
+		long counter = redisTemplate.boundValueOps(counterName).increment(incrementValue);
+		return  counter;
+	}
+
 }

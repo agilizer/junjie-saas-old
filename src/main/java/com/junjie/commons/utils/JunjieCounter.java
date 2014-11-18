@@ -19,6 +19,9 @@ public interface JunjieCounter {
 	 * 例如：计数器name=file.计数器当前值为1,则结果为file1.
 	 */
     String genUniqueKey(String counterName);
+    
+    Long genUniqueLong(String counterName);
+    Long genUniqueLong(String counterName,long incrementValue);
     /**
      * 
      * 获取分布式环境下唯一key
