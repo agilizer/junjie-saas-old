@@ -15,14 +15,23 @@ public class ContractType  implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -6367389784031188336L;
+	public static final String ID_NAME="ContractType";
 	@Id
 	@Column
-	@GeneratedValue
     private Long id; //编号
+	@Column
+	private Long version; 
 	@Column
     private String name;
 	@Column(length=1000)
     private String description;
+	
+	public Long getVersion() {
+		return version;
+	}
+	public void setVersion(Long version) {
+		this.version = version;
+	}
 	public Long getId() {
 		return id;
 	}

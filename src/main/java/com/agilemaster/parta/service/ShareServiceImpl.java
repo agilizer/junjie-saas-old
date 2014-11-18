@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.agilemaster.parta.util.BeanToMapUtil;
 import com.junjie.commons.db.client.JunjieJdbcTemplate;
+import com.junjie.commons.utils.JunjieCounter;
 
 @Service
 public class ShareServiceImpl implements ShareService{
@@ -20,6 +21,8 @@ public class ShareServiceImpl implements ShareService{
 			.getLogger(ShareServiceImpl.class);
 	@Autowired
 	private JunjieJdbcTemplate junjieJdbcTemplate;
+	@Autowired
+	private JunjieCounter junjieCounter;
 	@Value(value = "${junjie.cloud.url}")
 	private String cloudUrl = "";
 	@PostConstruct
@@ -30,6 +33,10 @@ public class ShareServiceImpl implements ShareService{
 		String className = clazz.getSimpleName();
 		className = Character.toLowerCase(className.charAt(0))+className.substring(1);
 		return BeanToMapUtil.propertyToField(className);
+	}
+	private String genIdCountName(Class<?> clazz){
+		String className = clazz.getSimpleName();
+		return className;
 	}
 	@Override
 	public void save(Object domain) {
@@ -45,6 +52,26 @@ public class ShareServiceImpl implements ShareService{
 		}
 		sql = sql.append(fileSql.subSequence(0, fileSql.length()-1)).append(")values").append(valuesSql.subSequence(0, valuesSql.length()-1)).append(");");
 		junjieJdbcTemplate.update(sql.toString(), insertMap);
+	}
+	@Override
+	public Long saveAutoGenId(Object domain) {
+		StringBuffer  sql = new StringBuffer("insert into ");
+		Class<? extends Object> clazz = domain.getClass();
+		String tableName = genTableName(domain.getClass());
+		sql.append(tableName);
+		Map<String,Object> insertMap =  BeanToMapUtil.convertBean(domain);
+		String counterName = genIdCountName(clazz);
+		Long id = junjieCounter.genUniqueLong(counterName);
+		insertMap.put("id", id);
+		StringBuffer fileSql = new StringBuffer("(");
+		StringBuffer valuesSql = new StringBuffer("(");
+		for(String key:insertMap.keySet()){
+			fileSql.append(key).append(",");
+			valuesSql.append(":").append(key).append(",");
+		}
+		sql = sql.append(fileSql.subSequence(0, fileSql.length()-1)).append(")values").append(valuesSql.subSequence(0, valuesSql.length()-1)).append(");");
+		junjieJdbcTemplate.update(sql.toString(), insertMap);
+		return id;
 	}
 
 	@Override

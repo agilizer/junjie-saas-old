@@ -19,9 +19,9 @@ public class MessageTag implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1378563417251161038L;
+	public static final String ID_NAME="MessageTag";
 	@Id
 	@Column
-	@GeneratedValue
 	private Long id; // 编号
 	/* Default (injected) attributes of GORM */
 	// Long id

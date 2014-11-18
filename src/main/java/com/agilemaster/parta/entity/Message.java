@@ -26,13 +26,15 @@ public class Message implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 8472963415090220860L;
+	public static final String ID_NAME="Message";
 	/* Default (injected) attributes of GORM */
 //	Long	id
 //	Long	version
 	@Id
 	@Column
-	@GeneratedValue
     private Long id; //编号
+	@Column
+	private Long version; 
 	@Column
     private String title;
 	@Column(columnDefinition = "LongText")
@@ -58,6 +60,13 @@ public class Message implements Serializable {
 	private List<MessageTag> tags;
 	@OneToMany()
 	private List<FileInfo> fileInfos;
+	
+	public Long getVersion() {
+		return version;
+	}
+	public void setVersion(Long version) {
+		this.version = version;
+	}
 	public Long getId() {
 		return id;
 	}

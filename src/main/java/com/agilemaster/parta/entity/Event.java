@@ -25,13 +25,15 @@ public class Event   implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -1968896896132149863L;
+	public static final String ID_NAME="Event";
 	@Id
 	@Column
-	@GeneratedValue
 	private Long id; // 编号
 	/* Default (injected) attributes of GORM */
 	// Long id
 	// Long version
+	@Column
+	private Long version; 
 	@ManyToOne
 	private BuildProject buildProject;
 	@Column
@@ -39,13 +41,13 @@ public class Event   implements Serializable{
 	@Column
 	private String description;
 	@Column
-	private boolean isPrivate = false;
+	private Boolean isPrivate = false;
 	@Column
-	private boolean isMilestone = false;
+	private Boolean isMilestone = false;
 	// separateReport = true ,then progresses is not null
 	// separateReport = false , progresses is null participants is not null
 	@Column
-	private boolean separateReport = false;
+	private Boolean separateReport = false;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar startDate;
 	@Temporal(TemporalType.TIMESTAMP)
@@ -62,15 +64,15 @@ public class Event   implements Serializable{
 	 * 1,2,3,4
 	 */
 	@Column
-	private short eventLevel = 2;
+	private Short eventLevel = 2;
 	@Column
 	private String userComment;
 	@Column
-	private short progress = 0;
+	private Short progress = 0;
 	@Column
-	private boolean delay = false;
+	private Boolean delay = false;
 	@Column
-	private short delayLevel = 0;
+	private Short delayLevel = 0;
 	/* Automatic timestamping of GORM */
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar dateCreated;
@@ -87,6 +89,13 @@ public class Event   implements Serializable{
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public Long getVersion() {
+		return version;
+	}
+	public void setVersion(Long version) {
+		this.version = version;
 	}
 	public BuildProject getBuildProject() {
 		return buildProject;
@@ -106,23 +115,39 @@ public class Event   implements Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public boolean isPrivate() {
+	
+	public Boolean getIsPrivate() {
 		return isPrivate;
 	}
-	public void setPrivate(boolean isPrivate) {
+	public void setIsPrivate(Boolean isPrivate) {
 		this.isPrivate = isPrivate;
 	}
-	public boolean isMilestone() {
+	public Boolean getIsMilestone() {
 		return isMilestone;
 	}
-	public void setMilestone(boolean isMilestone) {
+	public void setIsMilestone(Boolean isMilestone) {
 		this.isMilestone = isMilestone;
 	}
-	public boolean isSeparateReport() {
+	public Boolean getSeparateReport() {
 		return separateReport;
 	}
-	public void setSeparateReport(boolean separateReport) {
+	public void setSeparateReport(Boolean separateReport) {
 		this.separateReport = separateReport;
+	}
+	public Boolean getDelay() {
+		return delay;
+	}
+	public void setDelay(Boolean delay) {
+		this.delay = delay;
+	}
+	public void setEventLevel(Short eventLevel) {
+		this.eventLevel = eventLevel;
+	}
+	public void setProgress(Short progress) {
+		this.progress = progress;
+	}
+	public void setDelayLevel(Short delayLevel) {
+		this.delayLevel = delayLevel;
 	}
 	public Calendar getStartDate() {
 		return startDate;
@@ -177,12 +202,6 @@ public class Event   implements Serializable{
 	}
 	public void setProgress(short progress) {
 		this.progress = progress;
-	}
-	public boolean isDelay() {
-		return delay;
-	}
-	public void setDelay(boolean delay) {
-		this.delay = delay;
 	}
 	public short getDelayLevel() {
 		return delayLevel;

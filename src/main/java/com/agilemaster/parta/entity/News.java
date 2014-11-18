@@ -26,13 +26,15 @@ public class News implements Serializable  {
 	 * 
 	 */
 	private static final long serialVersionUID = -3906344097535447783L;
+	public static final String ID_NAME="News";
 	/* Default (injected) attributes of GORM */
 	// Long id
 	// Long version
 	@Id
 	@Column
-	@GeneratedValue
 	private Long id; // 编号
+	@Column
+	private Long version; 
 	@ManyToOne()
 	private BuildProject buildProject;
 	@Column
@@ -64,6 +66,12 @@ public class News implements Serializable  {
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public Long getVersion() {
+		return version;
+	}
+	public void setVersion(Long version) {
+		this.version = version;
 	}
 	public BuildProject getBuildProject() {
 		return buildProject;

@@ -17,6 +17,9 @@
 <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="/static/js/My97DatePicker/WdatePicker.js"></script>
+<script src="/static/js/validation/dist/jquery.validate.min.js"></script>
+
 </head>
 <body>
 	<div id="content" class="bs-docs-header">
@@ -41,6 +44,9 @@
 					<jsp:include page="./user-resources-change.jsp"  ></jsp:include>
 					<h2 id="user-current">当前用户</h2>
 					<jsp:include page="./user-current.jsp"  ></jsp:include>
+					<h1 class="page-header" id="event">任务</h1>
+					<h2 id="event-create">创建任务</h2>
+					<jsp:include page="./event-create.jsp"  ></jsp:include>
 				</div>
 			</div>
 			<div class="col-md-3">
@@ -54,7 +60,13 @@
 								<li><a href="#user-resources-get">权限获取</a></li>
 								<li><a href="#user-resources-change">权限更改</a></li>
 								<li><a href="#user-current">当前用户</a></li>
-							</ul></li>
+							</ul>
+							</li>
+							<li class="active"><a href="#event">任务</a>
+							<ul class="nav">
+								<li><a href="#event-create">创建任务</a></li>
+							</ul>
+							</li>
 					</ul>
 				</div>
 			</div>

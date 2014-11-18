@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,11 +20,13 @@ public class BuildProject   implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -5492391385688697311L;
+	public static final String ID_NAME="BuildProject";
 	@Id
 	@Column
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id; //编号
 	@Column
+	private Long version; 
+	@ManyToOne
     private User author;
 	@Column
     private String name;
@@ -93,8 +96,10 @@ public class BuildProject   implements Serializable{
 	public void setStartDate(java.util.Calendar startDate) {
 		this.startDate = startDate;
 	}
-	
-	
-	
-
+	public Long getVersion() {
+		return version;
+	}
+	public void setVersion(Long version) {
+		this.version = version;
+	}
 }

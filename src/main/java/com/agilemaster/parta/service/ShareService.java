@@ -9,4 +9,5 @@ public interface ShareService {
 	void update(Object object);
 	Map<String,Object> findById(Class<?>  clazz,int id);
 	String cloudUrl();
+	Long saveAutoGenId(Object domain);
 }

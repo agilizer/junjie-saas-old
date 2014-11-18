@@ -23,10 +23,12 @@ public class Payment  implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -4283480344335827617L;
+	public static final String ID_NAME="Payment";
 	@Id
 	@Column
-	@GeneratedValue
     private Long id; //编号
+	@Column
+	private Long version; 
 	@ManyToOne()
     private BuildProject buildProject;
 	@ManyToOne()
@@ -45,6 +47,13 @@ public class Payment  implements Serializable {
     private String reason;
     @Column
     private boolean hasContract;
+    
+	public Long getVersion() {
+		return version;
+	}
+	public void setVersion(Long version) {
+		this.version = version;
+	}
 	public Long getId() {
 		return id;
 	}

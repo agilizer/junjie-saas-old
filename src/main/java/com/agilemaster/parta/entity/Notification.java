@@ -22,9 +22,9 @@ public class Notification  implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 6655519680580291680L;
+	public static final String ID_NAME="Notification";
 	@Id
 	@Column
-	@GeneratedValue
 	private Long id; // 编号
 	/**
 	 * notify Message or other Info Id

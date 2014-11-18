@@ -18,10 +18,12 @@ public class DocumentReceipt  implements Serializable  {
 	 * 
 	 */
 	private static final long serialVersionUID = -1030889301091105825L;
+	public static final String ID_NAME="DocumentReceipt";
 	@Id
 	@Column
-	@GeneratedValue
 	private Long id; // 编号
+	@Column
+	private Long version; 
 	@OneToOne()
 	private Document document;
 	@Column
@@ -35,6 +37,13 @@ public class DocumentReceipt  implements Serializable  {
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public Long getVersion() {
+		return version;
+	}
+	public void setVersion(Long version) {
+		this.version = version;
 	}
 	public Document getDocument() {
 		return document;

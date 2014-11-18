@@ -5,7 +5,6 @@ import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -18,18 +17,27 @@ public class EventProgress  implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -6305564874707686962L;
+	public static final String ID_NAME="EventProgress";
 	@Id
 	@Column
-	@GeneratedValue
 	private Long id; // 编号
+	@Column
+	private Long version; 
 	@Column
 	private Long eventId;
 	@ManyToOne()
 	private User user;
 	@Column
-	private short progress = 0;
+	private Short progress = 0;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar finishDate;
+	
+	public Long getVersion() {
+		return version;
+	}
+	public void setVersion(Long version) {
+		this.version = version;
+	}
 	public Long getId() {
 		return id;
 	}

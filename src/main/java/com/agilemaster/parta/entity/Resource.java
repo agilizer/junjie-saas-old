@@ -21,9 +21,9 @@ public class Resource implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 4152830908608911119L;
+	public static final String ID_NAME="Resource";
 	@Id
 	@Column
-	@GeneratedValue
     private Long id; //编号
 	@Column(unique=true)
     private String name; //资源名称

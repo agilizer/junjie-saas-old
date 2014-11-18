@@ -41,13 +41,14 @@ public class CompanyServiceImpl implements CompanyService{
 			dbInfokeys.add(dataSourceKey);
  			junjieJdbcTemplate.runScriptByDbInfoKeys(sql, dbInfokeys);
  			// insert into user(user_id,username)values('aaa','bbbb')
- 			String  initSql = "insert into user(user_id,username)values(:userId,:username);";
+ 			String  initSql = "insert into user(id,username,date_created,last_Updated)values(:userId,:username,CURDATE(),CURDATE());";
  		    initSql = initSql +"insert into sys_resource(id,name,permission,available,type)values(1,'超级管理员','*:*',true,3);";
- 		    initSql = initSql +"insert into sys_resource(name,permission,available,type)values('用户管理','userAdmin:*',true,3);";
+ 		    initSql = initSql +"insert into sys_resource(id,name,permission,available,type)values(2,'用户管理','userAdmin:*',true,3);";
  		    initSql = initSql +"insert into SYS_ROLE (id,role,description)values(1,'ROLE_ADMIN','超级管理员');";
  		    initSql = initSql +"insert into SYS_ROLE_RESOURCES  (sys_role,RESOURCES)values(1,1);";
  		    initSql = initSql +"insert into USER_ROLES(user,roles)values('"+userId+"',1);";
- 		    initSql = initSql +"insert into BUILD_PROJECT(author,name,code)values('"+userId+"','默认项目','default');";
+ 		    initSql = initSql +"insert into BUILD_PROJECT(id,author,name,code,date_Created)values(1,'"+userId+"','默认项目','default',CURDATE());";
+ 		   initSql = initSql +"insert into event_type  (id,name,DESCRIPTION)values(1,'日常事务',''),(2,'会议',''),(3,'通知','');";
  			JunjieDbOptionBean optionBean = new JunjieDbOptionBean();
  			optionBean.setDbInfoKey(dataSourceKey);
  			Map<String, Object> headers = new HashMap<String, Object>();

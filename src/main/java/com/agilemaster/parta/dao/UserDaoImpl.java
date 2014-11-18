@@ -62,7 +62,7 @@ public class UserDaoImpl implements UserDao {
 	public List<String> genRole(String username) {
 		Map<String,Object> queryParams = new HashMap<String,Object>();
 		queryParams.put("username", username);
-		List<Map> resultMap = JunjieJdbcOptions.queryForList("select r.role from SYS_ROLE  r ,USER  u ,USER_ROLES u_r   where u.username=:username  and  r.id = u_r.roles and   u_r.user=u.user_Id",  queryParams);
+		List<Map> resultMap = JunjieJdbcOptions.queryForList("select r.role from SYS_ROLE  r ,USER  u ,USER_ROLES u_r   where u.username=:username  and  r.id = u_r.roles and   u_r.user=u.id",  queryParams);
 		List<String> result = new ArrayList<String>();
 		genMapToList(resultMap,result);
 		return result;
@@ -72,9 +72,9 @@ public class UserDaoImpl implements UserDao {
 	public List<String> genPermissions(String username) {
 		Map<String,Object> queryParams = new HashMap<String,Object>();
 		queryParams.put("username", username);
-		List<Map> resultResource = JunjieJdbcOptions.queryForList("select r.permission from sys_resource r,USER u,USER_RESOURCES u_r where u.username=:username  and r.id=u_r.resources and u.user_id=u_r.user",  queryParams);
+		List<Map> resultResource = JunjieJdbcOptions.queryForList("select r.permission from sys_resource r,USER u,USER_RESOURCES u_r where u.username=:username  and r.id=u_r.resources and u.id=u_r.user",  queryParams);
 		List<Map> resultRole = JunjieJdbcOptions.queryForList("select r.permission from sys_resource r,SYS_ROLE_RESOURCES r_r where  r.id=r_r.resources and r_r.sys_role in " +
-             " (select r.id from SYS_ROLE  r ,USER  u ,USER_ROLES u_r   where u.username=:username   and  r.id = u_r.roles and   u_r.user=u.user_Id)",  queryParams);
+             " (select r.id from SYS_ROLE  r ,USER  u ,USER_ROLES u_r   where u.username=:username   and  r.id = u_r.roles and   u_r.user=u.id)",  queryParams);
 		List<String> result = new ArrayList<String>();
 		genMapToList(ListUtils.sum(resultResource, resultRole),result);
 		return result ;
@@ -92,7 +92,7 @@ public class UserDaoImpl implements UserDao {
 	}
 	@Override
 	public JdbcPage listUser(int max, int offset) {
-		return JunjieJdbcOptions.queryForList("select user_id,username,full_name,date_created from User", 
+		return JunjieJdbcOptions.queryForList("select id,username,full_name,date_created from User", 
 				"select count(*) from user", null, max, offset);
 	}
 	@Override
@@ -117,9 +117,9 @@ public class UserDaoImpl implements UserDao {
 	public List genResource(String userId) {
 		Map<String,Object> queryParams = new HashMap<String,Object>();
 		queryParams.put("userId", userId);
-		List<Map> resultResource = JunjieJdbcOptions.queryForList("select r.id,r.permission,r.name from sys_resource r,USER u,USER_RESOURCES u_r where u.user_id=:userId  and r.id=u_r.resources and u.user_id=u_r.user",  queryParams);
+		List<Map> resultResource = JunjieJdbcOptions.queryForList("select r.id,r.permission,r.name from sys_resource r,USER u,USER_RESOURCES u_r where u.id=:userId  and r.id=u_r.resources and u.id=u_r.user",  queryParams);
 		List<Map> resultRole = JunjieJdbcOptions.queryForList("select r.id,r.permission,r.name from sys_resource r,SYS_ROLE_RESOURCES r_r where  r.id=r_r.resources and r_r.sys_role in " +
-             " (select r.id from SYS_ROLE  r ,USER  u ,USER_ROLES u_r   where u.user_id=:userId   and  r.id = u_r.roles and   u_r.user=u.user_Id)",  queryParams);
+             " (select r.id from SYS_ROLE  r ,USER  u ,USER_ROLES u_r   where u.id=:userId   and  r.id = u_r.roles and   u_r.user=u.id)",  queryParams);
 		return ListUtils.sum(resultResource, resultRole) ;
 	}
 }

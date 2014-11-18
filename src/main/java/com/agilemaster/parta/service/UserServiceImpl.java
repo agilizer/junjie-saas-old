@@ -55,8 +55,8 @@ public class UserServiceImpl implements UserService {
 			result.put(JunjieConstants.ERROR_CODE, createUserResult.getInteger(JunjieConstants.ERROR_CODE));
 			result.put(JunjieConstants.MSG, createUserResult.getString(JunjieConstants.MSG));
 		}else{
-			String userId = createUserResult.getString(JunjieConstants.USSER_ID);
-			user.setUserId(userId);
+			Long userId = createUserResult.getLong(JunjieConstants.USSER_ID);
+			user.setId(userId);
 			userDao.save(user);
 			result.put(JunjieConstants.SUCCESS, true);
 		}
@@ -123,7 +123,7 @@ public class UserServiceImpl implements UserService {
 		Map<String,Object> userMap = findByUsernameMap(username);
 		Map<String,Object> resultMap = JunjieStaticMethod.genResult();
 		if(userMap!=null){
-			userDao.updateResource(resourcesId, userMap.get("user_id").toString());
+			userDao.updateResource(resourcesId, userMap.get("id").toString());
 			resultMap.put(JunjieConstants.SUCCESS, true);
 		}else{
 			resultMap.put(JunjieConstants.ERROR_CODE, JunjieConstants.NOT_FOUND);
@@ -143,11 +143,17 @@ public class UserServiceImpl implements UserService {
 		Map<String,Object> resultMap = JunjieStaticMethod.genResult();
 		if(userMap!=null){
 			resultMap.put(JunjieConstants.SUCCESS, true);
-			resultMap.put(JunjieConstants.DATA, userDao.genResource(userMap.get("USER_ID").toString()));
+			resultMap.put(JunjieConstants.DATA, userDao.genResource(userMap.get("id").toString()));
 		}else{
 			resultMap.put(JunjieConstants.ERROR_CODE, JunjieConstants.NOT_FOUND);
 			resultMap.put(JunjieConstants.MSG, "user not found");
 		}
  		return resultMap;
+	}
+
+	@Override
+	public boolean isAuth() {
+		Subject sub = SecurityUtils.getSubject();
+		return sub.getPrincipal()==null?false:true;
 	}
 }

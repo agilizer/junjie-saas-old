@@ -34,7 +34,6 @@
 	<bean id="exceptionHandlerExceptionResolver"
 		class="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver">
 	</bean>
-
 	<bean class="com.agilemaster.parta.web.exception.DefaultExceptionHandler" />
 
 	<import resource="spring-mvc-shiro.xml" />

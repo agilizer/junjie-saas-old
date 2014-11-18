@@ -25,13 +25,15 @@ public class Organization  implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -5882627034573728561L;
+	public static final String ID_NAME="Organization";
 	/* Default (injected) attributes of GORM */
 //	Long	id
 //	Long	version
 	@Id
 	@Column
-	@GeneratedValue
     private Long id; //编号
+	@Column
+	private Long version; 
 	@Column
     private String name;
 	@Column
@@ -71,6 +73,13 @@ public class Organization  implements Serializable{
     private java.util.Calendar	dateCreated;
 	@Temporal(TemporalType.TIMESTAMP)
     private java.util.Calendar	lastUpdated;
+	
+	public Long getVersion() {
+		return version;
+	}
+	public void setVersion(Long version) {
+		this.version = version;
+	}
 	public Long getId() {
 		return id;
 	}

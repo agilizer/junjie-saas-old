@@ -19,10 +19,12 @@ public class ConfigDomain  implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -2840825329019055598L;
+	public static final String ID_NAME="ConfigDomain";
 	@Id
 	@Column
-	@GeneratedValue
     private Long id; //编号
+	@Column
+	private Long version; 
 	@Column
     private String mapName;
 	@Column
@@ -51,9 +53,17 @@ public void setId(Long id) {
 	this.id = id;
 }
 
-
 public String getMapName() {
 	return mapName;
+}
+
+public Long getVersion() {
+	return version;
+}
+
+
+public void setVersion(Long version) {
+	this.version = version;
 }
 
 

@@ -18,9 +18,9 @@ public class FileInfo  implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -3622051961310528586L;
+	public static final String ID_NAME="FileInfo";
 	@Id
 	@Column
-	@GeneratedValue
 	private Long id; // 编号
 	@ManyToOne()
 	private BuildProject buildProject;

@@ -25,13 +25,15 @@ public class Document implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -1474592345341730169L;
+	public static final String ID_NAME="Document";
 	/* Default (injected) attributes of GORM */
 	// Long id
 	// Long version
 	@Id
 	@Column
-	@GeneratedValue
 	private Long id; // 编号
+	@Column
+	private Long version; 
 	@Column
 	private String description;
 	@ManyToOne()
@@ -53,7 +55,14 @@ public class Document implements Serializable {
 	@Column
 	private String content;
 	@Column
-	private int showCount = 0;
+	private Integer showCount = 0;
+	
+	public Long getVersion() {
+		return version;
+	}
+	public void setVersion(Long version) {
+		this.version = version;
+	}
 	public Long getId() {
 		return id;
 	}

@@ -18,9 +18,9 @@ public class NewsType  implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -552607323029274279L;
+	public static final String ID_NAME="NewsType";
 	@Id
 	@Column
-	@GeneratedValue
 	private Long id; // 编号
 	@Column
     private String name;

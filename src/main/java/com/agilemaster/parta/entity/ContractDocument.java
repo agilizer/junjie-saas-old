@@ -26,13 +26,15 @@ public class ContractDocument  implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 109136241961720877L;
+	public static final String ID_NAME="ContractDocument";
 	/* Default (injected) attributes of GORM */
 //	Long	id
 //	Long	version
 	@Id
 	@Column
-	@GeneratedValue
     private Long id; //编号
+	@Column
+	private Long version; 
 	@ManyToOne
     private BuildProject buildProject;
     @Column
@@ -178,4 +180,11 @@ public class ContractDocument  implements Serializable{
 	public void setLastUpdated(java.util.Calendar lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
+	public Long getVersion() {
+		return version;
+	}
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+	
 }

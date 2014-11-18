@@ -43,9 +43,9 @@ public class Group  implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -1292881854964260695L;
+	public static final String ID_NAME="Group";
 	@Id
 	@Column
-	@GeneratedValue
     private Long id; //编号
 	@Column
 	private String name;

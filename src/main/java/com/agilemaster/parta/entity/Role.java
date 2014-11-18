@@ -23,12 +23,12 @@ public class Role implements Serializable {
 	/**
 	 * 
 	 */
+	public static final String ID_NAME="Role";
 	public static final String ROLE_ADMIN = "ROLE_ADMIN";
 	public static final String ROLE_USER = "ROLE_USER";
 	private static final long serialVersionUID = -5496991108604730216L;
 	@Id
 	@Column
-	@GeneratedValue
 	private Long id; // 编号
 	@Column(unique = true)
 	private String role; // 角色标识 程序中判断使用,如"admin"

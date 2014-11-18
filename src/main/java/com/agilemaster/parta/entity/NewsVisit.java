@@ -24,9 +24,9 @@ public class NewsVisit  implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -3558305186284463352L;
+	public static final String ID_NAME="NewsVisit";
 	@Id
 	@Column
-	@GeneratedValue
 	private Long id; // 编号
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar dateCreated;

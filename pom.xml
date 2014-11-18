@@ -397,6 +397,17 @@
 			<version>1.0.0</version>
 		</dependency>
 		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>18.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.darwinsys</groupId>
+			<artifactId>hirondelle-date4j</artifactId>
+			<version>1.5.1</version>
+		</dependency>
+
+		<dependency>
 			<groupId>com.junjie.cloud</groupId>
 			<artifactId>shiro-redis</artifactId>
 			<version>0.0.1-SNAPSHOT</version>

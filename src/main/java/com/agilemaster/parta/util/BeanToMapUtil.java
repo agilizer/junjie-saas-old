@@ -6,6 +6,8 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +17,7 @@ public class BeanToMapUtil {
 
 	/**
 	 * 将一个 Map 对象转化为一个 JavaBean
-	 * 
+	 * map为数据库查询,字段分隔为下划线
 	 * @param <T>
 	 * @param type
 	 *            要转化的类型
@@ -51,11 +53,15 @@ public class BeanToMapUtil {
                     }
 					Object[] args = new Object[1];
 					args[0] = value;
+					if(value instanceof  Timestamp){
+						Calendar can = Calendar.getInstance();
+						can.setTimeInMillis(((Timestamp)value).getTime());
+						args[0] = can;
+					}
 					descriptor.getWriteMethod().invoke(obj, args);
 				}
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return obj;

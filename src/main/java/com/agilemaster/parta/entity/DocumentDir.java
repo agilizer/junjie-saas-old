@@ -18,10 +18,12 @@ public class DocumentDir  implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -3307963570065337240L;
+	public static final String ID_NAME="DocumentDir";
 	@Id
 	@Column
-	@GeneratedValue
     private Long id; //编号
+	@Column
+	private Long version; 
 	@ManyToOne()
 	private BuildProject buildProject;
 	@ManyToOne()
@@ -35,11 +37,15 @@ public class DocumentDir  implements Serializable {
 	@Column
 	private Boolean mainShow = false;
 	@Column
-	private int sequence;
+	private Integer sequence;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar dateCreated;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar lastUpdated;
+	
+	public void setSequence(Integer sequence) {
+		this.sequence = sequence;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -57,6 +63,13 @@ public class DocumentDir  implements Serializable {
 	}
 	public void setAuthor(User author) {
 		this.author = author;
+	}
+	
+	public Long getVersion() {
+		return version;
+	}
+	public void setVersion(Long version) {
+		this.version = version;
 	}
 	public String getName() {
 		return name;

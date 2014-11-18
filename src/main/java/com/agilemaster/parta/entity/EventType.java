@@ -20,9 +20,9 @@ public class EventType  implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1839564680021482025L;
+	public static final String ID_NAME="EventType";
 	@Id
 	@Column
-	@GeneratedValue
 	private Long id; // 编号
 	@Column
 	private String name;

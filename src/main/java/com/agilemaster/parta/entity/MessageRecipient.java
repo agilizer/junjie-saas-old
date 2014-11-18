@@ -24,13 +24,14 @@ class MessageRecipient  implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -1585709436093601846L;
+	public static final String ID_NAME="MessageRecipient";
 	/* Default (injected) attributes of GORM */
 //	Long	id
 //	Long	version
 	@Id
 	@Column
-	@GeneratedValue
     private Long id; //编号
+	
 	@OneToOne()
     private User recipient;
 	@Column

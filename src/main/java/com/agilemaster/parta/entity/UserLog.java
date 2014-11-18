@@ -21,10 +21,10 @@ public class UserLog  implements Serializable{
 	/**
 	 * 
 	 */
+	public static final String ID_NAME="UserLog";
 	private static final long serialVersionUID = 5457509564222475048L;
 	@Id
 	@Column
-	@GeneratedValue
 	private Long id; // 编号
 	@ManyToOne()
 	private User author;

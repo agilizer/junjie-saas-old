@@ -7,6 +7,7 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ public class HomeServiceImpl implements HomeService{
 			.getLogger(HomeServiceImpl.class);
 	@Value(value = "${junjie.cloud.url}")
 	private String cloudUrl;
+	@Autowired
 	private UserService userService;
 	@Override
 	public Map<String, Object> index() {

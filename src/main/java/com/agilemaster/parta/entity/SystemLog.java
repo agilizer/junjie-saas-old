@@ -16,15 +16,15 @@ public class SystemLog  implements Serializable{
 	/**
 	 * 
 	 */
+	public static final String ID_NAME="SystemLog";
 	private static final long serialVersionUID = 1069216618102158725L;
 	@Id
 	@Column
-	@GeneratedValue
 	private Long id; // 编号
 	@Column(columnDefinition = "LongText")
 	private String logJson = "";
 	@Column
-	private int total = 0;
+	private Integer total = 0;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar dateCreated;
 	public Long getId() {

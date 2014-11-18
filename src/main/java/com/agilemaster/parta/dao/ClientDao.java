@@ -9,7 +9,7 @@ import com.agilemaster.parta.entity.OauthTwoClient;
  * 2014年9月23日 下午5:56:02
  */
 public interface ClientDao {
-
+	String ID_COUNT_NAME="client";
     public OauthTwoClient createClient(OauthTwoClient client);
     public OauthTwoClient updateClient(OauthTwoClient client);
     public void deleteClient(Long clientId);

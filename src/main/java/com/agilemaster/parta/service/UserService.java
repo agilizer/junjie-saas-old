@@ -52,4 +52,5 @@ public interface UserService {
 	Map<String, Object> updateResource(String resourcesId,String username);
 	JdbcPage listUser(int max,int offset);
 	Map<String, Object> genResource(String username);
+	boolean isAuth();
 }

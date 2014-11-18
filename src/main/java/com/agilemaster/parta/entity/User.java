@@ -27,10 +27,11 @@ public class User implements Serializable {
 	/**
 	 * 
 	 */
+	public static final String ID_NAME="User";
 	private static final long serialVersionUID = -5476752836924327116L;
 	@Id
 	@Column
-    private String userId;
+    private Long  id;
 	@Column
     private String username; //用户名 phone or email
 	@Column	
@@ -66,14 +67,6 @@ public class User implements Serializable {
    
     public User() {
     }
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
 
 	public String getUsername() {
 		return username;
@@ -205,6 +198,13 @@ public class User implements Serializable {
 	public void setApart(boolean apart) {
 		this.apart = apart;
 	}
-   
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 }

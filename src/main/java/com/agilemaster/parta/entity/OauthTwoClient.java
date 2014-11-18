@@ -21,9 +21,9 @@ public class OauthTwoClient implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -2730055540857481240L;
+	public static final String ID_NAME="OauthTwoClient";
 	@Id
 	@Column
-	@GeneratedValue
 	private Long id;
 	@Column
     private String clientName;
