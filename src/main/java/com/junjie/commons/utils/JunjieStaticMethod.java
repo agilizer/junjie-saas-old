@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 public class JunjieStaticMethod {
 	public static Map<String,Object> genResult(){
 		Map<String,Object> result = new HashMap<String,Object>();
@@ -28,5 +30,17 @@ public class JunjieStaticMethod {
 			}
 		}
 		return null;
+	}
+	public static boolean genBooleanValue( HttpServletRequest request,String paramName){
+		boolean result = false;
+		String[] valueArray = request.getParameterValues(paramName);
+		if(valueArray!=null){
+			result = Boolean.parseBoolean(valueArray[0]);
+			if (valueArray.length == 2) {
+				result = Boolean.TRUE;
+			}
+		}
+		return result;
+		 
 	}
 }
