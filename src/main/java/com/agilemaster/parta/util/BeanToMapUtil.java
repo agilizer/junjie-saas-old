@@ -34,6 +34,9 @@ public class BeanToMapUtil {
 	 *             如果调用属性的 setter 方法失败
 	 */
 	public static <T> T convertMap(Class<T> type, Map map) {
+		if(map==null){
+			return null;
+		}
 		BeanInfo beanInfo;
 		T obj = null;
 		try {

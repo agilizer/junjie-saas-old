@@ -1,9 +1,11 @@
 package com.agilemaster.parta.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresUser;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
@@ -14,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.agilemaster.parta.service.HomeService;
-import com.agilemaster.parta.service.RoleService;
 import com.agilemaster.parta.service.UserService;
 import com.junjie.commons.db.JdbcPage;
 import com.junjie.commons.utils.JunjieConstants;
@@ -88,5 +88,10 @@ public class UserController {
     @RequestMapping(value = "/api/v1/userList")
     public JdbcPage userList(int max,int offset) {
         return userService.listUser(max, offset);
+    }
+    @RequiresUser
+    @RequestMapping(value = "/api/v1/userListSelect")
+    public List userListSelect() {
+        return userService.userListSelect();
     }
 }

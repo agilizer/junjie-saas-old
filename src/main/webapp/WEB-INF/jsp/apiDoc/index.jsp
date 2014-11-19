@@ -38,6 +38,8 @@
 					<jsp:include page="./user-create.jsp"  ></jsp:include>
 					<h2 id="user-list">用户列表</h2>
 					<jsp:include page="./user-list.jsp"  ></jsp:include>
+					<h2 id="user-list-select">用户下拉列表</h2>
+					<jsp:include page="./user-list-select.jsp"  ></jsp:include>
 					<h2 id="user-resources-get">权限获取</h2>
 					<jsp:include page="./user-resources-get.jsp"  ></jsp:include>
 					<h2 id="user-resources-change">权限更改</h2>
@@ -57,6 +59,7 @@
 							<ul class="nav">
 								<li><a href="#user-create">创建用户</a></li>
 								<li><a href="#user-list">用户列表</a></li>
+								<li><a href="#user-list-select">用户下拉列表</a></li>
 								<li><a href="#user-resources-get">权限获取</a></li>
 								<li><a href="#user-resources-change">权限更改</a></li>
 								<li><a href="#user-current">当前用户</a></li>

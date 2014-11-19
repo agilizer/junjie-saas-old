@@ -9,12 +9,8 @@
                 <input type="hidden" name="sendSms"><input type="checkbox" id="sendSms" name="sendSms">
                 <label style="margin-top: 10px" for="select_masterUser">主要负责人(不选择表示自己)</label>
                 <select data-placeholder="请选择主要负责人" class="selectpicker" data-size="8" title="请选择主要负责人" 
-                data-live-search="true" data-rel="chosen" name="masterUser.id"  id="select_masterUser" style="display: none;">
-<option value="16">中外建海南</option>
-<option value="5">顾艳芳</option>
-<option value="29">丁菲</option>
-<option value="13">初培坤</option>
-<option selected="selected" value="1">系统管理员</option>
+                data-live-search="true" data-rel="chosen" name="masterUser.id"  id="select_masterUser" >
+<option selected="selected" value="110">系统管理员</option>
 </select>
                 <label for="title">标题</label>
                 <input type="text" required="" placeholder="请输入标题..." value="测试标题" maxlength="30" name="title" id="title">
@@ -56,9 +52,7 @@
                 <label style="margin-top: 10px" for="select_participants">请选择参与人</label>
                 <select multiple="true" data-placeholder="请选择参与人" class="selectpicker" data-size="8"
                  title="请选择参与人" data-live-search="true" data-rel="chosen" name="participants" id="select_participants" >
-<option value="28">施工单位5</option>
-<option value="6">施工单位4</option>
-<option value="1">系统管理员</option>
+<option selected="selected" value="110">系统管理员</option>
 </select>
                 <label for="startDate">开始时间</label>
                     <input type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true,startDate:'%y-%M-01 00:00:00'})" data-format="yyyy-MM-dd HH:mm:ss" name="startDate" id="startDate">

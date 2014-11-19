@@ -5,13 +5,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.agilemaster.parta.entity.Event;
+import com.agilemaster.parta.service.EventService;
 import com.agilemaster.parta.util.WebParamsConvert;
-import com.agilemaster.parta.web.bind.annotation.FormModel;
 
 /**
  * 
@@ -19,11 +19,14 @@ import com.agilemaster.parta.web.bind.annotation.FormModel;
  */
 @RestController
 public class EventController {
+	@Autowired
+	EventService eventService;
 	@RequiresPermissions("event:create")
 	@RequestMapping("/api/v1/event/create")
-	public Event create(HttpServletRequest request) {
+	public Map<String,Object> create(HttpServletRequest request) {
 		Event event  = WebParamsConvert.convertMap(Event.class, request.getParameterMap(), null);
-		return event;
+		Map<String,Object> map = eventService.create(event, request);
+		return map;
 	}
 
 }

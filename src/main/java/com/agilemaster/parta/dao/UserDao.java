@@ -12,6 +12,7 @@ public interface UserDao {
 	void update(User user);
 	void delete(User user);
 	User findByUsername(String username);
+	User findByUserId(Long userId);
 	Long count();
 	Map<String, Object> findByUsernameMap(String username);
 	List<String> genRole(String username);
@@ -24,4 +25,5 @@ public interface UserDao {
 	 * @param userId
 	 */
 	void updateResource(String resourcesId, String userId );
+	List userListSelect();
 }

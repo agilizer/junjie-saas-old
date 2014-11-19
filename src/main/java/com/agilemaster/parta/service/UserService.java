@@ -1,5 +1,6 @@
 package com.agilemaster.parta.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -39,6 +40,13 @@ public interface UserService {
      * @return
      */
     public User findByUsername(String username);
+    
+    /**
+     * 根据用户名查找用户
+     * @param username
+     * @return
+     */
+    public User findByUserId(Long userId);
 
 	Map<String, Object> findByUsernameMap(String username);
 
@@ -53,4 +61,6 @@ public interface UserService {
 	JdbcPage listUser(int max,int offset);
 	Map<String, Object> genResource(String username);
 	boolean isAuth();
+
+	public List userListSelect();
 }

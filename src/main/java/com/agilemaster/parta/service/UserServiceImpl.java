@@ -1,6 +1,7 @@
 package com.agilemaster.parta.service;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
@@ -155,5 +156,15 @@ public class UserServiceImpl implements UserService {
 	public boolean isAuth() {
 		Subject sub = SecurityUtils.getSubject();
 		return sub.getPrincipal()==null?false:true;
+	}
+
+	@Override
+	public User findByUserId(Long userId) {
+		return userDao.findByUserId(userId);
+	}
+
+	@Override
+	public List userListSelect() {
+		return userDao.userListSelect();
 	}
 }
