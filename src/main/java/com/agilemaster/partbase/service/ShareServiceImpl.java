@@ -28,10 +28,18 @@ public class ShareServiceImpl implements ShareService {
 	private JunjieCounter junjieCounter;
 	@Value(value = "${junjie.cloud.url}")
 	private String cloudUrl = "";
+	@Value(value = "${junjie.plugin.base.url}")
+	private String pluginUrl = "";
 
 	@PostConstruct
 	public void init() {
 		log.info("------------------------->cloudUrl {}", cloudUrl);
+		log.info("------------------------->pluginUrl {}", pluginUrl);
+	}
+
+	
+	public String getPluginUrl() {
+		return pluginUrl;
 	}
 
 	private String genTableName(Class<?> clazz) {
@@ -173,5 +181,6 @@ public class ShareServiceImpl implements ShareService {
 		executeInsert(tableName, insertMap);
 		return id;
 	}
+	
 
 }

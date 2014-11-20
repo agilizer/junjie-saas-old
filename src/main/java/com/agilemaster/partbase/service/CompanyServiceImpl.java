@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
+import com.agilemaster.partbase.bootstrap.InitCompanyService;
 import com.junjie.commons.db.JdbcConstants;
 import com.junjie.commons.db.JunjieDbOptionBean;
 import com.junjie.commons.db.client.JunjieJdbcTemplate;
@@ -30,6 +31,8 @@ public class CompanyServiceImpl implements CompanyService{
 	JunjieMessageSource junjieMessageSource;
 	@Autowired
 	private JunjieJdbcTemplate junjieJdbcTemplate;
+	@Autowired
+	InitCompanyService initCompanyService;
 	@Override
 	public Map<String, Object> initCompany(String authKey,String userId, String username,
 			String dataSourceKey) {
@@ -49,8 +52,6 @@ public class CompanyServiceImpl implements CompanyService{
  		    initSql = initSql +"insert into USER_ROLES(user,roles)values('"+userId+"',1);";
  		    initSql = initSql +"insert into BUILD_PROJECT(id,author,name,code,date_Created)values(1,'"+userId+"','默认项目','default',CURDATE());";
  		    initSql = initSql +"insert into event_type  (id,name,DESCRIPTION)values(1,'日常事务',''),(2,'会议',''),(3,'通知','');";
- 		    initSql = initSql +" INSERT INTO config_domain (id,version,description,editable,map_name,map_value,value_type) " +
- 		   		"VALUES (1,0,'任务短信模板','1','smsTemplateEvent','#接收用户#,您好!#用户##创建/更新/提醒#任务:#标题##任务链接#','String')";
  		 	JunjieDbOptionBean optionBean = new JunjieDbOptionBean();
  			optionBean.setDbInfoKey(dataSourceKey);
  			Map<String, Object> headers = new HashMap<String, Object>();
@@ -63,6 +64,8 @@ public class CompanyServiceImpl implements CompanyService{
  			optionBean.setSql(initSql);
  			optionBean.setParams(headers);
  			junjieJdbcTemplate.execute(optionBean);
+ 			//init others
+ 			initCompanyService.initConfigDomain(dataSourceKey);
  			result.put(JunjieConstants.SUCCESS,true);
 		} catch (FileNotFoundException e) {
 			log.error("init company Sql file not found!!!",e);
@@ -75,5 +78,4 @@ public class CompanyServiceImpl implements CompanyService{
 		}  
 		return result;
 	}
-
 }

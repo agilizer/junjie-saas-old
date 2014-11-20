@@ -53,6 +53,12 @@
 					<h1 class="page-header" id="buildProject">项目</h1>
 					<h2 id="buildProject-list">项目列表</h2>
 					<jsp:include page="./buildProject-list.jsp"  ></jsp:include>
+					
+					<h1 class="page-header" id="configDomain">配置</h1>
+					<h2 id="configDomain-list">配置列表</h2>
+					<h3>url: <a href="/api/v1/configDomain/list.do" target="_blank">/api/v1/configDomain/list.do</a></h3>
+					<h2 id="configDomain-listMap">配置map列表</h2>
+					<h3>url: <a href="/api/v1/configDomain/listMap.do" target="_blank">/api/v1/configDomain/listMap.do</a></h3>
 				</div>
 			</div>
 			<div class="col-md-3">
@@ -76,6 +82,12 @@
 							<li class="active"><a href="#buildProject">项目管理</a>
 							<ul class="nav">
 								<li><a href="#buildProject-list">项目列表</a></li>
+							</ul>
+							
+							<li class="active"><a href="#configDomain">配置管理</a>
+							<ul class="nav">
+								<li><a href="#configDomain-list">配置列表</a></li>
+								<li><a href="#configDomain-listMap">配置map列表</a></li>
 							</ul>
 							</li>
 					</ul>

@@ -16,7 +16,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table()
-class EventNotify   implements Serializable{
+public class EventNotify   implements Serializable{
 	/**
 	 * 
 	 */

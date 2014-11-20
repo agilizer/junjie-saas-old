@@ -3,10 +3,12 @@ package com.agilemaster.partbase.db;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
+import org.springframework.stereotype.Service;
 
 import com.junjie.commons.db.client.DataSourceSelecter;
 import com.junjie.commons.utils.JunjieConstants;
 
+@Service
 public class DataSourceSelecterImpl implements DataSourceSelecter{
 
 	  java.util.Random r=new java.util.Random(1);

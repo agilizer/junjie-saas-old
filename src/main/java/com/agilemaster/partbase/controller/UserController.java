@@ -33,6 +33,7 @@ public class UserController {
     @Autowired
     private UserService userService;
     
+    @RequiresUser
     @RequestMapping("/api/v1/currentUser")
 	public Map<String,Object> currentUser() {
     	Map<String,Object> result = JunjieStaticMethod.genResult();

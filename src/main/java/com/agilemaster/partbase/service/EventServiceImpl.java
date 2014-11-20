@@ -1,6 +1,7 @@
 package com.agilemaster.partbase.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +16,10 @@ import com.agilemaster.partbase.dao.BuildProjectDao;
 import com.agilemaster.partbase.dao.EventDao;
 import com.agilemaster.partbase.entity.BuildProject;
 import com.agilemaster.partbase.entity.Event;
+import com.agilemaster.partbase.entity.EventNotify;
+import com.agilemaster.partbase.entity.EventNotify.EventNotifyType;
 import com.agilemaster.partbase.entity.User;
+import com.alibaba.fastjson.JSON;
 import com.junjie.commons.utils.JunjieConstants;
 import com.junjie.commons.utils.JunjieStaticMethod;
 
@@ -29,6 +33,8 @@ public class EventServiceImpl implements EventService{
 	BuildProjectDao buildProjectDao;
 	@Autowired
 	EventDao eventDao;
+	@Autowired
+	EventNotifyJobService eventNotifyJobService;
 	@Override
 	public Map<String,Object>  create(Event event, HttpServletRequest request) {
 		Map<String,Object> createResult = JunjieStaticMethod.genResult();
@@ -78,10 +84,33 @@ public class EventServiceImpl implements EventService{
 		return createResult;
 	}
 	private void sendSms(Event event){
-		
+		eventNotifyJobService.sendEventSms(event, "创建");
 	}
+	 private EventNotify saveEventNotify(HttpServletRequest request,Event event){
+		    EventNotifyType notifyType = EventNotifyType.valueOf(request.getParameter("eventNotifyType"));
+		    EventNotify notify = new EventNotify();
+		    notify.setEvent(event);
+		    notify.setEventNotifyType(notifyType);
+		    notify.setNotifyValue(genNotifyValueJson(request,notifyType));
+	        return notify;
+	    }
+	 private String genNotifyValueJson(HttpServletRequest request,EventNotifyType notifyType){
+	        Map<String,String> notifyValue =new HashMap<String, String>();
+	        if(notifyType.equals(EventNotifyType.EVERY_DAY)){
+	        	  notifyValue.put("hour",request.getParameter("hour"));
+	                notifyValue.put("minute",request.getParameter("minute"));
+	        } else if(notifyType.equals(EventNotifyType.ONCE)){
+	        	notifyValue.put("time",request.getParameter("notifyTime"));
+	        }else if(notifyType.equals(EventNotifyType.EVERY_WEEK)){
+	        	 notifyValue.put("hour",request.getParameter("hour"));
+	             notifyValue.put("minute",request.getParameter("minute"));
+	             notifyValue.put("week",request.getParameter("week"));
+	        }
+	        return JSON.toJSONString(notifyValue);
+	    }
 	private void notify(Event event,HttpServletRequest request){
-		
+		EventNotify notify = saveEventNotify(request,event);
+        eventNotifyJobService.addEventNotify(notify);
 	}
 
 }
