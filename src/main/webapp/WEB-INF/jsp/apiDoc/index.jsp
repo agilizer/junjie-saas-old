@@ -49,6 +49,10 @@
 					<h1 class="page-header" id="event">任务</h1>
 					<h2 id="event-create">创建任务</h2>
 					<jsp:include page="./event-create.jsp"  ></jsp:include>
+					
+					<h1 class="page-header" id="buildProject">项目</h1>
+					<h2 id="buildProject-list">项目列表</h2>
+					<jsp:include page="./buildProject-list.jsp"  ></jsp:include>
 				</div>
 			</div>
 			<div class="col-md-3">
@@ -68,6 +72,10 @@
 							<li class="active"><a href="#event">任务</a>
 							<ul class="nav">
 								<li><a href="#event-create">创建任务</a></li>
+							</ul>
+							<li class="active"><a href="#buildProject">项目管理</a>
+							<ul class="nav">
+								<li><a href="#buildProject-list">项目列表</a></li>
 							</ul>
 							</li>
 					</ul>

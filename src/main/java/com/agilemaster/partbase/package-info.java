@@ -5,4 +5,4 @@
  * @author asdtiang
  *
  */
-package com.agilemaster.parta;
+package com.agilemaster.partbase;

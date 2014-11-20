@@ -23,7 +23,7 @@
 		depends-on="camel">
 		<property name="junjieJdbcRequest"  ref="junjieJdbcNettyRequest"></property>
 	</bean>
-	<bean id="dataSourceSelecter" class="com.agilemaster.parta.db.DataSourceSelecterImpl" >
+	<bean id="dataSourceSelecter" class="com.agilemaster.partbase.db.DataSourceSelecterImpl" >
 	<property name="dbInstanceCount"  value="10"/>
 	</bean>
 </beans>

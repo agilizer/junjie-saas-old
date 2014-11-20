@@ -9,7 +9,7 @@
         http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.0.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
-	<context:component-scan base-package="com.agilemaster.parta,com.junjie.commons">
+	<context:component-scan base-package="com.agilemaster.partbase,com.junjie.commons">
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
@@ -42,7 +42,7 @@
 		<constructor-arg value="20">
 		</constructor-arg>
 	</bean>
-	<bean class="com.agilemaster.parta.spring.SpringUtils" />
+	<bean class="com.agilemaster.partbase.spring.SpringUtils" />
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<!-- 国际化信息所在的文件名 -->
@@ -50,5 +50,5 @@
 		<!-- 如果在国际化资源文件中找不到对应代码的信息，就用这个代码作为名称 -->
 		<property name="useCodeAsDefaultMessage" value="true" />
 	</bean>
-	<jpa:repositories base-package="com.agilemaster.parta.repository" />
+	<jpa:repositories base-package="com.agilemaster.partbase.repository" />
 </beans>

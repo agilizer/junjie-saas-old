@@ -1,4 +1,4 @@
-package com.agilemaster.parta;
+package com.agilemaster.partbase;
 
 
 public class StaticMethod {
