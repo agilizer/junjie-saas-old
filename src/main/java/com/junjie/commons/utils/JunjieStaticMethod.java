@@ -41,6 +41,28 @@ public class JunjieStaticMethod {
 			}
 		}
 		return result;
-		 
 	}
+	/**
+     * 截取长度文字（charAt在0-125的长度算1，其它包括中文算2），并转义文字编码，超过文字长度的追加...
+     * @param str
+     * @param length
+     * @return
+     */
+    public static String lenECString(Object obj,int length){
+        if(obj==null){return "";}
+        String str=obj.toString();
+        int len=0;
+        int strLen=str.length();
+        for(int i=0;i<strLen;i++){
+            int p=str.charAt(i);
+            if(p>125||p<0){
+                len+=2;
+            }else {
+                len++;
+            }
+            if(length<len){return str.substring(0, i)+"..";}
+        }
+        return str;
+    }
+	
 }

@@ -2,15 +2,18 @@ package com.junjie.commons.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 日期操作类
- * @author asdtiang
- * 2011-3-21
+ * 
+ * @author asdtiang 2011-3-21
  */
 public class DateUtil {
 
-	
+	static Map<String, SimpleDateFormat> dateFormatMap = new HashMap<String, SimpleDateFormat>();
 
 	/**
 	 * 以指定的格式来格式化日期
@@ -25,7 +28,11 @@ public class DateUtil {
 		String result = "";
 		if (date != null) {
 			try {
-				SimpleDateFormat sdf = new SimpleDateFormat(format);
+				SimpleDateFormat sdf = dateFormatMap.get(format);
+				if (dateFormatMap.get(format) == null) {
+					sdf = new SimpleDateFormat(format);
+					dateFormatMap.put(format, sdf);
+				}
 				result = sdf.format(date);
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -33,6 +40,25 @@ public class DateUtil {
 		}
 		return result;
 	}
+	public static String format(Calendar date, String format) {
+		String result = "";
+		if (date != null) {
+			try {
+				SimpleDateFormat sdf = dateFormatMap.get(format);
+				if (dateFormatMap.get(format) == null) {
+					sdf = new SimpleDateFormat(format);
+					dateFormatMap.put(format, sdf);
+				}
+				Date da   = new Date();
+				da.setTime(date.getTimeInMillis());
+				result = sdf.format(da);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		return result;
+	}
+
 	/**
 	 * 返回年份
 	 * 
@@ -45,7 +71,7 @@ public class DateUtil {
 		c.setTime(date);
 		return c.get(Calendar.YEAR);
 	}
-	
+
 	/**
 	 * 返回年份
 	 * 
@@ -65,12 +91,11 @@ public class DateUtil {
 	 * @return 返回月份
 	 */
 	public static int getMonth(java.util.Date date) {
-		Calendar c =Calendar.getInstance();
+		Calendar c = Calendar.getInstance();
 		c.setTime(date);
 		return c.get(Calendar.MONTH) + 1;
 	}
-	
-	
+
 	/**
 	 * 返回当前时间的月份
 	 * 
@@ -93,8 +118,6 @@ public class DateUtil {
 		c.setTime(date);
 		return c.get(Calendar.DAY_OF_MONTH);
 	}
-	
-	
 
 	/**
 	 * 返回小时
@@ -147,6 +170,7 @@ public class DateUtil {
 		c.setTime(date);
 		return c.getTimeInMillis();
 	}
+
 	/**
 	 * 常用的格式化日期 "yyyy-MM-dd"
 	 * 
@@ -203,6 +227,7 @@ public class DateUtil {
 	public static int diffDate(java.util.Date date, java.util.Date date1) {
 		return (int) ((getMillis(date) - getMillis(date1)) / (24 * 3600 * 1000));
 	}
+
 	/**
 	 * 日期相减
 	 * 
@@ -210,26 +235,29 @@ public class DateUtil {
 	 *            日期
 	 * @param ca2
 	 *            日期
-	 * @return 
+	 * @return
 	 */
-	public static int diffDate(Calendar ca1,Calendar ca2){
-		return (int)((ca1.getTimeInMillis()-ca2.getTimeInMillis())/(24 * 3600 * 1000));
+	public static int diffDate(Calendar ca1, Calendar ca2) {
+		return (int) ((ca1.getTimeInMillis() - ca2.getTimeInMillis()) / (24 * 3600 * 1000));
 	}
+
 	/**
 	 * 设置日期的时，分，秒，毫秒，为零，时为HOUR_OF_DAY
+	 * 
 	 * @param calendar
 	 * @return
 	 */
-	public static Calendar setZero(Calendar calendar){
+	public static Calendar setZero(Calendar calendar) {
 		calendar.set(Calendar.HOUR_OF_DAY, 0);
 		calendar.set(Calendar.MINUTE, 0);
 		calendar.set(Calendar.SECOND, 0);
-		calendar.set(Calendar.MILLISECOND,0);
+		calendar.set(Calendar.MILLISECOND, 0);
 		return calendar;
 	}
-	
+
 	/**
 	 * 测试两个日期是否为同一个月
+	 * 
 	 * @param date
 	 * @param date1
 	 * @return
@@ -238,21 +266,23 @@ public class DateUtil {
 	public static boolean isSameMonth(java.util.Date date, java.util.Date date1) {
 		return getMonth(date) == getMonth(date1) ? true : false;
 	}
-    /**
-     * 测试两上日期是否为同一天
-     * @param date
-     * @param date1
-     * @return
-     */
+
+	/**
+	 * 测试两上日期是否为同一天
+	 * 
+	 * @param date
+	 * @param date1
+	 * @return
+	 */
 	public static boolean isSameDate(java.util.Date date, java.util.Date date1) {
 		return getDate(date).equals(getDate(date1)) ? true : false;
 	}
-	
+
 	/**
 	 * 获取当前时间yyyy-MM-dd hh:mm:ss
 	 */
-	public static String getLocalTime(){
-		return format(new java.util.Date(),"yyyy-MM-dd hh:mm:ss");
+	public static String getLocalTime() {
+		return format(new java.util.Date(), "yyyy-MM-dd hh:mm:ss");
 	}
 
 }
