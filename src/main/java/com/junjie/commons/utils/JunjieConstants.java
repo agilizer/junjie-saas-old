@@ -58,7 +58,15 @@ public interface JunjieConstants {
 	String DAIRY_BUFFER_DAY = "dairyBufferDay";
 	String OFFICE_START_TIME = "officeStartTime";
 	String OFFICE_END_TIME = "officeEndTime";
-
+    Long ONE_DATE_LONG = (long) (24*3600*1000);
+	Long TEN_MINUTE_LONG = (long) (10*1000*60);
+	int EVENT_NOTIFY_ONCE = 1;
+	int EVENT_NOTIFY_EVERY_DAY = 2;
+	/**
+	 * use for quartz store EventNotifyBean key.
+	 */
+    String EVENT_NOTIFY_BEAN = "eventNotifyBean";
+    String EVENT_SMS_SERVICE = "smsService";
 	static enum smsTemplateVar {
 		SMS_T_USERNAME("#用户#"), SMS_T_START_DATE("#开始时间#"), SMS_T_END_DATE(
 				"#结束时间#"), SMS_T_RECEIVE_USERNAME("#接收用户#"), SMS_T_TITLE("#标题#"), SMS_T_URL(

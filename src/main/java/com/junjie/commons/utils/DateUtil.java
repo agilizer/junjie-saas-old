@@ -40,6 +40,22 @@ public class DateUtil {
 		}
 		return result;
 	}
+	public static Date parse(String dateStr, String format) {
+		Date result = null;
+		if (dateStr != null) {
+			try {
+				SimpleDateFormat sdf = dateFormatMap.get(format);
+				if (dateFormatMap.get(format) == null) {
+					sdf = new SimpleDateFormat(format);
+					dateFormatMap.put(format, sdf);
+				}
+				result = sdf.parse(dateStr);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		return result;
+	}
 	public static String format(Calendar date, String format) {
 		String result = "";
 		if (date != null) {
