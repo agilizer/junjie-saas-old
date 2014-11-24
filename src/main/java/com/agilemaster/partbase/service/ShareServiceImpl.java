@@ -1,7 +1,7 @@
 package com.agilemaster.partbase.service;
+import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,9 +17,14 @@ import org.springframework.stereotype.Service;
 import com.agilemaster.partbase.util.BeanToMapUtil;
 import com.junjie.commons.db.client.JunjieJdbcTemplate;
 import com.junjie.commons.utils.JunjieCounter;
+import com.junjie.commons.utils.JunjieStaticMethod;
 
 @Service
-public class ShareServiceImpl implements ShareService {
+public class ShareServiceImpl implements ShareService,Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3886427808979402462L;
 	private static final Logger log = LoggerFactory
 			.getLogger(ShareServiceImpl.class);
 	@Autowired
@@ -75,7 +80,7 @@ public class ShareServiceImpl implements ShareService {
 	}
 
 	@Override
-	public Map<String, Object> findById(Class<?> clazz, int id) {
+	public Map<String, Object> findById(Class<?> clazz, Long id) {
 		StringBuffer sql = new StringBuffer("select * from   ");
 		String tableName = genTableName(clazz);
 		sql.append(tableName).append(" where id=:objId ");
@@ -83,6 +88,18 @@ public class ShareServiceImpl implements ShareService {
 		queryParams.put("objId", id);
 		return junjieJdbcTemplate.queryForMap(sql.toString(), queryParams);
 	}
+
+
+	@Override
+	public <T> T findObjectById(Class<T> clazz, Long id) {
+		Map<String, Object> map = findById(clazz,id);
+		if(map!=null){
+			return BeanToMapUtil.convertMap(clazz, map);
+		}else{
+			return null;
+		}
+	}
+	
 
 	@Override
 	public void save(Object domain, Map<String, Object> objectInsert) {
@@ -94,15 +111,7 @@ public class ShareServiceImpl implements ShareService {
 		executeInsert(tableName, insertMap);
 	}
 
-	private boolean isBaseObject(Object object) {
-		if (object instanceof Integer || object instanceof String
-				|| object instanceof Long || object instanceof Boolean ||object instanceof Byte ||object instanceof Double||object instanceof Float
-				|| object instanceof Short || object instanceof Calendar) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+	
 	private void executeInsert(String tableName, Map<String, Object> insertMap) {
 		StringBuffer sql = new StringBuffer("insert into ");
 		sql.append(tableName);
@@ -138,7 +147,7 @@ public class ShareServiceImpl implements ShareService {
 					}
 				}
 			} else {// object property
-				if (!isBaseObject(value)) {//非基本类型需要生成id value
+				if (!JunjieStaticMethod.isBaseObject(value)) {//非基本类型需要生成id value
 					try {
 						getIdMethod = value.getClass().getMethod("getId");
 						idLong = (Long) getIdMethod.invoke(value);
@@ -181,6 +190,6 @@ public class ShareServiceImpl implements ShareService {
 		executeInsert(tableName, insertMap);
 		return id;
 	}
-	
+
 
 }

@@ -42,6 +42,28 @@ public class InitCompanyServiceImpl implements InitCompanyService{
 		configDomain.setValueType(ConfigDomain.ValueType.String);
 		configDomain.setVersion(1l);
 		configDomainDao.save(storeKey, configDomain);
+		
+		configDomain  = new ConfigDomain();
+		configDomain.setDescription("工作开始时间");
+		configDomain.setEditable(true);
+		configDomain.setId(junjieCounter.genUniqueLong(ConfigDomain.ID_NAME));
+		configDomain.setMapName(JunjieConstants.OFFICE_START_TIME);
+		configDomain.setMapValue(9+"");
+		configDomain.setValueType(ConfigDomain.ValueType.Integer);
+		configDomain.setVersion(1l);
+		configDomainDao.save(storeKey, configDomain);
+		
+		
+		
+		configDomain  = new ConfigDomain();
+		configDomain.setDescription("工作结束时间");
+		configDomain.setEditable(true);
+		configDomain.setId(junjieCounter.genUniqueLong(ConfigDomain.ID_NAME));
+		configDomain.setMapName(JunjieConstants.OFFICE_END_TIME);
+		configDomain.setMapValue(18+"");
+		configDomain.setValueType(ConfigDomain.ValueType.Integer);
+		configDomain.setVersion(1l);
+		configDomainDao.save(storeKey, configDomain);
 //		 String template=StaticField.smsTemplateVar.SMS_T_RECEIVE_USERNAME.getValue()+","+"您好!"
 //		+StaticField.smsTemplateVar.SMS_T_USERNAME.getValue()+StaticField.smsTemplateVar.SMS_T_ACTION.getValue()+
 //		"任务:"+StaticField.smsTemplateVar.SMS_T_TITLE.getValue()+StaticField.smsTemplateVar.SMS_T_URL.getValue()

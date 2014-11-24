@@ -5,7 +5,12 @@ import com.agilemaster.partbase.entity.EventNotify;
 
 public interface EventNotifyJobService {
 	final static String SMS_URL_PATH="/s/e";
-	void sendEventSms(Event event,String action);
-	void addEventNotify(EventNotify notify);
-
+	void sendEventSms(Event event,String action,EventNotifyBean notifyBean);
+	/**
+	 * job invoke method
+	 * @param notifyBean
+	 */
+	void sendNotify(EventNotifyBean notifyBean);
+	
+    
 }

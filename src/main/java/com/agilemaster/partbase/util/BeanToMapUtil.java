@@ -11,10 +11,13 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.util.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.junjie.commons.utils.JunjieStaticMethod;
 
 public class BeanToMapUtil {
-
+	private static Logger log = LoggerFactory.getLogger(BeanToMapUtil.class);
 	/**
 	 * 将一个 Map 对象转化为一个 JavaBean
 	 * map为数据库查询,字段分隔为下划线
@@ -37,11 +40,14 @@ public class BeanToMapUtil {
 		if(map==null){
 			return null;
 		}
-		BeanInfo beanInfo;
+		BeanInfo beanInfo = null;
 		T obj = null;
-		try {
-			beanInfo = Introspector.getBeanInfo(type);
-			obj = type.newInstance(); // 创建 JavaBean 对象
+			try {
+				beanInfo = Introspector.getBeanInfo(type);
+				obj = type.newInstance(); // 创建 JavaBean 对象
+			} catch (Exception e) {
+				log.error("init type error",e);
+			}
 			// 给 JavaBean 对象的属性赋值
 			PropertyDescriptor[] propertyDescriptors = beanInfo
 					.getPropertyDescriptors();
@@ -56,17 +62,27 @@ public class BeanToMapUtil {
                     }
 					Object[] args = new Object[1];
 					args[0] = value;
-					if(value instanceof  Timestamp){
-						Calendar can = Calendar.getInstance();
-						can.setTimeInMillis(((Timestamp)value).getTime());
-						args[0] = can;
-					}
-					descriptor.getWriteMethod().invoke(obj, args);
+					try {
+						if(value instanceof  Timestamp){
+							Calendar can = Calendar.getInstance();
+							can.setTimeInMillis(((Timestamp)value).getTime());
+							args[0] = can;
+						}else {
+							Class<? extends Object> clazzListObject =descriptor.getPropertyType();
+							if (!JunjieStaticMethod.isBaseObjectStr(clazzListObject.getSimpleName())) {
+								Method setIdMethod = clazzListObject.getMethod("setId",Long.class);
+								Object valueNew = clazzListObject.newInstance();
+								setIdMethod.invoke(valueNew, value);
+								descriptor.getWriteMethod().invoke(obj, valueNew);
+							}else{
+								descriptor.getWriteMethod().invoke(obj, args);
+							}
+						}
+					} catch (Exception e) {
+						log.error("propertyName :" +propertyName +" convert failed  {}",type,e);
+					} 
 				}
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		return obj;
 	}
 

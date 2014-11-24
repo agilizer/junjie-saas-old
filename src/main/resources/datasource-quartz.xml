@@ -2,17 +2,17 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+	<bean id="datasourceQuartz" class="com.alibaba.druid.pool.DruidDataSource"
 		init-method="init" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<!-- 基本属性 url、user、password -->
-		<property name="driverClassName" value="org.h2.Driver" />
 		<property name="url" value="${jdbc_url}" />
-		<property name="username" value="${jdbc_user}" />
-		<property name="password" value="${jdbc_password}" />
+		<property name="username" value="${quartz.jdbc_user}" />
+		<property name="password" value="${quartz.jdbc_password}" />
 		<!-- 配置初始化大小、最小、最大 -->
-		<property name="initialSize" value="${jdbc.initialSize}" />
-		<property name="minIdle" value="${jdbc.minIdle}" />
-		<property name="maxActive" value="${jdbc.maxActive}" />
+		<property name="initialSize" value="${quartz.jdbc.initialSize}" />
+		<property name="minIdle" value="${quartz.jdbc.minIdle}" />
+		<property name="maxActive" value="${quartz.jdbc.maxActive}" />
 		<!-- 配置获取连接等待超时的时间 -->
 		<property name="maxWait" value="60000" />
 		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->

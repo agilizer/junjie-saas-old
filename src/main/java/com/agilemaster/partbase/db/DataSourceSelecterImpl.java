@@ -1,5 +1,7 @@
 package com.agilemaster.partbase.db;
 
+import java.io.Serializable;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
@@ -9,9 +11,13 @@ import com.junjie.commons.db.client.DataSourceSelecter;
 import com.junjie.commons.utils.JunjieConstants;
 
 @Service
-public class DataSourceSelecterImpl implements DataSourceSelecter{
+public class DataSourceSelecterImpl implements DataSourceSelecter,Serializable{
 
-	  java.util.Random r=new java.util.Random(1);
+	  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3558602843676237916L;
+	java.util.Random r=new java.util.Random(1);
 	 private  int dbInstanceCount = 500;
 	@Override
 	public String getCurrentDataSourceKey() {

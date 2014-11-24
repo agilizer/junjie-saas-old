@@ -44,7 +44,7 @@ public class CompanyServiceImpl implements CompanyService{
 			dbInfokeys.add(dataSourceKey);
  			junjieJdbcTemplate.runScriptByDbInfoKeys(sql, dbInfokeys);
  			// insert into user(user_id,username)values('aaa','bbbb')
- 			String  initSql = "insert into user(id,username,date_created,last_Updated)values(:userId,:username,CURDATE(),CURDATE());";
+ 			String  initSql = "insert into user(id,username,full_name,date_created,last_Updated)values(:userId,:username,'系统管理员',CURDATE(),CURDATE());";
  		    initSql = initSql +"insert into sys_resource(id,name,permission,available,type)values(1,'超级管理员','*:*',true,3);";
  		    initSql = initSql +"insert into sys_resource(id,name,permission,available,type)values(2,'用户管理','userAdmin:*',true,3);";
  		    initSql = initSql +"insert into SYS_ROLE (id,role,description)values(1,'ROLE_ADMIN','超级管理员');";

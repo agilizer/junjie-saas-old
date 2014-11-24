@@ -15,7 +15,8 @@ public interface ShareService {
 	 */
 	void save(Object domain,Map<String,Object> objectInsert);
 	void update(Object object);
-	Map<String,Object> findById(Class<?>  clazz,int id);
+	Map<String,Object> findById(Class<?>  clazz,Long id);
+	<T> T findObjectById(Class<T>  clazz,Long id);
 	String cloudUrl();
 	public String getPluginUrl();
 	/**
