@@ -28,6 +28,7 @@ import com.agilemaster.partbase.dao.EventDao;
 import com.agilemaster.partbase.entity.BuildProject;
 import com.agilemaster.partbase.entity.Event;
 import com.agilemaster.partbase.entity.EventNotify.EventNotifyType;
+import com.agilemaster.partbase.entity.EventProgress;
 import com.agilemaster.partbase.entity.User;
 import com.alibaba.fastjson.JSON;
 import com.junjie.commons.db.client.DataSourceSelecter;
@@ -79,8 +80,11 @@ public class EventServiceImpl implements EventService{
 					event.setParticipants(participants);
 					event.setMasterUser(masterUser);
 					event.setAuthor(author);
+					boolean separateReport = JunjieStaticMethod.genBooleanValue(request, "separateReport");
+					event.setSeparateReport(separateReport);
 					event  = eventDao.save(event);
 					createResult.put(JunjieConstants.DATA, event);
+					createResult.put(JunjieConstants.SUCCESS, true);
 					boolean sendSms = JunjieStaticMethod.genBooleanValue(request, "sendSms");
 					EventNotifyBean notifyBean = new EventNotifyBean();
 					notifyBean.setDatasourceKey(dataSourceSelecter.getCurrentDataSourceKey());
@@ -165,6 +169,18 @@ public class EventServiceImpl implements EventService{
                 quartzService.addJob(jobDetail, trigger);
             }
          }
+	}
+	@Override
+	public Map<String, Object> show(Long id) {
+		Map<String,Object> result = JunjieStaticMethod.genResult();
+		Event event  = eventDao.show(id);
+		if(event!=null){
+			result.put(JunjieConstants.SUCCESS, true);
+			result.put(JunjieConstants.DATA, event);
+		}else{
+			result.put(JunjieConstants.ERROR_CODE, JunjieConstants.NOT_FOUND);
+		}
+		return result;
 	}
 
 }

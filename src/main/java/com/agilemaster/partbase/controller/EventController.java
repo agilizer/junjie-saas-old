@@ -28,5 +28,13 @@ public class EventController {
 		Map<String,Object> map = eventService.create(event, request);
 		return map;
 	}
+	
+	@RequiresPermissions("event:show")
+	@RequestMapping("/api/v1/event/show")
+	public Map<String,Object> show(Long id) {
+		Map<String,Object> map = eventService.show(id);
+		return map;
+	}
+	
 
 }
