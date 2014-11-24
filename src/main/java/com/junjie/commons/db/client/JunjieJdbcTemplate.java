@@ -1,5 +1,6 @@
 package com.junjie.commons.db.client;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,11 @@ import com.junjie.commons.db.JunjieDbOptionBean;
  * @author abel.lee
  */
 @SuppressWarnings("unchecked")
-public class JunjieJdbcTemplate implements JunjieJdbcOptions{
+public class JunjieJdbcTemplate implements JunjieJdbcOptions, Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 326213213746113679L;
 	private static final Logger log = LoggerFactory
 			.getLogger(JunjieJdbcTemplate.class);
 	private JunjieJdbcRequest junjieJdbcRequest;

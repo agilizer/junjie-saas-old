@@ -1,5 +1,6 @@
 package com.junjie.commons.db.client;
 
+import java.io.Serializable;
 import java.util.concurrent.Future;
 
 import org.apache.camel.Exchange;
@@ -14,7 +15,11 @@ import com.junjie.commons.db.JunjieDbOptionBean;
  * 数据库操作请求bean发送netty实现
  * @author abel.lee
  */
-public class JunjieJdbcNettyRequest implements JunjieJdbcRequest {
+public class JunjieJdbcNettyRequest implements JunjieJdbcRequest, Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6868661468544386818L;
 	private static final Logger log = LoggerFactory
 			.getLogger(JunjieJdbcNettyRequest.class);
 	private String endpointUri;

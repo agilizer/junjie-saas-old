@@ -66,7 +66,6 @@ public interface JunjieConstants {
 	 * use for quartz store EventNotifyBean key.
 	 */
     String EVENT_NOTIFY_BEAN = "eventNotifyBean";
-    String EVENT_SMS_SERVICE = "smsService";
 	static enum smsTemplateVar {
 		SMS_T_USERNAME("#用户#"), SMS_T_START_DATE("#开始时间#"), SMS_T_END_DATE(
 				"#结束时间#"), SMS_T_RECEIVE_USERNAME("#接收用户#"), SMS_T_TITLE("#标题#"), SMS_T_URL(

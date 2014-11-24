@@ -7,7 +7,24 @@
          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
          http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
          http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd">
-	<bean id="quartzService" class="com.junjie.commons.quartz.QuartzServiceImpl" 
-	 init-method="init" destroy-method="destroy">
+	<context:component-scan base-package="com.junjie.commons.sms">
+	</context:component-scan>
+	<bean id="quartzService" class="com.junjie.commons.quartz.QuartzServiceImpl"  >
+	 <property name="scheduler" ref="scheduler" />
 	</bean>
+    <bean name="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" >  
+    
+     		 <property name="configLocation" value="classpath:quartz.properties" />
+            <property name="schedulerContextAsMap">    
+                <map>    
+            <!-- spring 管理的service需要放到这里，才能够注入成功 -->    
+                    <description>schedulerContextAsMap</description>    
+                    <entry key="smsService" value-ref="smsService"/>  
+                </map>    
+            </property>  
+                    <!-- 通过applicationContextSchedulerContextKey属性配置spring上下文 -->    
+            <property name="applicationContextSchedulerContextKey">    
+                <value>applicationContext</value>    
+            </property>   
+        </bean>  
 </beans>

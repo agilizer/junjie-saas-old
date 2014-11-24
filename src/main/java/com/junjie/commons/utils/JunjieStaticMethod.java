@@ -3,6 +3,7 @@ package com.junjie.commons.utils;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -64,5 +65,24 @@ public class JunjieStaticMethod {
         }
         return str;
     }
+    public static boolean isBaseObject(Object object) {
+		if (object instanceof Integer || object instanceof String
+				|| object instanceof Long || object instanceof Boolean ||object instanceof Byte ||object instanceof Double||object instanceof Float
+				|| object instanceof Short || object instanceof Calendar) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+    public static boolean isBaseObjectStr(String className) {
+		if (className.equals("Integer")||className.equals("String")
+				|| className.equalsIgnoreCase("Long")  || className.equalsIgnoreCase("Boolean")   ||className.equalsIgnoreCase("Byte") 
+				||className.equalsIgnoreCase("Double")  ||className.equalsIgnoreCase("Float") 
+				|| className.equalsIgnoreCase("Short")  || className.equals("Calendar")  ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 }

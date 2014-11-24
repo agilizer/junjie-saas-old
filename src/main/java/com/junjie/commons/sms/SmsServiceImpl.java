@@ -3,6 +3,7 @@ package com.junjie.commons.sms;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -22,8 +23,13 @@ import org.springframework.stereotype.Service;
 
 import com.junjie.commons.utils.DateUtil;
 import com.junjie.commons.utils.MD5Util;
-@Service
-public class SmsServiceImpl implements SmsService {
+@Service(value="smsService")
+public class SmsServiceImpl implements SmsService,Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8690377255273451321L;
+
 	private Set<String> validateSet = new HashSet<String>();
 	
 	//sms企业id
