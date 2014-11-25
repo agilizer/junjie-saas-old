@@ -6,7 +6,7 @@
 		init-method="init" destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<!-- 基本属性 url、user、password -->
-		<property name="url" value="${jdbc_url}" />
+		<property name="url" value="${quartz.jdbc_url}" />
 		<property name="username" value="${quartz.jdbc_user}" />
 		<property name="password" value="${quartz.jdbc_password}" />
 		<!-- 配置初始化大小、最小、最大 -->
