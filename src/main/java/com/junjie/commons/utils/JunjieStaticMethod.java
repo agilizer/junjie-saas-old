@@ -34,12 +34,27 @@ public class JunjieStaticMethod {
 	}
 	public static boolean genBooleanValue( HttpServletRequest request,String paramName){
 		boolean result = false;
-		String[] valueArray = request.getParameterValues(paramName);
-		if(valueArray!=null){
-			result = Boolean.parseBoolean(valueArray[0]);
-			if (valueArray.length == 2) {
+		String value = request.getParameter(paramName);
+		if(value!=null){
+			if(value.equalsIgnoreCase("on")){
 				result = Boolean.TRUE;
 			}
+		}
+		return result;
+	}
+	public static Long genLongValue(HttpServletRequest request,String paramName){
+		Long result = null;
+		String value = request.getParameter(paramName);
+		if(value!=null){
+			result = Long.parseLong(value);
+		}
+		return result;
+	}
+	public static Integer genIntValue(HttpServletRequest request,String paramName){
+		Integer result = null;
+		String value = request.getParameter(paramName);
+		if(value!=null){
+			result = Integer.parseInt(value);
 		}
 		return result;
 	}

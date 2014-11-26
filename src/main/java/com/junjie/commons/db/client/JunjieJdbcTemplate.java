@@ -135,5 +135,9 @@ public class JunjieJdbcTemplate implements JunjieJdbcOptions, Serializable{
 	public List queryForList(String sql) {
 		return this.queryForList(sql, null);
 	}
+	@Override
+	public int update(String sql) {
+		return update(sql,null);
+	}
 	
 }

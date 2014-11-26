@@ -65,6 +65,7 @@ public interface JunjieJdbcOptions{
 	 * @see java.sql.Types
 	 */
 	int update(String sql, Map<String,Object> queryParams) ;
+	int update(String sql) ;
 	/**
 	 * 执行ddl
 	 * @param sql
