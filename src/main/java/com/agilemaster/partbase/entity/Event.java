@@ -80,6 +80,9 @@ public class Event   implements Serializable{
 	private Calendar lastUpdated;
 	@ManyToMany()
 	private List<User> participants;
+	/**
+	 * not use
+	 */
 	@ManyToMany()
 	private List<FileInfo> fileInfos;
 	@ManyToMany()

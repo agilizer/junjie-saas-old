@@ -1,6 +1,7 @@
 package com.agilemaster.partbase.dao;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import com.agilemaster.partbase.entity.EventProgress;
 import com.agilemaster.partbase.entity.User;
 import com.agilemaster.partbase.service.ShareService;
 import com.agilemaster.partbase.util.BeanToMapUtil;
+import com.junjie.commons.db.JdbcPage;
 import com.junjie.commons.db.client.JunjieJdbcOptions;
 import com.junjie.commons.utils.JunjieCounter;
 
@@ -80,6 +82,36 @@ public class EventDaoImpl implements EventDao{
 			}
 		}
 		return event;
+	}
+	@Override
+	public Event update(Event event) {
+		del(event.getId());
+		shareService.save(event);
+		return null;
+	}
+	@Override
+	public int del(Long id) {
+		StringBuffer delSql = new StringBuffer();
+		delSql.append("delete FROM EVENT_PARTICIPANTS where event=" +id +";");
+		delSql.append("delete FROM EVENT_PROGRESSES where event=" +id +";");
+		delSql.append("delete FROM EVENT_PROGRESS where event_id=" +id +";");  
+		delSql.append("delete from event where id="+id+";");
+		return junjieJdbcOptions.update(delSql.toString());
+	}
+	@Override
+	public JdbcPage list(User user,Calendar start, Calendar end,int max,int offset) {
+		Map<String,Object> queryParams = new HashMap<String,Object>();
+		queryParams.put("start", start);
+		queryParams.put("userId", user.getId());
+		queryParams.put("end", end);
+		//select distinct e.* from EVENT e,EVENT_PARTICIPANTS e_p where e.AUTHOR  = 103 or ( e.id=e_p.event  and e_p.PARTICIPANTS=103 ) or e.MASTER_USER=103
+		String countSql = "select count( distinct e.id) from EVENT e,EVENT_PARTICIPANTS e_p where e.START_DATE>:start and "
+				+ " e.END_DATE<:end "
+				+ " (e.AUTHOR  =:userId or ( e.id=e_p.event  and e_p.PARTICIPANTS=:userId ) or e.MASTER_USER=:userId)";
+		String querySql = "select distinct e.id,e.title,e.start_date,e.end_date from EVENT e,EVENT_PARTICIPANTS e_p where e.START_DATE>:start and "
+				+ " e.END_DATE<:end "
+				+ " (e.AUTHOR  =:userId or ( e.id=e_p.event  and e_p.PARTICIPANTS=:userId ) or e.MASTER_USER=:userId)";
+		return junjieJdbcOptions.queryForList(querySql, countSql, queryParams, max, offset);
 	}
 
 }

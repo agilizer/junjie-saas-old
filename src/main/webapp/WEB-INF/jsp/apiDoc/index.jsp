@@ -54,6 +54,8 @@
 					<h3>url: <a href="/api/v1/eventType/list.do" target="_blank">/api/v1/eventType/list.do</a></h3>
 					<h2 id="event-create">创建任务</h2>
 					<jsp:include page="./event-create.jsp"  ></jsp:include>
+					<h2 id="event-edit">编辑任务</h2>
+					<jsp:include page="./event-edit.jsp"  ></jsp:include>
 					<h2 id="event-create">展示任务</h2>
 					<h3>url: <a href="/api/v1/event/show.do?id=1" target="_blank">/api/v1/event/show.do?id=1</a></h3>
 					<h1 class="page-header" id="buildProject">项目</h1>
@@ -90,6 +92,7 @@
 							<li><a href="#event-type-list">任务类型获取</a></li>
 							<li><a href="#event-create">创建任务</a></li>
 							<li><a href="#event-show">任务展示</a></li>
+							<li><a href="#event-edit">任务编辑</a></li>
 						</ul>
 						<li class="active"><a href="#buildProject">项目管理</a>
 						<ul class="nav">

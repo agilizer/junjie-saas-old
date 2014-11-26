@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<h3>url: <a href="/api/v1/event/create.do" target="_blank">/api/v1/event/create.do</a></h3>
-<form action="save" id="createEventForm" method="POST">
+<h3>url: <a href="/api/v1/event/edit.do" target="_blank">/api/v1/event/edit.do</a></h3>
+<form action="save" id="editEventForm" method="POST">
+		<input type="text" id="id" value="1" name="id" >
         <input type="hidden" id="isMilestone" value="false" name="isMilestone">
         <div class="controls">
                 <div class="span6">
@@ -49,24 +50,23 @@
  <option value="1">默认建设项目</option></select></label>
                 
                 是否平行任务&nbsp;
-                <input type="checkbox" id="separateReport" >
+                <input type="checkbox" id="separateReport" name="separateReport">
                 <label style="margin-top: 10px" for="select_participants">请选择参与人</label>
                 <select multiple="true" data-placeholder="请选择参与人" class="selectpicker" data-size="8"
                  title="请选择参与人" data-live-search="true" data-rel="chosen" name="participants" id="select_participants" >
 <option selected="selected" value="103">系统管理员</option>
 </select>
                 <label for="startDate">开始时间</label>
-                    <input type="text" 
-                    onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true,startDate:'%y-%M-01 00:00:00'})" data-format="yyyy-MM-dd HH:mm:ss" name="startDate" id="startDate">
+                    <input type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true,startDate:'%y-%M-01 00:00:00'})" data-format="yyyy-MM-dd HH:mm:ss" name="startDate" id="startDate">
                 <label for="endDate">截止时间</label>
 
-                    <input type="text" onclick="WdatePicker({minDate:'#F{$dp.$D(\'startDate\')}',dateFmt:'yyyy-MM-dd HH:mm:ss'})" data-format="yyyy-MM-dd HH:mm:ss" name="endDate" id="endDate">
+                    <input type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" data-format="yyyy-MM-dd HH:mm:ss" name="endDate" id="endDate">
                 <label for="description">任务描述</label>
                 <textarea rows="4" cols="3" placeholder="任务说明..." name="description" id="description"></textarea>
                 <br><br>
                 <div class="pull-left">
-                    <a href="javaScript:void(0);" onclick="saveEvent('/api/v1/event/create.do',jQuery('#createEventForm'),'renderEvent')" id="eventSubmitBtn" class="btn btn-info">
-                        创建</a>
+                    <a href="javaScript:void(0);" onclick="saveEvent('/api/v1/event/edit.do',jQuery('#editEventForm'),'renderEvent')" id="eventSubmitBtn" class="btn btn-info">
+                        更新</a>
                 </div>
         </div>
 

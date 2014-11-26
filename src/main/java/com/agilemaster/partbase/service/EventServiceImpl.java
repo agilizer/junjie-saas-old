@@ -28,9 +28,10 @@ import com.agilemaster.partbase.dao.EventDao;
 import com.agilemaster.partbase.entity.BuildProject;
 import com.agilemaster.partbase.entity.Event;
 import com.agilemaster.partbase.entity.EventNotify.EventNotifyType;
-import com.agilemaster.partbase.entity.EventProgress;
+import com.agilemaster.partbase.entity.EventType;
 import com.agilemaster.partbase.entity.User;
 import com.alibaba.fastjson.JSON;
+import com.junjie.commons.db.JdbcPage;
 import com.junjie.commons.db.client.DataSourceSelecter;
 import com.junjie.commons.quartz.QuartzService;
 import com.junjie.commons.utils.DateUtil;
@@ -60,44 +61,21 @@ public class EventServiceImpl implements EventService{
 	@Override
 	public Map<String,Object>  create(Event event, HttpServletRequest request) {
 		Map<String,Object> createResult = JunjieStaticMethod.genResult();
-		User masterUser  = userService.findByUserId(Long.parseLong(request.getParameter("masterUser.id")));
 		User author = userService.currentUser();
-		if(masterUser!=null){
+		if(author!=null){
 			String buildProjectIdStr = request.getParameter("buildProject.id");
 			if(buildProjectIdStr!=null){
 				BuildProject buildProject = buildProjectDao.findById(Long.parseLong(buildProjectIdStr));
 				if(buildProject!=null){
-					event.setBuildProject(buildProject);
-					String[] participantsIdArray =request.getParameterValues("participants");
-					List<User> participants = new ArrayList<User>();
-					for(String temp:participantsIdArray){
-						User user  = userService.findByUserId(Long.parseLong(temp));
-						if(null!=user){
-							participants.add(user);
-						}
-						log.info("participants-->{}",temp);
-					}
-					event.setParticipants(participants);
-					event.setMasterUser(masterUser);
+					genProperties(event,request);
 					event.setAuthor(author);
 					Calendar now = Calendar.getInstance();
 					event.setDateCreated(now);
-					event.setLastUpdated(now);
-					event.setStartDate(DateUtil.parseForCalendar(request.getParameter("startDate"), "yyyy-MM-dd hh:mm:ss"));
-					event.setEndDate(DateUtil.parseForCalendar(request.getParameter("endDate"), "yyyy-MM-dd hh:mm:ss"));
-					boolean separateReport = JunjieStaticMethod.genBooleanValue(request, "separateReport");
-					event.setSeparateReport(separateReport);
 					event  = eventDao.save(event);
 					createResult.put(JunjieConstants.DATA, event);
 					createResult.put(JunjieConstants.SUCCESS, true);
 					boolean sendSms = JunjieStaticMethod.genBooleanValue(request, "sendSms");
-					EventNotifyBean notifyBean = new EventNotifyBean();
-					notifyBean.setDatasourceKey(dataSourceSelecter.getCurrentDataSourceKey());
-					notifyBean.setServerUrl(configDomainService.getConfigString(JunjieConstants.SERVER_URL));
-					notifyBean.setSmsTemplate(configDomainService.getConfigString(JunjieConstants.SMS_TEMPLATE_EVENT));
-					notifyBean.setWorkStartHour(configDomainService.getConfigInt(JunjieConstants.OFFICE_START_TIME));
-					notifyBean.setWorkStopHour(configDomainService.getConfigInt(JunjieConstants.OFFICE_END_TIME));
-					notifyBean.setEventId(event.getId());
+					EventNotifyBean notifyBean =  genNotifyBean(event);
 					if(sendSms){
 						eventNotifyJobService.sendEventSms(event, "创建",notifyBean);
 					}
@@ -105,7 +83,6 @@ public class EventServiceImpl implements EventService{
 					if(isNotify){
 						notify(event,request,notifyBean);
 					}
-					log.info("participants length-->{}",participantsIdArray.length);
 				}else{
 					createResult.put(JunjieConstants.ERROR_CODE, JunjieConstants.NOT_FOUND);
 					createResult.put(JunjieConstants.MSG, "buildProject not found!");
@@ -186,6 +163,89 @@ public class EventServiceImpl implements EventService{
 			result.put(JunjieConstants.ERROR_CODE, JunjieConstants.NOT_FOUND);
 		}
 		return result;
+	}
+	private void genProperties(Event event,HttpServletRequest request){
+		User masterUser  = userService.findByUserId(Long.parseLong(request.getParameter("masterUser.id")));
+		String[] participantsIdArray =request.getParameterValues("participants");
+		List<User> participants = new ArrayList<User>();
+		for(String temp:participantsIdArray){
+			User user  = userService.findByUserId(Long.parseLong(temp));
+			if(null!=user){
+				participants.add(user);
+			}
+			log.info("participants-->{}",temp);
+		}
+		Long eventTypeId = JunjieStaticMethod.genLongValue(request, "eventType.id");
+		if(eventTypeId!=null){
+			EventType eventType = new EventType();
+			eventType.setId(eventTypeId);
+			event.setEventType(eventType);
+		}
+		event.setTitle(request.getParameter("title"));
+		event.setDescription(request.getParameter("description"));
+		event.setParticipants(participants);
+		event.setMasterUser(masterUser);
+		Calendar now = Calendar.getInstance();
+		event.setLastUpdated(now);
+		event.setStartDate(DateUtil.parseForCalendar(request.getParameter("startDate"), "yyyy-MM-dd hh:mm:ss"));
+		event.setEndDate(DateUtil.parseForCalendar(request.getParameter("endDate"), "yyyy-MM-dd hh:mm:ss"));
+		boolean separateReport = JunjieStaticMethod.genBooleanValue(request, "separateReport");
+		event.setSeparateReport(separateReport);
+		boolean isPrivate = JunjieStaticMethod.genBooleanValue(request, "isPrivate");
+		event.setIsPrivate(isPrivate);
+		log.info("participants length-->{}",participantsIdArray.length);
+	}
+	private EventNotifyBean genNotifyBean(Event event){
+		EventNotifyBean notifyBean = new EventNotifyBean();
+		notifyBean.setDatasourceKey(dataSourceSelecter.getCurrentDataSourceKey());
+		notifyBean.setServerUrl(configDomainService.getConfigString(JunjieConstants.SERVER_URL));
+		notifyBean.setSmsTemplate(configDomainService.getConfigString(JunjieConstants.SMS_TEMPLATE_EVENT));
+		notifyBean.setWorkStartHour(configDomainService.getConfigInt(JunjieConstants.OFFICE_START_TIME));
+		notifyBean.setWorkStopHour(configDomainService.getConfigInt(JunjieConstants.OFFICE_END_TIME));
+		notifyBean.setEventId(event.getId());
+		return notifyBean;
+		
+	}
+	@Override
+	public Map<String, Object> edit(Long id, HttpServletRequest request) {
+		Map<String,Object> result = JunjieStaticMethod.genResult();
+		Event event  = eventDao.show(id);
+		if(event!=null){
+			genProperties(event,request);
+			eventDao.update(event);
+			boolean sendSms = JunjieStaticMethod.genBooleanValue(request, "sendSms");
+			EventNotifyBean notifyBean =  genNotifyBean(event);
+			if(sendSms){
+				eventNotifyJobService.sendEventSms(event, "更新",notifyBean);
+			}
+			boolean isNotify = JunjieStaticMethod.genBooleanValue(request, "isNotify");
+			if(isNotify){
+				String jobId = notifyBean.genJobId();
+				quartzService.deleteJob(JOB_NAME_START+jobId, JOB_GROUP);
+				notify(event,request,notifyBean);
+			}
+			result.put(JunjieConstants.SUCCESS, true);
+			result.put(JunjieConstants.DATA, event);
+		}else{
+			result.put(JunjieConstants.ERROR_CODE, JunjieConstants.NOT_FOUND);
+		}
+		return null;
+	}
+	@Override
+	public Map<String, Object> del(Long id) {
+		Map<String,Object> result = JunjieStaticMethod.genResult();
+	    eventDao.del(id);
+	    result.put(JunjieConstants.SUCCESS, true);
+		return result;
+	}
+	@Override
+	public JdbcPage list(long startTime, Long endTime,int max,int offset) {
+		User user = userService.currentUser();
+		Calendar start = Calendar.getInstance();
+		start.setTimeInMillis(startTime);
+		Calendar end = Calendar.getInstance();
+		end.setTimeInMillis(endTime);
+		return eventDao.list(user, start, end,max,offset);
 	}
 
 }
