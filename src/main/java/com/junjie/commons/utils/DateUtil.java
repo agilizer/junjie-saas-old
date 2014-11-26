@@ -56,6 +56,24 @@ public class DateUtil {
 		}
 		return result;
 	}
+	public static Calendar parseForCalendar(String dateStr, String format) {
+		Calendar result = null;
+		if (dateStr != null) {
+			try {
+				SimpleDateFormat sdf = dateFormatMap.get(format);
+				if (dateFormatMap.get(format) == null) {
+					sdf = new SimpleDateFormat(format);
+					dateFormatMap.put(format, sdf);
+				}
+				Date temp = sdf.parse(dateStr);
+				result = Calendar.getInstance();
+				result.setTimeInMillis(temp.getTime());
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		return result;
+	}
 	public static String format(Calendar date, String format) {
 		String result = "";
 		if (date != null) {

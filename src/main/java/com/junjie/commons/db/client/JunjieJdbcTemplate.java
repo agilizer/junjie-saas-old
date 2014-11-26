@@ -131,5 +131,9 @@ public class JunjieJdbcTemplate implements JunjieJdbcOptions, Serializable{
 	public Object execute(JunjieDbOptionBean optionBean) {
 		return junjieJdbcRequest.sendJdbcMessageSync(optionBean);
 	}
+	@Override
+	public List queryForList(String sql) {
+		return this.queryForList(sql, null);
+	}
 	
 }
