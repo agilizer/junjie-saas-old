@@ -14,9 +14,10 @@ import com.agilemaster.partbase.service.ResourceService;
 import com.agilemaster.partbase.service.RoleService;
 
 /**
- * <p>User: Zhang Kaitao
- * <p>Date: 14-2-14
- * <p>Version: 1.0
+ * 
+ * @author abel.lee
+ *
+ * 2014年11月26日
  */
 @Controller
 @RequestMapping("/role")

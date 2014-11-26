@@ -22,9 +22,10 @@ import com.junjie.commons.utils.JunjieConstants;
 import com.junjie.commons.utils.JunjieStaticMethod;
 
 /**
- * <p>User: Zhang Kaitao
- * <p>Date: 14-2-14
- * <p>Version: 1.0
+ * 
+ * @author abel.lee
+ *
+ * 2014 2014年11月26日
  */
 @Controller
 @RestController("")
@@ -54,7 +55,7 @@ public class UserController {
 		return result;
 	}
     @RequiresPermissions("userAdmin:create")
-    @RequestMapping(value = "/api/v1/companyAddUser", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/v1/user/add", method = RequestMethod.GET)
     public Map<String, Object> companyAddUser(String username,String password) {
     	Map<String,Object> result = JunjieStaticMethod.genResult();
     	if(username==null||username.trim().equals("")){
@@ -71,14 +72,14 @@ public class UserController {
         return result;
     }
     @RequiresPermissions("userAdmin:create")
-    @RequestMapping(value = "/api/v1/changeResources")
+    @RequestMapping(value = "/api/v1/user/changeResources")
     public Map<String, Object> changeResources(String resourcesId,String username) {
     	Map<String,Object> result = JunjieStaticMethod.genResult();
     	result =  userService.updateResource(resourcesId, username);
         return result;
     }
     @RequiresPermissions("userAdmin:create")
-    @RequestMapping(value = "/api/v1/getResources")
+    @RequestMapping(value = "/api/v1/user/currentResources")
     public Map<String, Object> genResources(String username) {
     	Map<String,Object> result = JunjieStaticMethod.genResult();
     	result = userService.genResource(username);
@@ -86,12 +87,12 @@ public class UserController {
     }
     
     @RequiresPermissions("*:*")
-    @RequestMapping(value = "/api/v1/userList")
+    @RequestMapping(value = "/api/v1/user/list")
     public JdbcPage userList(int max,int offset) {
         return userService.listUser(max, offset);
     }
     @RequiresUser
-    @RequestMapping(value = "/api/v1/userListSelect")
+    @RequestMapping(value = "/api/v1/user/listSelect")
     public List userListSelect() {
         return userService.userListSelect();
     }

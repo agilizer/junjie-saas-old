@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.agilemaster.partbase.entity.Resource;
-import com.agilemaster.partbase.repository.ResourceRepository;
+import com.agilemaster.partbase.service.ShareService;
+import com.junjie.commons.db.client.JunjieJdbcOptions;
 /**
  * 
  * @author abel.lee
@@ -15,29 +16,39 @@ import com.agilemaster.partbase.repository.ResourceRepository;
 @Repository
 public class ResourceDaoImpl implements ResourceDao {
     @Autowired
-    private ResourceRepository resourceRepository;
+    private ShareService  shareService;
+    @Autowired
+	private JunjieJdbcOptions junjieJdbcOptions;
+
+	@Override
+	public Resource createResource(Resource resource) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Resource updateResource(Resource resource) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteResource(Long resourceId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Resource findOne(Long resourceId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<?> findAll() {
+		return junjieJdbcOptions.queryForList("select id,name  from SYS_RESOURCE where AVAILABLE=1", null);
+	}
     
-    public Resource createResource(final Resource resource) {
-        return resourceRepository.save(resource);
-    }
-
-    @Override
-    public Resource updateResource(Resource resource) {
-    	  return resourceRepository.save(resource);
-    }
-
-    public void deleteResource(Long resourceId) {
-    	  resourceRepository.delete(resourceId);
-    }
-
-    @Override
-    public Resource findOne(Long resourceId) {
-    	 return resourceRepository.findOne(resourceId);
-    }
-
-    @Override
-    public List<Resource> findAll() {
-    	return resourceRepository.findAll();
-    }
+   
 
 }

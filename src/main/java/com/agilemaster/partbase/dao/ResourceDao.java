@@ -16,6 +16,6 @@ public interface ResourceDao {
     public void deleteResource(Long resourceId);
 
     Resource findOne(Long resourceId);
-    List<Resource> findAll();
+    List<?> findAll();
 
 }

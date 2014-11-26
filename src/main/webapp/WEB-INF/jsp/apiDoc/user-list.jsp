@@ -1,5 +1,5 @@
 <%@ page pageEncoding="utf-8"%>
-<h3>url: <a href="/api/v1/userList.do?max=10&offset=0" target="_blank">/api/v1/userList.do</a></h3>
+<h3>url: <a href="/api/v1/user/list.do?max=10&offset=0" target="_blank">/api/v1/user/list.do</a></h3>
 <h3>参数列表</h3>
 <table class="table">
     <thead>

@@ -1,5 +1,5 @@
 <%@ page pageEncoding="utf-8"%>
-<h3>url: <a href="/api/v1/companyAddUser.do?username=test123&password=123456" target="_blank">/api/v1/companyAddUser.do</a></h3>
+<h3>url: <a href="/api/v1/user/add.do?username=test123&password=123456" target="_blank">/api/v1/user/add.do</a></h3>
 <h3>参数列表</h3>
 <table class="table">
     <thead>

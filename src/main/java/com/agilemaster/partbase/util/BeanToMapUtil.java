@@ -67,6 +67,7 @@ public class BeanToMapUtil {
 							Calendar can = Calendar.getInstance();
 							can.setTimeInMillis(((Timestamp)value).getTime());
 							args[0] = can;
+							descriptor.getWriteMethod().invoke(obj, args);
 						}else {
 							Class<? extends Object> clazzListObject =descriptor.getPropertyType();
 							if (!JunjieStaticMethod.isBaseObjectStr(clazzListObject.getSimpleName())) {

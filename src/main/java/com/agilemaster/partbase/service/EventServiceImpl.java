@@ -80,6 +80,11 @@ public class EventServiceImpl implements EventService{
 					event.setParticipants(participants);
 					event.setMasterUser(masterUser);
 					event.setAuthor(author);
+					Calendar now = Calendar.getInstance();
+					event.setDateCreated(now);
+					event.setLastUpdated(now);
+					event.setStartDate(DateUtil.parseForCalendar(request.getParameter("startDate"), "yyyy-MM-dd hh:mm:ss"));
+					event.setEndDate(DateUtil.parseForCalendar(request.getParameter("endDate"), "yyyy-MM-dd hh:mm:ss"));
 					boolean separateReport = JunjieStaticMethod.genBooleanValue(request, "separateReport");
 					event.setSeparateReport(separateReport);
 					event  = eventDao.save(event);

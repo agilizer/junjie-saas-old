@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.agilemaster.partbase.util.BeanToMapUtil;
-import com.junjie.commons.db.client.JunjieJdbcTemplate;
+import com.junjie.commons.db.client.JunjieJdbcOptions;
 import com.junjie.commons.utils.JunjieCounter;
 import com.junjie.commons.utils.JunjieStaticMethod;
 
@@ -28,7 +28,7 @@ public class ShareServiceImpl implements ShareService,Serializable {
 	private static final Logger log = LoggerFactory
 			.getLogger(ShareServiceImpl.class);
 	@Autowired
-	private JunjieJdbcTemplate junjieJdbcTemplate;
+	private JunjieJdbcOptions junjieJdbcOptions;
 	@Autowired
 	private JunjieCounter junjieCounter;
 	@Value(value = "${junjie.cloud.url}")
@@ -86,7 +86,7 @@ public class ShareServiceImpl implements ShareService,Serializable {
 		sql.append(tableName).append(" where id=:objId ");
 		Map<String, Object> queryParams = new HashMap<String, Object>();
 		queryParams.put("objId", id);
-		return junjieJdbcTemplate.queryForMap(sql.toString(), queryParams);
+		return junjieJdbcOptions.queryForMap(sql.toString(), queryParams);
 	}
 
 
@@ -165,14 +165,14 @@ public class ShareServiceImpl implements ShareService,Serializable {
 			insertMap.remove(keyRemoveTemp);
 		}
 		sql = sql.append(fileSql.subSequence(0, fileSql.length() - 1)).append(")values").append(valuesSql.subSequence(0, valuesSql.length() - 1)).append(");");
-		junjieJdbcTemplate.update(sql.toString(), insertMap);
+		junjieJdbcOptions.update(sql.toString(), insertMap);
 		// execute list sql
 		if (sqlList.size() > 0) {
 			String insertListSql = "";
 			for (String sqlTemp : sqlList) {
 				insertListSql = insertListSql + sqlTemp;
 			}
-			junjieJdbcTemplate.update(insertListSql, null);
+			junjieJdbcOptions.update(insertListSql, null);
 		}
 	}
 
