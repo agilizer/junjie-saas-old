@@ -26,14 +26,12 @@ public class PaginationHelper {
         final long searchMax,searchOffset;
      // create the page object
         final JdbcPage page = new JdbcPage();
+        searchMax = rowCount;
         if(max==0&&offset==0){
-        	searchMax = rowCount;
         	searchOffset = 0;
         	  page.setPageNumber(0);
-        	  
               page.setPagesAvailable(1);
         }else{
-        	searchMax = max;
         	searchOffset = offset;
         	 // calculate the number of pages
             long pageCount = rowCount / max;
