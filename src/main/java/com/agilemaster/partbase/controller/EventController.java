@@ -52,7 +52,7 @@ public class EventController {
 	@RequestMapping("/api/v1/event/list")
 	public JdbcPage list(HttpServletRequest request) {
 		int max = JunjieStaticMethod.genIntValue(request, "max");
-		int offset = JunjieStaticMethod.genIntValue(request, "max");
+		int offset = JunjieStaticMethod.genIntValue(request, "offset");
 		Long startTime = JunjieStaticMethod.genLongValue(request, "startTime");
 		Long endTime = JunjieStaticMethod.genLongValue(request, "endTime");
 		JdbcPage jdbcPage = eventService.list(startTime, endTime, max, offset);

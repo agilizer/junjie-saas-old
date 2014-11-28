@@ -7,6 +7,7 @@ import static org.quartz.TriggerBuilder.newTrigger;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -241,10 +242,12 @@ public class EventServiceImpl implements EventService{
 	@Override
 	public JdbcPage list(long startTime, Long endTime,int max,int offset) {
 		User user = userService.currentUser();
-		Calendar start = Calendar.getInstance();
+		Calendar start = new GregorianCalendar();
 		start.setTimeInMillis(startTime);
-		Calendar end = Calendar.getInstance();
+		log.info("start:{}",start.getTimeInMillis()+"-"+start.get(Calendar.YEAR)+"-"+start.get(Calendar.MONTH)+"-"+start.get(Calendar.DAY_OF_MONTH));
+		Calendar end = new GregorianCalendar();
 		end.setTimeInMillis(endTime);
+		log.info("end:{}",end.getTimeInMillis()+"-"+end.get(Calendar.YEAR)+"-"+end.get(Calendar.MONTH)+"-"+end.get(Calendar.DAY_OF_MONTH));
 		return eventDao.list(user, start, end,max,offset);
 	}
 

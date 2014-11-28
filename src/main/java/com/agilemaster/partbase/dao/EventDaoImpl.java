@@ -106,10 +106,10 @@ public class EventDaoImpl implements EventDao{
 		queryParams.put("end", end);
 		//select distinct e.* from EVENT e,EVENT_PARTICIPANTS e_p where e.AUTHOR  = 103 or ( e.id=e_p.event  and e_p.PARTICIPANTS=103 ) or e.MASTER_USER=103
 		String countSql = "select count( distinct e.id) from EVENT e,EVENT_PARTICIPANTS e_p where e.START_DATE>:start and "
-				+ " e.END_DATE<:end "
+				+ " e.END_DATE<:end and"
 				+ " (e.AUTHOR  =:userId or ( e.id=e_p.event  and e_p.PARTICIPANTS=:userId ) or e.MASTER_USER=:userId)";
 		String querySql = "select distinct e.id,e.title,e.start_date,e.end_date from EVENT e,EVENT_PARTICIPANTS e_p where e.START_DATE>:start and "
-				+ " e.END_DATE<:end "
+				+ " e.END_DATE<:end  and"
 				+ " (e.AUTHOR  =:userId or ( e.id=e_p.event  and e_p.PARTICIPANTS=:userId ) or e.MASTER_USER=:userId)";
 		return junjieJdbcOptions.queryForList(querySql, countSql, queryParams, max, offset);
 	}

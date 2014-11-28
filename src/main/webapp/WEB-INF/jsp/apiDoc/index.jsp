@@ -58,6 +58,10 @@
 					<jsp:include page="./event-edit.jsp"  ></jsp:include>
 					<h2 id="event-create">展示任务</h2>
 					<h3>url: <a href="/api/v1/event/show.do?id=1" target="_blank">/api/v1/event/show.do?id=1</a></h3>
+					<h2 id="event-del">删除任务</h2>
+					<h3>url: <a href="/api/v1/event/del.do?id=1" target="_blank">/api/v1/event/del.do?id=1</a></h3>
+					<h2 id="event-current-list">当前用户任务列表</h2>
+					<jsp:include page="./event-current-list.jsp"  ></jsp:include>
 					<h1 class="page-header" id="buildProject">项目</h1>
 					<h2 id="buildProject-list">项目列表</h2>
 					<jsp:include page="./buildProject-list.jsp"  ></jsp:include>
@@ -93,6 +97,8 @@
 							<li><a href="#event-create">创建任务</a></li>
 							<li><a href="#event-show">任务展示</a></li>
 							<li><a href="#event-edit">任务编辑</a></li>
+							<li><a href="#event-del">任务删除</a></li>
+							<li><a href="#event-current-list">当前用户任务列表</a></li>
 						</ul>
 						<li class="active"><a href="#buildProject">项目管理</a>
 						<ul class="nav">
