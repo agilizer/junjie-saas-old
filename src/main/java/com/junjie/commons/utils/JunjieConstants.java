@@ -7,7 +7,7 @@ public interface JunjieConstants {
 	String ERROR_CODE = "errorCode";
 	String DATA_SOURCE_KEY = "dataSourceKey";
 	String USSER_ID = "userId";
-
+    String PLUGIN_CODE_BASE="junjieBase";
 	// error code start
 	/**
 	 * 资源没有找到
