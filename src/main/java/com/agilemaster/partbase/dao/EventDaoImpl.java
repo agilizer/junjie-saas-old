@@ -113,5 +113,19 @@ public class EventDaoImpl implements EventDao{
 				+ " (e.AUTHOR  =:userId or ( e.id=e_p.event  and e_p.PARTICIPANTS=:userId ) or e.MASTER_USER=:userId)";
 		return junjieJdbcOptions.queryForList(querySql, countSql, queryParams, max, offset);
 	}
+	@Override
+	public int updateProgress(Long eventId, int progress) {
+		Map<String,Object> queryParams = new HashMap<String,Object>();
+		queryParams.put("eventId", eventId);
+		queryParams.put("progress", progress);
+		return junjieJdbcOptions.update("update event set progress=:progress where id=:eventId", queryParams);
+	}
+	@Override
+	public int updateSeparateProgress(Long progressesId, int progress) {
+		Map<String,Object> queryParams = new HashMap<String,Object>();
+		queryParams.put("progressesId", progressesId);
+		queryParams.put("progress", progress);
+		return junjieJdbcOptions.update("update event_progress set progress=:progress where id=:progressesId", queryParams);
+	}
 
 }

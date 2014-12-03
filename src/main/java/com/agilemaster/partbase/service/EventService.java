@@ -13,4 +13,7 @@ public interface EventService {
 	Map<String,Object> edit(Long id,HttpServletRequest request);
 	Map<String,Object> del(Long id);
 	JdbcPage list(long startTime,Long endTime,int max,int offset);
+	Map<String,Object> updateProgress(Long eventId,int progress);
+	Map<String,Object> updateSeparateProgress(Long progressesId,int progress) ;
+	
 }

@@ -42,7 +42,7 @@ public class EventController {
 		Map<String,Object> map = eventService.edit(id,request);
 		return map;
 	}
-	@RequiresPermissions("event:edit")
+	@RequiresPermissions("event:del")
 	@RequestMapping("/api/v1/event/del")
 	public Map<String,Object> del(Long id) {
 		Map<String,Object> map = eventService.del(id);
@@ -57,6 +57,16 @@ public class EventController {
 		Long endTime = JunjieStaticMethod.genLongValue(request, "endTime");
 		JdbcPage jdbcPage = eventService.list(startTime, endTime, max, offset);
 		return jdbcPage;
+	}
+	@RequiresPermissions("event:update")
+	@RequestMapping("/api/v1/event/updateProgress")
+	public Map<String,Object> updateProgress(Long eventId,int progress) {
+		return eventService.updateProgress(eventId, progress);
+	}
+	@RequiresPermissions("event:update")
+	@RequestMapping("/api/v1/event/updateSeparateProgress")
+	public Map<String,Object> updateSeparateProgress(Long progressesId,int progress) {
+		return eventService.updateSeparateProgress(progressesId, progress);
 	}
 	
 

@@ -250,5 +250,22 @@ public class EventServiceImpl implements EventService{
 		log.info("end:{}",end.getTimeInMillis()+"-"+end.get(Calendar.YEAR)+"-"+end.get(Calendar.MONTH)+"-"+end.get(Calendar.DAY_OF_MONTH));
 		return eventDao.list(user, start, end,max,offset);
 	}
+	@Override
+	public Map<String, Object> updateProgress(Long eventId, int progress) {
+		Map<String,Object> result = JunjieStaticMethod.genResult();
+		int updateResult = eventDao.updateProgress(eventId, progress);
+		result.put(JunjieConstants.SUCCESS, true);
+		result.put(JunjieConstants.DATA, updateResult);
+		return result;
+	}
+	@Override
+	public Map<String, Object> updateSeparateProgress(Long progressesId,
+			int progress) {
+		Map<String,Object> result = JunjieStaticMethod.genResult();
+		int updateResult = eventDao.updateSeparateProgress(progressesId, progress);
+		result.put(JunjieConstants.SUCCESS, true);
+		result.put(JunjieConstants.DATA, updateResult);
+		return result;
+	}
 
 }

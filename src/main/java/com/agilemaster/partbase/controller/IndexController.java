@@ -30,17 +30,4 @@ public class IndexController {
 		return homeService.index();
 	}
 
-	@RequestMapping("/welcome")
-	public String welcome() {
-		Subject subject = SecurityUtils.getSubject();
-		Session session = subject.getSession();
-		if (session.getAttribute("haha") != null) {
-			System.out.println("get from session haha:"+ session.getAttribute("haha"));
-		} else {
-			session.setAttribute("haha", "wowowo---->");
-			System.out.println("put haha--------------->");
-		}
-		return "welcome";
-	}
-
 }

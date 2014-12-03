@@ -17,16 +17,17 @@ import com.junjie.commons.utils.JunjieStaticMethod;
 public class HomeServiceImpl implements HomeService{
 	private static final Logger log = LoggerFactory
 			.getLogger(HomeServiceImpl.class);
-	@Value(value = "${junjie.cloud.url}")
-	private String cloudUrl;
+	@Autowired
+	ShareService shareService;
 	@Autowired
 	private UserService userService;
 	@Override
 	public Map<String, Object> index() {
-		log.info("-------------------------->@Vaule test cloudUrl {}",cloudUrl);
+		log.info("-------------------------->@Vaule test cloudUrl {}",shareService.cloudUrl());
 		Map<String,Object> result = JunjieStaticMethod.genResult();
 		Subject subject = SecurityUtils.getSubject();
 		Object principal = subject.getPrincipal();
+		result.put(JunjieConstants.CLOUD_URL, shareService.cloudUrl());
 		if(principal==null){
 			log.info("--->principal   is null  session.id:"+subject.getSession().getId() );
 		}else{
