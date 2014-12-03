@@ -8,6 +8,7 @@ public interface JunjieConstants {
 	String DATA_SOURCE_KEY = "dataSourceKey";
 	String USSER_ID = "userId";
     String PLUGIN_CODE_BASE="junjieBase";
+    String CLOUD_URL = "cloudUrl";
 	// error code start
 	/**
 	 * 资源没有找到
