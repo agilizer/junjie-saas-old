@@ -2,23 +2,23 @@
     <header>
         <span class="widget-icon"> <i class="fa fa-calendar"></i> </span>
 
-        <h2> My Events </h2>
+        <h2> 我的任务 </h2>
 
         <div class="widget-toolbar">
             <!-- add: non-hidden - to disable auto hide -->
             <div class="btn-group" dropdown >
                 <button class="btn dropdown-toggle btn-xs btn-default">
-                    Showing <i class="fa fa-caret-down"></i>
+                    查看方式 <i class="fa fa-caret-down"></i>
                 </button>
                 <ul class="dropdown-menu js-status-update pull-right">
                     <li>
-                        <a ng-click="changeView('month')">Month</a>
+                        <a ng-click="changeView('month')">月</a>
                     </li>
                     <li>
-                        <a ng-click="changeView('agendaWeek')">Agenda</a>
+                        <a ng-click="changeView('agendaWeek')">周</a>
                     </li>
                     <li>
-                        <a ng-click="changeView('agendaDay')">Today</a>
+                        <a ng-click="changeView('agendaDay')">天</a>
                     </li>
                 </ul>
             </div>

@@ -19,7 +19,8 @@ var require = {
         pace : "../plugin/pace/pace.min",
         fastclick : "../plugin/fastclick/lib/fastclick",
         "jquery-color" : "../plugin/jquery-color/jquery.color",
-        select2 : "../plugin/select2/select2.min",
+      //  select2 : "../plugin/select2/select2.min",
+        "bootstrap-select" : "../plugin/bootstrap-select-silviomoreto/dist/js/bootstrap-select.min",
         summernote : "../plugin/summernote/dist/summernote.min",
         he : "../plugin/he/he",
         "to-markdown" : "../plugin/to-markdown/src/to-markdown",
@@ -121,9 +122,9 @@ var require = {
         "angular-google-plus" : {
             deps : [ "angular" ]
         },
-        select2 : {
-            deps : [ "jquery" ]
-        },
+//        select2 : {
+//            deps : [ "jquery" ]
+//        },
         summernote : {
             deps : [ "jquery" ]
         },
@@ -291,6 +292,9 @@ var require = {
         },
         init:{
         	deps : [ "jquery" ]
+        },
+        "bootstrap-select":{
+        	deps : [ "bootstrap" ,"jquery"]
         }
     },
     priority : [ "jquery", "bootstrap", "angular" ]

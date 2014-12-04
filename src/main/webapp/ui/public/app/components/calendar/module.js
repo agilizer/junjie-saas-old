@@ -27,6 +27,8 @@ define(['angular',
                     deps: $couchPotatoProvider.resolveDependencies([
                                 'modules/widgets/directives/widgetGrid',
                                 'modules/widgets/directives/jarvisWidget',
+                                'components/calendar/eventCtrl',
+                                'components/calendar/directives/smartSelect2'
                     ])
                 }
             });

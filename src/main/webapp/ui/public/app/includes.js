@@ -33,6 +33,7 @@ define([
     'components/language/Language',
     //my calendar event
     'components/calendar/module',
+     'components/calendar/eventCtrl',
     'components/calendar/models/CalendarEvent',
     'components/calendar/directives/fullCalendar',
     'components/calendar/directives/dragableEvent',

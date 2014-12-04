@@ -2,7 +2,7 @@ define(['components/calendar/module', 'fullcalendar'], function (module) {
 
     "use strict";
 
-    module.registerDirective('fullCalendar', function (CalendarEvent, $log, $timeout) {
+    module.registerDirective('fullCalendar', function (CalendarEvent, $log, $timeout,$modal) {
         return {
             restrict: 'E',
             replace: true,
@@ -11,33 +11,37 @@ define(['components/calendar/module', 'fullcalendar'], function (module) {
                 events: "=events"
             },
             link: function (scope, element) {
-
-
                 var $calendar = $("#calendar");
-
                 var calendar = null;
-
-
                 function initCalendar() {
-
                     // $log.log(events);
-
-
                     calendar = $calendar.fullCalendar({
                         editable: true,
                         draggable: true,
-                        selectable: false,
+                        selectable: true,
                         selectHelper: true,
                         unselectAuto: false,
                         disableResizing: false,
                         droppable: true,
-
+                        allDaySlot: true,
+                        aspectRatio: 2,
+                        timeFormat: " ",
+                        dragOpacity: 0.6,
+                        dragRevertDuration: 0,
+                        startParam: "startDate",
+                        endParam: "endDate",
+                        lazyFetching: true,
+                        disableDragging: false,
+            	        monthNames: ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
+            	        monthNamesShort: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
+            	        dayNames: ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'],
+            	        dayNamesShort: ['周日','周一','周二','周三','周四','周五','周六'],
+            	        allDayText: '全天',
                         header: {
                             left: 'title', //,today
                             center: 'prev, next, today',
                             right: 'month, agendaWeek, agendaDay' //month, agendaDay,
                         },
-
                         drop: function (date, allDay) { // this function is called when something is dropped
     
                             // retrieve the dropped element's stored Event Object
@@ -72,17 +76,13 @@ define(['components/calendar/module', 'fullcalendar'], function (module) {
                         },
 
                         select: function (start, end, allDay) {
-                            var title = prompt('Event Title:');
-                            if (title) {
-                                calendar.fullCalendar('renderEvent', {
-                                        title: title,
-                                        start: start,
-                                        end: end,
-                                        allDay: allDay
-                                    }, true // make the event "stick"
-                                );
-                            }
-                            calendar.fullCalendar('unselect');
+                            var modalInstance = $modal.open({
+                                  templateUrl: 'app/components/calendar/views/event-create.tpl.html',
+                                  controller: 'eventCreateCtrl',
+                                  resolve: {
+                                  
+                                  }
+                                });
                         },
 
                         // events: scope.events,
