@@ -5,7 +5,6 @@ var cloudUrl = "";
 var junjieBaseUrl = "";
 var isAuth = false;
 var userInfo;
-
 var JUNJIE_URL = {
     baseIndex:junjieBaseUrl+"/api/v1/index.do"
 }
@@ -18,7 +17,7 @@ $.ajax({
     	cloudUrl = result.cloudUrl;
     	isAuth = result.success;
     	if(isAuth == true){
-    		userInfo = result.data;
+	   userInfo = result.data;
     	}else{
     		console.log("not login!!!!!!!!!!!!!!!");
     		window.location.href=cloudUrl;

@@ -16,6 +16,7 @@ var require = {
         "angular-couch-potato" : "../plugin/angular-couch-potato/dist/angular-couch-potato",
         "angular-easyfb" : "../plugin/angular-easyfb/angular-easyfb.min",
         "angular-google-plus" : "../plugin/angular-google-plus/dist/angular-google-plus.min",
+        "angular-ui-select" : "../plugin/angular-ui-select/dist/select",
         pace : "../plugin/pace/pace.min",
         fastclick : "../plugin/fastclick/lib/fastclick",
         "jquery-color" : "../plugin/jquery-color/jquery.color",
@@ -79,7 +80,8 @@ var require = {
         notification : "../smartadmin-plugin/notification/SmartNotification.min",
         appConfig : "../app.config",
         "includes" : "includes",
-        init:'init'
+        init:'init',
+        "my97DatePicker":"../plugin/My97DatePicker/WdatePicker"
     },
     shim : {
         angular : {
@@ -87,6 +89,9 @@ var require = {
             deps : [ "jquery" ]
         },
         "angular-animate" : {
+            deps : [ "angular" ]
+        },
+        "angular-ui-select" : {
             deps : [ "angular" ]
         },
         "angular-resource" : {

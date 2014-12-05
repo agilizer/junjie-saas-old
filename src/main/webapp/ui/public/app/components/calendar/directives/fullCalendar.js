@@ -11,6 +11,7 @@ define(['components/calendar/module', 'fullcalendar'], function (module) {
                 events: "=events"
             },
             link: function (scope, element) {
+              
                 var $calendar = $("#calendar");
                 var calendar = null;
                 function initCalendar() {
@@ -117,7 +118,7 @@ define(['components/calendar/module', 'fullcalendar'], function (module) {
 
                 }, true);
 
-
+               
                 scope.next = function () {
                     $('.fc-button-next', $calendar).click();
                 };

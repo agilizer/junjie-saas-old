@@ -39,12 +39,13 @@ public class UserServiceImpl implements UserService {
      * 创建用户
      * @param user
      */
-    public Map<String,Object >  createUser(String username,String password) {
+    public Map<String,Object >  createUser(String username,String password,String fullName) {
     	Map<String,Object > result = JunjieStaticMethod.genResult();
     	String requestUrl = shareService.cloudUrl()+createUserUrl;
     	User adminUser = currentUser();
     	User user = new User();
     	user.setUsername(username);
+    	user.setFullName(fullName);
     	user.setDateCreated(Calendar.getInstance());
     	user.setLastUpdated(Calendar.getInstance());
     	user.setApart(true);

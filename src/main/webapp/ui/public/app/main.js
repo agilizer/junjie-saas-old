@@ -11,7 +11,8 @@ define([
     'bootstrap',
     'appConfig',
     'app',
-    'includes'   
+    'includes' ,
+    "my97DatePicker"
 ], function (require, $, ng, domReady) {
     'use strict';
     console.log("Defer AngularJS bootstrap--------------------");
@@ -19,8 +20,7 @@ define([
     $.sound_on = appConfig.sound_on;
 
 
-    domReady(function (document) {
-    	
+    domReady(function (document) {   	
         ng.bootstrap(document, ['app']);
         ng.resumeBootstrap();
     });

@@ -56,7 +56,7 @@ public class UserController {
 	}
     @RequiresPermissions("userAdmin:create")
     @RequestMapping(value = "/api/v1/user/add", method = RequestMethod.GET)
-    public Map<String, Object> companyAddUser(String username,String password) {
+    public Map<String, Object> companyAddUser(String username,String password,String fullName) {
     	Map<String,Object> result = JunjieStaticMethod.genResult();
     	if(username==null||username.trim().equals("")){
     		result.put(JunjieConstants.MSG, "用户名不能为空！");
@@ -68,7 +68,7 @@ public class UserController {
     		result.put(JunjieConstants.ERROR_CODE, JunjieConstants.REG_PWD_WRONG);
     		return result;
 		}
-    	result =  userService.createUser(username, password);
+    	result =  userService.createUser(username, password,fullName);
         return result;
     }
     @RequiresPermissions("userAdmin:create")

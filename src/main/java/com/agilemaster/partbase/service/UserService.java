@@ -15,10 +15,10 @@ import com.junjie.commons.db.JdbcPage;
 public interface UserService {
 
     /**
-     * 创建用户
+     * 创建用户 username 为电话　,fullName为真实姓名
      * @param user
      */
-    public Map<String,Object >  createUser(String username,String password);
+    public Map<String,Object >  createUser(String username,String password,String fullName);
     
     User currentUser();
 

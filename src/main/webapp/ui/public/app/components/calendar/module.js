@@ -1,11 +1,11 @@
 define(['angular',
     'angular-couch-potato',
-    'angular-ui-router'], function (ng, couchPotato) {
+    'angular-ui-router','angular-sanitize','angular-ui-select'], function (ng, couchPotato) {
 
     "use strict";
 
 
-    var module = ng.module('app.calendar', ['ngResource','ui.router']);
+    var module = ng.module('app.calendar', ['ngResource','ui.router','ui.select']);
 
 
     couchPotato.configureApp(module);
@@ -17,19 +17,19 @@ define(['angular',
                 url: '/calendar',
                 views: {
                     content: {
+                        controller:'eventIndexCtrl',
                         templateUrl: 'app/components/calendar/views/calendar.tpl.html'
+                    },
+                    resolve: {
+                        deps: $couchPotatoProvider.resolveDependencies([
+                                    'modules/widgets/directives/widgetGrid',
+                                    'modules/widgets/directives/jarvisWidget',
+                                    'components/calendar/eventCtrl'
+                        ])
                     }
                 },
                 data:{
                     title: '我的日历'
-                },
-                resolve: {
-                    deps: $couchPotatoProvider.resolveDependencies([
-                                'modules/widgets/directives/widgetGrid',
-                                'modules/widgets/directives/jarvisWidget',
-                                'components/calendar/eventCtrl',
-                                'components/calendar/directives/smartSelect2'
-                    ])
                 }
             });
     });

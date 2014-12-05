@@ -41,6 +41,9 @@ define([
     // forms
     'modules/forms/module',
 
+    //service
+     'modules/user/userService',
+
 
     // dashboard
     'dashboard/module',

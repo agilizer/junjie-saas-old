@@ -87,6 +87,17 @@ define([
         $rootScope.$stateParams = $stateParams;
         // editableOptions.theme = 'bs3';
     });
+    var cloudUrl = "";
+    var junjieBaseUrl = "";
+    var JUNJIE_URL = {
+        baseIndex:junjieBaseUrl+"/api/v1/index.do"
+    }
+    app.constant('junjieUrl',{
+        baseIndex:junjieBaseUrl+"/api/v1/index.do",
+        userSelect: junjieBaseUrl+"/api/v1/user/listSelect.do",
+        eventSaveUrl:junjieBaseUrl+"/api/v1/event/create.do"
+    });   
+    
 
     return app;
 });
