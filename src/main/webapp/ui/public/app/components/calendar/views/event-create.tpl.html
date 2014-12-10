@@ -9,30 +9,30 @@
         <input type="hidden" id="isMilestone" value="false" name="isMilestone">
        <div class="row">
 <!-- NEW COL START -->
-                <article class="col-sm-12 col-md-12 col-lg-6">
-                    <div class="form-group">
-        <label class="col-md-5 control-label">私有任务</label>
-        <div class="col-md-1">
+                
+                    <div class="">
+        <label class="">私有任务</label>
+        <div class="">
            <input type="checkbox" id="isPrivateCheckBox" data-ng-model="event.isPrivate"  name="isPrivate">
         </div>
-         <label class="col-md-5 control-label">发送短信通知</label>
-        <div class="col-md-1">
+         <label class="">发送短信通知</label>
+        <div class="">
           <input type="checkbox" id="sendSms" data-ng-model="event.sendSms" name="sendSms">
         </div>
                    
     </div>
             
-              <div class="form-group">
-                <label class="col-md-12 control-label">主要负责人(不选择表示自己)</label>
+              <div class="">
+                <label class="">主要负责人(不选择表示自己)</label>
                 <br>
-                <div class="col-md12">
-              <ui-select multiple data-ng-model="event.masterUserId" >
+              
+              <ui-select  data-ng-model="event.masterUserId" >
                 <ui-select-match placeholder="主要负责人">{{$item.FULL_NAME}}</ui-select-match>
                 <ui-select-choices repeat="user in selectUser | filter:$select.search">
                   {{user.FULL_NAME}}
                 </ui-select-choices>
               </ui-select>
-              </div>
+         
           </div>
            <div class="row">
                 <label for="title">标题</label>
@@ -73,9 +73,7 @@
                              </div>
                 </div>
                 </div>
-            </article>
-
-             <article class="col-sm-12 col-md-12 col-lg-6">
+         
                 <label id="buildProjectLabel">选择工程<select value="1" data-ng-model="event.buildProject.id" name="buildProjectId" style="display: none" id="buildProjectSelect" class="buildProjectSelect">
  <option value="1">默认建设项目</option></select></label>
                 
@@ -99,8 +97,7 @@
                 <textarea rows="4" cols="3" placeholder="任务说明..." name="description"
                     data-ng-model="event.description"           id="description"></textarea>
                 <br><br>
-             
-           </article>
+   
 
         </div>
     </form>
