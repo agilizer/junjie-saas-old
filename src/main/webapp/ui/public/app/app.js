@@ -16,7 +16,7 @@ define([
     'angular-animate',
     'angular-bootstrap',
     'smartwidgets',
-    'notification'
+    'notification',
 ], function (ng, couchPotato) {
 
     var app = ng.module('app', [
@@ -31,7 +31,8 @@ define([
         'app.layout',
         'app.dashboard',
         'app.forms',
-        'app.calendar'
+        'app.calendar',
+        'app.widgets'
 
     ]);
 

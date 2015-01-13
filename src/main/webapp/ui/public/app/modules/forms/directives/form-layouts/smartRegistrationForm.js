@@ -6,7 +6,7 @@ define(['modules/forms/module', 'modules/forms/common', 'jquery-maskedinput', 'j
         return {
             restrict: 'E',
             replace: true,
-            templateUrl: 'app/modules/forms/directives/form-layouts/smart-registration-form.tpl.html',
+            templateUrl: 'app/modules/forms/directives/form-layouts/event-edit-form.tpl.html',
             scope: true,
             link: function (scope, form) {
 

@@ -2,7 +2,7 @@ define(['components/calendar/module', 'fullcalendar'], function (module) {
 
     "use strict";
 
-    module.registerDirective('fullCalendar', function (CalendarEvent, $log, $timeout,$modal) {
+    module.registerDirective('fullCalendar', function (CalendarEvent, $log, $timeout) {
         return {
             restrict: 'E',
             replace: true,
@@ -77,13 +77,7 @@ define(['components/calendar/module', 'fullcalendar'], function (module) {
                         },
 
                         select: function (start, end, allDay) {
-                            var modalInstance = $modal.open({
-                                  templateUrl: 'app/components/calendar/views/event-create.tpl.html',
-                                  controller: 'eventCreateCtrl',
-                                  resolve: {
-                                  
-                                  }
-                                });
+
                         },
 
                         // events: scope.events,

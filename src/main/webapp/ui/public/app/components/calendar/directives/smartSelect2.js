@@ -1,4 +1,4 @@
-define(['modules/forms/module', 'bootstrap-select'], function (module) {
+define(['modules/forms/module', 'select2'], function (module) {
 
     'use strict';
 
@@ -7,7 +7,7 @@ define(['modules/forms/module', 'bootstrap-select'], function (module) {
             restrict: 'A',
             compile: function (element, attributes) {
                 element.removeAttr('smart-select2 data-smart-select2');
-                element.selectpicker();
+                element.select2();
             }
         }
     });

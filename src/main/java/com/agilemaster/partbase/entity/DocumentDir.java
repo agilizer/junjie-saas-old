@@ -43,9 +43,6 @@ public class DocumentDir  implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar lastUpdated;
 	
-	public void setSequence(Integer sequence) {
-		this.sequence = sequence;
-	}
 	public Long getId() {
 		return id;
 	}
@@ -96,10 +93,10 @@ public class DocumentDir  implements Serializable {
 	public void setMainShow(Boolean mainShow) {
 		this.mainShow = mainShow;
 	}
-	public int getSequence() {
+	public Integer getSequence() {
 		return sequence;
 	}
-	public void setSequence(int sequence) {
+	public void setSequence(Integer sequence) {
 		this.sequence = sequence;
 	}
 	public Calendar getDateCreated() {

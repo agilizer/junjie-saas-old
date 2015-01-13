@@ -38,13 +38,16 @@ define([
     'components/calendar/directives/fullCalendar',
     'components/calendar/directives/dragableEvent',
     'components/calendar/controllers/CalendarCtrl',
+    'components/calendar/directives/eventEditForm',
+    'components/calendar/directives/smartSelect2',
     // forms
     'modules/forms/module',
 
     //service
      'modules/user/userService',
 
-
+    // widgets
+    'modules/widgets/module',
     // dashboard
     'dashboard/module',
 

@@ -1,5 +1,4 @@
-define(['angular',
-    'angular-couch-potato',
+define(['angular', 'angular-couch-potato','my97DatePicker',
     'angular-ui-router','angular-sanitize','angular-ui-select'], function (ng, couchPotato) {
 
     "use strict";
@@ -22,9 +21,8 @@ define(['angular',
                     },
                     resolve: {
                         deps: $couchPotatoProvider.resolveDependencies([
-                                    'modules/widgets/directives/widgetGrid',
-                                    'modules/widgets/directives/jarvisWidget',
-                                    'components/calendar/eventCtrl'
+                                    'components/calendar/eventCtrl',
+                                    'components/calendar/directives/eventEditForm'
                         ])
                     }
                 },
