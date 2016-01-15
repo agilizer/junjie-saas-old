@@ -1,0 +1,165 @@
+<div id="default-widget-widget-1" jarvis-widget>
+    <!-- widget options:
+        usage: <div data-jarvis-widget id="wid-id-0" data-widget-editbutton="false">
+        data-widget-colorbutton="false"
+        data-widget-editbutton="false"
+        data-widget-togglebutton="false"
+        data-widget-deletebutton="false"
+        data-widget-fullscreenbutton="false"
+        data-widget-custombutton="false"
+        data-widget-collapsed="true"
+        data-widget-sortable="false"
+    -->
+    <header>
+        <h2><strong>任务创建</strong></h2>
+    </header>
+    <!-- widget div-->
+    <div>
+        <!-- widget content -->
+        <div class="widget-body">
+
+            <article class="col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable">
+                <div role="content">
+            <form action="save" class="form-horizontal ng-pristine ng-valid" id="createEventForm"  data-ng-controller="eventCreateCtrl" method="POST">
+                <input type="hidden" id="isMilestone" value="false" name="isMilestone">
+                <fieldset>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="isPrivateCheckBox" data-ng-model="event.isPrivate"
+                                               name="isPrivate" class="checkbox style-0">
+                                        <span>私有任务</span>
+                                    </label>
+
+                                </div>
+                                <div class="col-md-4">
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="sendSms" class="checkbox style-0" data-ng-model="event.sendSms" name="sendSms">
+                                    <span>发送短信通知</span>
+                                </label>
+                               </div>
+                                <div class="col-md-4">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="separateReport" data-ng-model="event.separateReport" name="separateReport">
+                                        <span>是否平行任务</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label class="col-md-3 control-label text-left" >标题</label>
+                                <div class="col-md-9 ">
+                                <input type="text" required="" class="form-control" placeholder="请输入标题..."
+                                   data-ng-model="event.title" value="测试标题" maxlength="30" name="title" id="title">
+                                    </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            任务短信提醒&nbsp;&nbsp;
+                            <input type="checkbox" id="isNotifyCheckBox"
+                                   data-ng-model="event.isNotify" name="isNotify">
+                            &nbsp;&nbsp;
+                            <div  ng-show ="event.isNotify" id="notifyDiv">
+                                提醒频率：<select name="eventNotifyType" onchange="notifyTypeChange('#eventNotifyType')"
+                                             id="eventNotifyType">
+                                <option value="ONCE">仅一次</option>
+                                <option value="EVERY_DAY">每天</option>
+
+                            </select>
+                                <br>
+                                提醒时间：
+                                <div id="notifyValueDiv">
+                                    <input type="text" data-ng-click="startDate()" required=""
+                                           name="notifyTime">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label class="col-md-5 checkbox-inline">主要负责人(不选择表示自己)</label>
+                                <div class="col-md-7">
+                                    <select  data-ng-model="event.masterUserId" class="select2 " style="width: 100%"  data-smart-select2
+                                             name="event.masterUserId" >
+                                        <option ng-repeat="user in selectUser" value="{{user.ID}}">{{user.FULL_NAME}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label class="col-md-2 checkbox-inline">类型</label>
+                                <div class="col-md-4">
+                                    <select id="eventTypeId" data-ng-model="event.eventTypeId" class="form-control"
+                                            name="eventType.id">
+                                        <option value="1" selected>日常事务</option>
+                                        <option value="2">会议</option>
+                                        <option value="3">通知</option>
+                                    </select>
+                                </div>
+                                <label class="col-md-2 checkbox-inline">优先级</label>
+                                <div class="col-md-4">
+                                    <select id="eventLevel" name="eventLevel" class="form-control" data-ng-model="event.eventLevel">
+                                        <option value="1">1</option>
+                                        <option selected="" value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                    <div class="row">
+
+                    </div>
+
+                    <label id="buildProjectLabel">选择工程<select value="1" data-ng-model="event.buildProject.id"
+                                                              name="buildProjectId" style="display: none"
+                                                              id="buildProjectSelect" class="buildProjectSelect">
+                        <option value="1">默认建设项目</option>
+                    </select></label>
+
+
+                    <label style="margin-top: 10px" for="select_participants">请选择参与人</label>
+                    <select multiple="true" data-placeholder="请选择参与人" class="select2" data-size="8"
+                            title="请选择参与人" data-live-search="true" data-rel="chosen" data-ng-model="event.participants"
+                            name="participants" id="select_participants">
+                        <option selected="selected" value="103">系统管理员</option>
+                    </select>
+                    <label for="startDate">开始时间</label>
+                    <input type="text"
+                           onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true,startDate:'%y-%M-01 00:00:00'})"
+                           ng-model="event.startDate"
+                           name="startDate" id="startDate" value="">
+                    <label for="endDate">截止时间</label>
+
+                    <input type="text"
+                           onclick="WdatePicker({minDate:'#F{$dp.$D(\'startDate\')}',dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+                           data-format="yyyy-MM-dd HH:mm:ss" name="endDate" data-ng-model="event.endDate" id="endDate">
+                    <label for="description">任务描述</label>
+                    <textarea rows="4" cols="3" placeholder="任务说明..." name="description"
+                              data-ng-model="event.description" id="description"></textarea>
+                    <br><br>
+            </form>
+
+
+            <button class="btn btn-primary" ng-click="save()">创建</button>
+            <button class="btn btn-warning" ng-click="cancel()">cancel</button>
+                </div>
+            </article>
+        </div>
+
+        <!-- end widget content -->
+    </div>
+    <!-- end widget div -->
+</div>

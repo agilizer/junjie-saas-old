@@ -1,0 +1,1 @@
+define(["components/calendar/module"],function(a){"use strict";a.registerController("eventCreateCtrl",["$scope","$modalInstance","$log",function(a,b){a.ok=function(){b.close(a.selected.item)},a.cancel=function(){b.dismiss("cancel")}}])});

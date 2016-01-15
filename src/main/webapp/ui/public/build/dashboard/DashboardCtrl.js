@@ -1,0 +1,1 @@
+define(["dashboard/module","lodash"],function(a){"use strict";a.registerController("DashboardCtrl",["$scope","$interval",function(){}])});
