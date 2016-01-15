@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:camel="http://camel.apache.org/schema/spring" xmlns:broker="http://activemq.apache.org/schema/core"
+	xsi:schemaLocation="
+         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+         http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+         http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd">
+	<context:component-scan base-package="com.junjie.commons.test.camel" />
+
+	<!-- declare a camel context that scans for classes that is RouteBuilder 
+		in the package org.apache.camel.example.server -->
+	<camel:camelContext id="camel-server">
+		<camel:package>com.junjie.commons.test.camel</camel:package>
+		<!-- enable JMX connector so we can connect to the server and browse mbeans -->
+		<!-- Camel will log at INFO level the service URI to use for connecting 
+			with jconsole -->
+		<camel:jmxAgent id="agent" createConnector="true" />
+	</camel:camelContext>
+	<bean id="jmsConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="tcp://localhost:61616" />
+	</bean>
+
+	<bean id="pooledConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory"
+		init-method="start" destroy-method="stop">
+		<property name="maxConnections" value="100" />
+		<property name="connectionFactory" ref="jmsConnectionFactory" />
+	</bean>
+
+	<bean id="jmsConfig" class="org.apache.camel.component.jms.JmsConfiguration">
+		<property name="connectionFactory" ref="pooledConnectionFactory" />
+		<property name="concurrentConsumers" value="1000" />
+	</bean>
+
+	<bean id="activemq" class="org.apache.activemq.camel.component.ActiveMQComponent">
+		<property name="configuration" ref="jmsConfig" />
+	
+			<property name="cacheLevelName" value="CACHE_CONSUMER" />
+		<!-- if we are using transacted then enable CACHE_CONSUMER (if not using 
+			XA) to run faster see more details at: http://camel.apache.org/jms <property 
+			name="transacted" value="true"/> <property name="cacheLevelName" value="CACHE_CONSUMER" 
+			/> -->
+	</bean>
+
+</beans>
