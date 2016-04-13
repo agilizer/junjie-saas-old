@@ -1,0 +1,18 @@
+apply plugin: 'java'
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+jar {
+	baseName = 'arvix-cloudstorage'
+	version =  '0.1.0'
+}
+	
+dependencies {
+	testCompile("junit:junit:4.12")
+	compile 'com.qiniu:qiniu-java-sdk:7.0.+'
+	compile 'org.slf4j:slf4j-api:1.7.21'
+	compile 'com.aliyun.oss:aliyun-sdk-oss:2.2.1'
+}
