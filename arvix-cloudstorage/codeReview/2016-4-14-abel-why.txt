@@ -1,0 +1,1 @@
+1、 public static CloudFileOperator getFileOperator   --》 public static CloudFileOperator getFileOperator(StorageServiceProvider storageServiceProvider,Object  object)
