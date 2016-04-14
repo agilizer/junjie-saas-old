@@ -29,8 +29,8 @@ public class CloudFileUtil {
 		return domain + key;
 	}
 
-	public static String getUniqueKey(String prefix, String fileName) {
-		return prefix + "-" + fileName + "-" + UUID.randomUUID().toString();
+	public static String getUniqueKey(String prefix) {
+		return prefix + "-" + UUID.randomUUID().toString();
 	}
 
 	/**

@@ -51,22 +51,24 @@ public class QiniuCloudFileOperatorImpl implements CloudFileOperator {
 		CloudFile cloudFile = new CloudFile();
 		try {
 			if (file != null) {
-				key = CloudFileUtil.getUniqueKey(KEY_PREFIX, file.getName());
+				key = CloudFileUtil.getUniqueKey(KEY_PREFIX);
 				res = uploadManager.put(file, key, getUpToken());
 				cloudFile.setName(file.getName());
 				cloudFile.setLength(file.length());
 			} else if (ins != null && fileName != null && !fileName.equals("")) {
-				key = CloudFileUtil.getUniqueKey(KEY_PREFIX, fileName);
+				key = CloudFileUtil.getUniqueKey(KEY_PREFIX);
 				byte[] buffer = getBuffer(ins);
 				res = uploadManager.put(buffer, key, getUpToken());
 				cloudFile.setName(fileName);
 				cloudFile.setLength(buffer.length);
 			} else {
-				throw new IllegalArgumentException("file and inputstream can't be both null");
+				Exception e = new IllegalArgumentException("file and inputstream can't be both null");
+				logger.error("Illegal argument", e);
+				return null;
 			}
 
 		} catch (Exception e) {
-			logger.error("[Qiniu]Upload failed: " + e);
+			logger.error("[Qiniu]Upload failed: " + e, e);
 			return null;
 		}
 		if (!res.isOK()) {
@@ -132,7 +134,7 @@ public class QiniuCloudFileOperatorImpl implements CloudFileOperator {
 		try {
 			bucketManager.delete(bucketName, key);
 		} catch (QiniuException e) {
-			logger.error("[Qiniu]Delete file[" + key + "] failed: " + e);
+			logger.error("[Qiniu]Delete file[" + key + "] failed: " + e, e);
 			return false;
 		}
 		return true;
@@ -153,16 +155,43 @@ public class QiniuCloudFileOperatorImpl implements CloudFileOperator {
 		return auth.privateDownloadUrl(privateUrl, upTokenExpireTime);
 	}
 
+	public List<String> getDownloadUrls(List<String> keyList, String domain) {
+		List<String> urlList = new ArrayList<String>();
+		for (String key : keyList) {
+			String privateUrl = CloudFileUtil.getPrivateUrl(domain, key);
+			String url = auth.privateDownloadUrl(privateUrl, upTokenExpireTime);
+			urlList.add(url);
+		}
+		return urlList;
+	}
+
 	public InputStream getDownloadStream(String key, String domain) {
-		String url = getDownloadUrl(domain, key);
+		String url = getDownloadUrl(key, domain);
 		InputStream inputStream = null;
 		try {
 			URL downloadUrl = new URL(url);
 			inputStream = downloadUrl.openStream();
 		} catch (Exception e) {
-			logger.error("[Qiniu]Get download stream failed: " + e);
+			logger.error("[Qiniu]Get download stream failed: " + e, e);
 		}
+
 		return inputStream;
+	}
+
+	public List<InputStream> getDownloadStreams(List<String> keyList, String domain) {
+		List<InputStream> inputStreamList = new ArrayList<InputStream>();
+		for (String key : keyList) {
+			String url = getDownloadUrl(key, domain);
+			try {
+				URL downloadUrl = new URL(url);
+				InputStream inputStream = downloadUrl.openStream();
+				inputStreamList.add(inputStream);
+			} catch (Exception e) {
+				logger.error("[Qiniu]Get download streams failed: " + e, e);
+			}
+		}
+
+		return inputStreamList;
 	}
 
 	@Override

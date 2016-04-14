@@ -61,12 +61,16 @@ public interface CloudFileOperator {
 	 */
 	public String getDownloadUrl(String key, String domain);
 
+	public List<String> getDownloadUrls(List<String> keyList, String domain);
+
 	/**
 	 * @param key
 	 * @param domain 访问资源的域名,对于ali云,此字段无用
 	 * @return InputStream
 	 */
 	public InputStream getDownloadStream(String key, String domain);
+
+	public List<InputStream> getDownloadStreams(List<String> keyList, String domain);
 
 	/**
 	 * ali api需要释放资源

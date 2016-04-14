@@ -33,7 +33,7 @@ public class CloudStorageTest {
     public void init() throws Exception {
         System.err.println("Init...");
         AuthKey authKey = new AuthKey(accessToken, secretToken);
-        cloudFileOperator = CloudFileManager.getFileOperator(storageServiceProvider, bucketName, authKey);
+        cloudFileOperator = CloudFileManager.getFileOperator(storageServiceProvider, new CloudFileManager.InitPackage(bucketName, authKey));
         System.err.println("Inited.");
     }
 
@@ -81,10 +81,10 @@ public class CloudStorageTest {
 
     public void testDownload() throws Exception {
         System.err.println("testDownload...");
-        System.out.println("Private bucket download url: " + cloudFileOperator.getDownloadUrl(defaultDomain, uploadedFileKey.get(0)));
+        System.out.println("Private bucket download url: " + cloudFileOperator.getDownloadUrl(uploadedFileKey.get(0), defaultDomain));
         File file = new File(downloadPath);
         BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(file));
-        BufferedInputStream bufferedInputStream = new BufferedInputStream(cloudFileOperator.getDownloadStream(defaultDomain, uploadedFileKey.get(1)));
+        BufferedInputStream bufferedInputStream = new BufferedInputStream(cloudFileOperator.getDownloadStream(uploadedFileKey.get(1), defaultDomain));
         byte[] buffer = new byte[1024];
         int len = -1;
         while((len = bufferedInputStream.read(buffer)) != -1) {
@@ -92,6 +92,16 @@ public class CloudStorageTest {
         }
         bufferedInputStream.close();
         bufferedOutputStream.close();
+        //多文件下载测试
+        List<String> keyList = new ArrayList<String>();
+        keyList.add(uploadedFileKey.get(0));
+        keyList.add(uploadedFileKey.get(1));
+        System.out.println("Private bucket download urls: " + cloudFileOperator.getDownloadUrls(keyList, defaultDomain));
+        List<InputStream> inputStreamList = cloudFileOperator.getDownloadStreams(keyList, defaultDomain);
+        System.out.println("InputStream Array Length: " + inputStreamList.size());
+        for (InputStream inputStream : inputStreamList) {
+            inputStream.close();
+        }
         System.err.println("Dowload test finished.");
     }
 

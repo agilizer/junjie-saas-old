@@ -1,13 +1,39 @@
 apply plugin: 'java'
+apply plugin: "maven"
+apply plugin: 'groovy'
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
+
+buildscript { repositories { mavenCentral() } }
+
+group="com.agilemaster"
+version='0.0.1-SNAPSHOT'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
 	mavenLocal()
 	mavenCentral()
+	maven {
+		credentials {
+			username 'asdtiang'
+			password 'maven123'
+		}
+		url "http://maven.grailsmaster.com/content/repositories/snapshots/"
+	}
+	maven {
+		credentials {
+			username 'asdtiang'
+			password 'maven123'
+		}
+		url "http://maven.grailsmaster.com/content/repositories/releases/"
+	}
 }
 
 jar {
 	baseName = 'arvix-cloudstorage'
-	version =  '0.1.0'
+	version =  '0.0.1-SNAPSHOT'
 }
 	
 dependencies {
@@ -16,3 +42,24 @@ dependencies {
 	compile 'org.slf4j:slf4j-api:1.7.21'
 	compile 'com.aliyun.oss:aliyun-sdk-oss:2.2.1'
 }
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) { from components.java }
+	}
+	repositories {
+		maven {
+			credentials {
+				username 'asdtiang'
+				password 'maven123'
+			}
+			if (project.version.endsWith('-SNAPSHOT'))
+				url "http://maven.grailsmaster.com/content/repositories/snapshots/"
+			else
+				url "http://maven.grailsmaster.com/content/repositories/releases/"
+		}
+	}
+}
+
+
+configurations { providedRuntime }

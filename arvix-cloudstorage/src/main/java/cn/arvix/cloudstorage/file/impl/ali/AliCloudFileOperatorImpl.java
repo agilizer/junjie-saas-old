@@ -36,7 +36,7 @@ public class AliCloudFileOperatorImpl implements CloudFileOperator {
 
     @Override
     public CloudFile storeFile(File file) {
-        String key = CloudFileUtil.getUniqueKey(KEY_PREFIX, file.getName());
+        String key = CloudFileUtil.getUniqueKey(KEY_PREFIX);
         PutObjectResult putObjectResult = null;
         CloudFile cloudFile = null;
         try {
@@ -50,10 +50,10 @@ public class AliCloudFileOperatorImpl implements CloudFileOperator {
             cloudFile.setDateCreated(time);
             cloudFile.setLastAccessed(time);
         } catch (OSSException e) {
-            logger.error(getErrorMsg("Upload file", e).toString());
+            logger.error(getErrorMsg("Upload file", e).toString(), e);
             return null;
         } catch (ClientException e) {
-            logger.error("[Ali]Upload file failed: " + e.getMessage());
+            logger.error("[Ali]Upload file failed: " + e.getMessage(), e);
             return null;
         }
         return cloudFile;
@@ -73,7 +73,7 @@ public class AliCloudFileOperatorImpl implements CloudFileOperator {
 
     @Override
     public CloudFile storeFile(InputStream inputStream, String fileName) {
-        String key = CloudFileUtil.getUniqueKey(KEY_PREFIX, fileName);
+        String key = CloudFileUtil.getUniqueKey(KEY_PREFIX);
         PutObjectResult putObjectResult = null;
         CloudFile cloudFile = null;
         try {
@@ -91,10 +91,10 @@ public class AliCloudFileOperatorImpl implements CloudFileOperator {
             cloudFile.setDateCreated(time);
             cloudFile.setLastAccessed(time);
         } catch (OSSException e) {
-            logger.error(getErrorMsg("Upload file", e).toString());
+            logger.error(getErrorMsg("Upload file", e).toString(), e);
             return null;
         } catch (ClientException e) {
-            logger.error("[Ali]Upload file failed: " + e.getMessage());
+            logger.error("[Ali]Upload file failed: " + e.getMessage(), e);
             return null;
         }
         return cloudFile;
@@ -127,10 +127,10 @@ public class AliCloudFileOperatorImpl implements CloudFileOperator {
         try {
             ossClient.deleteObject(bucketName, cloudFile.getKey());
         } catch (OSSException e) {
-            logger.error(getErrorMsg("Delete file", e).toString());
+            logger.error(getErrorMsg("Delete file", e).toString(), e);
             return false;
         } catch (ClientException e) {
-            logger.error("[Ali]Delete file failed: " + e.getMessage());
+            logger.error("[Ali]Delete file failed: " + e.getMessage(), e);
             return false;
         }
         return true;
@@ -141,10 +141,10 @@ public class AliCloudFileOperatorImpl implements CloudFileOperator {
         try {
             ossClient.deleteObject(bucketName, key);
         } catch (OSSException e) {
-            logger.error(getErrorMsg("Delete file", e).toString());
+            logger.error(getErrorMsg("Delete file", e).toString(), e);
             return false;
         } catch (ClientException e) {
-            logger.error("[Ali]Delete file failed: " + e.getMessage());
+            logger.error("[Ali]Delete file failed: " + e.getMessage(), e);
             return false;
         }
         return true;
@@ -157,10 +157,10 @@ public class AliCloudFileOperatorImpl implements CloudFileOperator {
         try {
             deleteObjectsResult = ossClient.deleteObjects(new DeleteObjectsRequest(bucketName).withKeys(keyList));
         } catch (OSSException e) {
-            logger.error(getErrorMsg("Delete file", e).toString());
+            logger.error(getErrorMsg("Delete file", e).toString(), e);
             return resultList;
         } catch (ClientException e) {
-            logger.error("[Ali]Delete files failed: " + e.getMessage());
+            logger.error("[Ali]Delete files failed: " + e.getMessage(), e);
             return resultList;
         }
         resultList.addAll(deleteObjectsResult.getDeletedObjects());
@@ -173,18 +173,36 @@ public class AliCloudFileOperatorImpl implements CloudFileOperator {
     }
 
     @Override
+    public List<String> getDownloadUrls(List<String> keyList, String domain) {
+        List<String> urlList = new ArrayList<String>();
+        return urlList;
+    }
+
+    @Override
     public InputStream getDownloadStream(String key, String domain) {
         OSSObject ossObject = null;
         try {
             ossObject = ossClient.getObject(bucketName, key);
         } catch (OSSException e) {
-            logger.error(getErrorMsg("Get download stream", e).toString());
+            logger.error(getErrorMsg("Get download stream", e).toString(), e);
             return null;
         } catch (ClientException e) {
-            logger.error("[Ali]Get download stream failed: " + e.getMessage());
+            logger.error("[Ali]Get download stream failed: " + e.getMessage(), e);
             return null;
         }
         return ossObject == null ? null : ossObject.getObjectContent();
+    }
+
+    @Override
+    public List<InputStream> getDownloadStreams(List<String> keyList, String domain) {
+        List<InputStream> inputStreamList = new ArrayList<InputStream>();
+        for (String key : keyList) {
+            InputStream inputStream = getDownloadStream(key, domain);
+            if (inputStream != null) {
+                inputStreamList.add(inputStream);
+            }
+        }
+        return inputStreamList;
     }
 
     @Override
