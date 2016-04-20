@@ -209,4 +209,10 @@ public class AliCloudFileOperatorImpl implements CloudFileOperator {
     public void close() {
         ossClient.shutdown();
     }
+
+	@Override
+	public CloudFile storeFile(File file, String key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

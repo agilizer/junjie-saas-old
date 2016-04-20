@@ -16,6 +16,14 @@ public interface CloudFileOperator {
 	 * @return null 表示存储失败
 	 */
 	public CloudFile storeFile(File file);
+	/**
+	 * 
+	 * @param file
+	 * @param key
+	 * @return
+	 */
+	
+	public CloudFile storeFile(File file,String key);
 
 	/**
 	 * @param fileList

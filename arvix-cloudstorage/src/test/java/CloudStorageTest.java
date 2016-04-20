@@ -16,7 +16,7 @@ public class CloudStorageTest {
     private static String accessToken = "onIcMZEEnIFGr1u49cjRkCJJbuep7SKsvDbSuZSf";
     private static String secretToken = "lpwkbVFXR6an3_Sn2133kwYFOwbyzveBu4S73YPQ";
     private static String bucketName = "whydebucket";
-    private static String filePath = "/Users/wanghaiyang/Desktop/Arvix/arvix-ober/src/main/resources/files/upload/defaultPhoto/";
+    private static String filePath = "D:/home/testImage";
     private static String downloadPath = "/Users/wanghaiyang/Desktop/downloadimage.jpg";
     private static String defaultDomain = "7xswnm.com2.z0.glb.clouddn.com";
     private static List<String> uploadedFileKey = new ArrayList<String>();
@@ -43,7 +43,7 @@ public class CloudStorageTest {
         File dir = new File(filePath);
         File[] files = dir.listFiles(new FileFilter() {
             public boolean accept(File pathname) {
-                if (pathname.getPath().endsWith(".jpg")) {
+                if (pathname.getPath().endsWith(".png")) {
                     return true;
                 } else {
                     return false;

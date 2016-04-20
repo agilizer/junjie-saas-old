@@ -45,18 +45,17 @@ public class QiniuCloudFileOperatorImpl implements CloudFileOperator {
 		bucketManager = new BucketManager(auth);
 	}
 
-	private CloudFile uploadFile(File file, InputStream ins, String fileName) {
-		String key = null;
+	private CloudFile uploadFile(File file, InputStream ins, String fileName,String key) {
 		Response res = null;
 		CloudFile cloudFile = new CloudFile();
 		try {
 			if (file != null) {
-				key = CloudFileUtil.getUniqueKey(KEY_PREFIX);
+				key = key==null?CloudFileUtil.getUniqueKey(KEY_PREFIX):key;
 				res = uploadManager.put(file, key, getUpToken());
 				cloudFile.setName(file.getName());
 				cloudFile.setLength(file.length());
 			} else if (ins != null && fileName != null && !fileName.equals("")) {
-				key = CloudFileUtil.getUniqueKey(KEY_PREFIX);
+				key = key==null?CloudFileUtil.getUniqueKey(KEY_PREFIX):key;
 				byte[] buffer = getBuffer(ins);
 				res = uploadManager.put(buffer, key, getUpToken());
 				cloudFile.setName(fileName);
@@ -97,7 +96,7 @@ public class QiniuCloudFileOperatorImpl implements CloudFileOperator {
 	}
 
 	public CloudFile storeFile(File file) {
-		return uploadFile(file, null, null);
+		return uploadFile(file, null, null, null);
 	}
 
 	public List<CloudFile> storeFiles(List<File> fileList) {
@@ -112,7 +111,7 @@ public class QiniuCloudFileOperatorImpl implements CloudFileOperator {
 	}
 
 	public CloudFile storeFile(InputStream inputStream, String fileName) {
-		return uploadFile(null, inputStream, fileName);
+		return uploadFile(null, inputStream, fileName,null);
 	}
 
 	public List<CloudFile> storeFiles(Map<String, InputStream> keyInsMap) {
@@ -229,5 +228,10 @@ public class QiniuCloudFileOperatorImpl implements CloudFileOperator {
     private void refreshExpiredTime() {
     	upTokenLastUpdateTime = System.currentTimeMillis();
     }
+
+	@Override
+	public CloudFile storeFile(File file, String key) {
+		return this.uploadFile(file, null, null, key);
+	}
 
 }

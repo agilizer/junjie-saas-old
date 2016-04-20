@@ -1,0 +1,14 @@
+log
+target
+.settings
+.classpath
+.project
+*~
+/.git
+.idea
+bin
+build
+.gradle
+*.iml
+.DS_Store
+gradleRun.sh
