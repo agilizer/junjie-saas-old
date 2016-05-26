@@ -226,7 +226,7 @@ public class QiniuCloudFileOperatorImpl implements CloudFileOperator {
     private boolean expired() {
     	long curTime = System.currentTimeMillis();
     	long expireTimeInterval = upTokenExpireTime < 60 ? upTokenExpireTime : (upTokenExpireTime - 60);
-    	return curTime - upTokenLastUpdateTime < expireTimeInterval;
+    	return curTime - upTokenLastUpdateTime > expireTimeInterval;
     }
 
     private void refreshExpiredTime() {
