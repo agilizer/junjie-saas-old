@@ -2,10 +2,9 @@ import cn.arvix.cloudstorage.file.*;
 import org.junit.Test;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import com.qiniu.http.Client;
 
 /**
  * Created by wanghaiyang on 16/4/13.
@@ -24,10 +23,30 @@ public class CloudStorageTest {
     @Test
     public void test() throws Exception {
         init();
-        testUpload();
-        testDownload();
-        testDelete();
-        testShutdown();
+        final Vector<String> keys = new Vector<String>();
+        File file = new File("/Users/wanghaiyang/Desktop/屏幕快照 2016-04-10 上午3.39.26.png");
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            public void run() {
+                cloudFileOperator.deleteFiles(keys);
+                System.out.println("Clean.");
+            }
+        });
+        while (true) {
+            try {
+                CloudFile cloudFile = cloudFileOperator.storeFile(new FileInputStream(file), file.getName());
+                if (cloudFile != null) {
+                    System.out.println("Key: " + cloudFile.getKey());
+                    keys.add(cloudFile.getKey());
+                }
+            } catch (Exception e) {
+
+            }
+        }
+
+//        testUpload();
+//        testDownload();
+//        testDelete();
+//        testShutdown();
     }
 
     public void init() throws Exception {

@@ -67,7 +67,11 @@ public class QiniuCloudFileOperatorImpl implements CloudFileOperator {
 			}
 
 		} catch (Exception e) {
-			logger.error("[Qiniu]Upload failed: " + e, e);
+			if (e instanceof QiniuException) {
+				logger.error("[Qiniu]Upload failed: " + e + ", code: " + ((QiniuException)e).code(), e);
+			} else {
+				logger.error("[Qiniu]Upload failed: " + e, e);
+			}
 			return null;
 		}
 		if (!res.isOK()) {

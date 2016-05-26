@@ -19,7 +19,7 @@ jar {
     baseName = 'cloud-storage-sync'
     version =  '0.0.1-SNAPSHOT'
     manifest {
-        attributes 'Main-Class': 'LocalFileSync'
+        attributes 'Main-Class': 'script.cloudstorage.LocalFileSync'
     }
 }
 
@@ -30,3 +30,4 @@ dependencies {
     compile("com.fasterxml.jackson.core:jackson-databind:2.7.3");
     compile("redis.clients:jedis:2.8.1")
 }
+
