@@ -7,7 +7,7 @@ apply plugin: 'maven-publish'
 buildscript { repositories { mavenCentral() } }
 
 group="com.arvix"
-version='0.0.2-SNAPSHOT'
+version='0.0.3'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -33,12 +33,15 @@ repositories {
 
 jar {
 	baseName = 'cloud-storage'
-	version =  '0.0.2-SNAPSHOT'
+	version =  '0.0.3'
 }
 	
 dependencies {
 	testCompile("junit:junit:4.12")
 	compile 'com.qiniu:qiniu-java-sdk:7.0.+'
+	compile("ch.qos.logback:logback-classic:1.1.7")
+	compile("ch.qos.logback:logback-core:1.1.7")
+	compile("ch.qos.logback:logback-access:1.1.7")
 	compile 'org.slf4j:slf4j-api:1.7.21'
 	compile 'com.aliyun.oss:aliyun-sdk-oss:2.2.1'
 }

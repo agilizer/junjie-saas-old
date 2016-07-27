@@ -1,6 +1,7 @@
 package cn.arvix.cloudstorage.file.impl.ali;
 
 import cn.arvix.cloudstorage.file.*;
+
 import com.aliyun.oss.ClientException;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.OSSException;
@@ -8,6 +9,7 @@ import com.aliyun.oss.model.DeleteObjectsRequest;
 import com.aliyun.oss.model.DeleteObjectsResult;
 import com.aliyun.oss.model.OSSObject;
 import com.aliyun.oss.model.PutObjectResult;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,16 +33,17 @@ public class AliCloudFileOperatorImpl implements CloudFileOperator {
         this.bucketName = bucketName;
         this.authKey = authKey;
         this.endPoint = endPoint;
+        logger.info("bucketName:"+bucketName+" , accessKeyId:"+authKey.getAccessKey()+", secretAccessKey:"
+        +authKey.getSecretKey()+", endPoint:"+ endPoint);
         ossClient = new OSSClient(endPoint, authKey.getAccessKey(), authKey.getSecretKey());
     }
 
     @Override
     public CloudFile storeFile(File file) {
         String key = CloudFileUtil.getUniqueKey(KEY_PREFIX);
-        PutObjectResult putObjectResult = null;
         CloudFile cloudFile = null;
         try {
-            putObjectResult = ossClient.putObject(bucketName, key, file);
+            ossClient.putObject(bucketName, key, file);
             cloudFile = new CloudFile();
             cloudFile.setName(file.getName());
             cloudFile.setKey(key);
@@ -212,7 +215,24 @@ public class AliCloudFileOperatorImpl implements CloudFileOperator {
 
 	@Override
 	public CloudFile storeFile(File file, String key) {
-		// TODO Auto-generated method stub
-		return null;
+		CloudFile cloudFile = null;
+        try {
+            ossClient.putObject(bucketName, key, file);
+            cloudFile = new CloudFile();
+            cloudFile.setName(file.getName());
+            cloudFile.setKey(key);
+            cloudFile.setCloudFileType(CloudFileType.getFileType(file.getName()));
+            cloudFile.setLength(file.length());
+            long time = System.currentTimeMillis();
+            cloudFile.setDateCreated(time);
+            cloudFile.setLastAccessed(time);
+        } catch (OSSException e) {
+            logger.error(getErrorMsg("Upload file", e).toString(), e);
+            return null;
+        } catch (ClientException e) {
+            logger.error("[Ali]Upload file failed: " + e.getMessage(), e);
+            return null;
+        }
+        return cloudFile;
 	}
 }
